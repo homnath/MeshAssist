@@ -1,0 +1,24 @@
+# Input DEM image file (tiff format)
+dem1m16.tif
+# Origin for the new model (ox,oy,oz [m])
+395200
+6895600
+400
+# Sampling interval for new model [m]
+10
+# Number of grid points for the new model (nx,ny,nz)
+60
+52
+52
+# Model properties (Vp,Vs,rho [m/s,kg/m3])
+5500
+3175
+2000
+# Plot figure? It may take very long time (0: no, 1: yes)
+0
+# Save XYZ ASCII data (0: no, 1: yes)
+1
+# Save 2D elevation map in ParaView/VTK VTI format (0: no, 1: yes)
+1
+# Save homogeneous 3D model in ParaView/VTK VTI format (0: no, 1: yes)
+1

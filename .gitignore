@@ -1,0 +1,10 @@
+# archives
+arc/
+
+bin/
+output/
+
+src/*~
+.*swp
+.*swo
+
