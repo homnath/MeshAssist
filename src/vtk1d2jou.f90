@@ -18,10 +18,11 @@
 !------------------------------------------------------------------------------
 program vtk1d2jou
 implicit none
+integer,parameter :: kreal=selected_real_kind(12)
 type nodal
   integer :: nelmt
   integer :: elmt(0:4) ! I have considered maximum of 5 elements
-  real(kind=8) :: x,y,z
+  real(kind=kreal) :: x,y,z
 end type nodal
 type(nodal),allocatable :: node(:)
 
@@ -36,7 +37,7 @@ integer :: temp_nc,nc,dumi,temp_n1,temp_n2,numc,nump,nis,node_is(0:99),       &
 curve(0:999),ncurve
 integer,allocatable :: n1(:),n2(:),new_n1(:),new_n2(:),cid(:),nb(:),nmir(:),  &
 op2np(:)
-real(kind=8),allocatable :: xyz(:,:)
+real(kind=kreal),allocatable :: xyz(:,:)
 character(len=10) :: dumc      
 character(len=180) :: outjou_fname,inp_fname,outvtk_fname
 character(len=80) :: file_head,ext,path 
