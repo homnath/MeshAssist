@@ -10,7 +10,7 @@
 
 default: all
 
-all: createdir gocad2vtu vtk2jou xyz2jou
+all: createdir gocad2vtu vtk1d2jou vtk2d2jou xyz2jou
 
 clean:
 	(cd src; make clean)
@@ -21,7 +21,10 @@ createdir:
 gocad2vtu:
 	(cd src; make $@)
 
-vtk2jou:
+vtk1d2jou:
+	(cd src; make $@)
+
+vtk2d2jou:
 	(cd src; make $@)
 
 xyz2jou:

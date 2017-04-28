@@ -19,7 +19,8 @@ FC_COMPILE = $(FC) $(FFLAGS)
 
 # main executable for 1D FEM
 gocad2vtu = $(BIN)/gocad2vtu
-vtk2jou = $(BIN)/vtk2jou
+vtk1d2jou = $(BIN)/vtk1d2jou
+vtk2d2jou = $(BIN)/vtk2d2jou
 xyz2jou = $(BIN)/xyz2jou
 
 default: all
@@ -27,13 +28,16 @@ default: all
 clean:
 	rm -f *.mod $(BIN)/*.o core
 
-all: gocad2vtu vtk2jou xyz2jou
+all: gocad2vtu vtk1d2jou vtk2d2jou xyz2jou
 
 gocad2vtu:
 	$(CC_COMPILE) -o $(gocad2vtu) gocad2vtu.c
 
-vtk2jou:
-	$(CC_COMPILE) -o $(vtk2jou) vtk2jou.c
+vtk1d2jou:
+	$(FC_COMPILE) -o $(vtk1d2jou) vtk1d2jou.f90
+
+vtk2d2jou:
+	$(CC_COMPILE) -o $(vtk2d2jou) vtk2d2jou.c
 
 xyz2jou:
 	$(FC_COMPILE) -o $(xyz2jou) xyz2jou.f90
