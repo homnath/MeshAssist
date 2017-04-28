@@ -1,4 +1,4 @@
-!-----------------------------------------------------
+!>-----------------------------------------------------
 !PURPOSE:
 !  This program converts UTM or XYZ file to CUBIT journal file
 !COMPILE:
