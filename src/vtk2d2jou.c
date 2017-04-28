@@ -11,10 +11,10 @@ AUTHOR:
 DEPENDENCY:
   stringmanip.c: string manipulation routines
 COMPILE:
-  gcc vtk2jou.c -o vtk2jou
+  gcc vtk2d2jou.c -o vtk2d2jou
 USAGE: 
-  vtk2jou <inputfile>
-  Example: vtk2jou ore_surface_mesh.vtk
+  vtk2d2jou <inputfile>
+  Example: vtk2d2jou vtk2d2jou_example.vtk
 HISTORY: 
   HNG,Dec 07,2010
 -----------------------------------------------------------------------------*/
