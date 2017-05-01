@@ -1,8 +1,9 @@
-/*-----------------------------------------------------------------------------
+/*
+-------------------------------------------------------------------------------
 PURPOSE:
   This program converts the GOCAD ASCII file (3-noded triangular meshes)
   to VTK XML .vtu binary file (unstructured mesh file) which can be 
-  visualized/processed in ParaView or VTK
+  visualized/processed in ParaView or VTK.
 DEVELOPER: 
 	Hom Nath Ghartii
   formerly at Institute of Engineering, Tribhuvan University, Nepal
@@ -35,7 +36,8 @@ HISTORY:
 	Mar 18,2009;Mar 12,2009 (Princeton University)
 FEEDBACK:
 	hngharti_AT_gmail_DOT_com
------------------------------------------------------------------------------*/
+-------------------------------------------------------------------------------
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

@@ -1,4 +1,4 @@
-!>------------------------------------------------------------------------------
+!------------------------------------------------------------------------------
 !PURPOSE:
 !  This program read ASCII vtk files with unstructured grid of lines and 
 !  points only, and removes the redundant lines. The redundant nodes can be 
@@ -16,6 +16,7 @@
 !  Jan 28, 2009: Hom Nath Gharti
 !    - first created
 !------------------------------------------------------------------------------
+include 'stringmanip.f90'
 program vtk1d2jou
 implicit none
 integer,parameter :: kreal=selected_real_kind(12)
@@ -338,46 +339,4 @@ end do
 deallocate(node,elmt)
 
 close(20)
-   
-contains
-! parse file name and return path, file head, and extension
-subroutine parse_file(fname,path,head,ext)
-implicit none
-character(len=*),intent(in) :: fname
-character(len=*),intent(out) :: path,head,ext
-integer :: i,ipath,iext,slen
-
-slen=len(fname)
-
-! set default output
-path=""
-head=""
-ext=""
-
-if(len_trim(fname)==0)return
-
-! find dot position
-iext=slen+1
-do i=slen,1,-1
-  if(fname(i:i)==".")then
-    iext=i
-    exit
-  endif
-enddo
-
-! find slash position
-ipath=0
-do i=iext,1,-1
-  if(fname(i:i)=="/" .or. fname(i:i)=="\")then
-    ipath=i
-    exit
-  endif
-enddo
-
-! determine path, head, and extension
-head=fname(ipath+1:iext-1)
-path=fname(1:ipath)
-ext=fname(iext+1:slen)
-return
-end subroutine parse_file
 end program vtk1d2jou
