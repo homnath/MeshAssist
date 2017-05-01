@@ -1,7 +1,10 @@
-% This function converts AUTOCAD 2000 (other ?) DXF ASCII file to a
-% CUBIT/Trelis journal file, and optionally to a ParaView/VTK VTU ASCII
-% file --- a unstructured mesh files (.vtu). The function extracts only
-% the faces represented by 'AcDbFace' tokens in the DXF file.
+% FILE
+%   dxf2jou.m
+% PURPOSE
+%   This function converts AUTOCAD 2000 (other ?) DXF ASCII file to a
+%   CUBIT/Trelis journal file, and optionally to a ParaView/VTK VTU ASCII
+%   file --- a unstructured mesh files (.vtu). The function extracts only
+%   the faces represented by 'AcDbFace' tokens in the DXF file.
 % RUN
 %   dxf2jou(inpfname, [save_vtu])
 %   Example:
@@ -27,6 +30,8 @@
 %   - Clean up
 %   Feb 15,2010: Hom Nath Gharti
 %   - First created
+%--------------------------------------------------------------------------
+
 function dxf2jou(inpf_name)
 if ~exist('inpf_name','var')
     error('dxf2vtk accepts exactly 1 argument! Enter dxf file as an argument!');

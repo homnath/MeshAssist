@@ -1,26 +1,35 @@
-%--------------------------------------------------------------------------
-% FILE:     dem2vti.m
-% PURPOSE:  This program converts DEM map (TIFF format) in to ASCII XYZ 
-%           file and ParaView/VTK VTI file format according to the 
-%           parameters defined in the input file.
-%           Note: Choosing a small, say, 1 m sampling may freezes the 
-%           program due to surfl function.
-% USE:      dem2vti(input_file_name, [output_path])
-%           Example: 
-%           dem2vti('dem2vti_example.in')
-%           OR
-%           dem2vti('dem2vti_example.in','../output')
-% OPTION:   An optional argument which must be a legimate path can be
-%           provided as the output path. Default path is the current path.
-% INPUT:    Name of input file.      
-% OUTPUT:   All output files will be saved in the output_path provided.
-%           If no output_path is provided, current path is used.
-% AUTHORS:  LPG;
-%           Michael Roth, NORSAR, Norway
-%           Hom Nath Gharti, formerly at NORSAR, NORWAY
-%           Department of Geoscieces, Princeton University, USA
-% HISTORY:  May 12,2014: Creation based on script tifread.m.
-%           Apr 27,2017: Added options and cleaned up.
+% FILE
+%   dem2vti.m
+% PURPOSE
+%   This program converts DEM map (TIFF format) in to ASCII XYZ 
+%   file and ParaView/VTK VTI file format according to the 
+%   parameters defined in the input file.
+%   Note: Choosing a small, say, 1 m sampling may freezes the 
+%   program due to surfl function.
+% USE
+%   dem2vti(input_file_name, [output_path])
+%   Example: 
+%   dem2vti('dem2vti_example.in')
+%   OR
+%   dem2vti('dem2vti_example.in','../output')
+% OPTION
+%   An optional argument which must be a legimate path can be
+%   provided as the output path. Default path is the current path.
+% INPUT
+%   Name of input file.      
+% OUTPUT
+%   All output files will be saved in the output_path provided.
+%   If no output_path is provided, current path is used.
+% AUTHORS
+%   LPG;
+%   Michael Roth, NORSAR, Norway
+%   Hom Nath Gharti, formerly at NORSAR, NORWAY
+%   Department of Geoscieces, Princeton University, USA
+% REVISION
+%   May 12,2014: Hom Nath Gharti
+%   - First created based on the script tifread.m.
+%   Apr 27,2017: Hom Nath Gharti
+%   - Added options and cleaned up.
 %--------------------------------------------------------------------------
 
 function dem2vti(infname,varargin)
