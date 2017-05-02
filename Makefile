@@ -18,6 +18,12 @@ clean:
 createdir:
 	(mkdir -p bin; mkdir -p output)
 
+exodus2specfem3d:
+	(cd src; make $@)
+
+exodusold2specfem3d:
+	(cd src; make $@)
+
 gocad2vtu:
 	(cd src; make $@)
 

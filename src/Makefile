@@ -18,6 +18,8 @@ CC_COMPILE = $(CC) $(CFLAGS)
 FC_COMPILE = $(FC) $(FFLAGS)
 
 # main executable for 1D FEM
+exodus2specfem3d = $(BIN)/exodus2specfem3d
+exodusold2specfem3d = $(BIN)/exodusold2specfem3d
 gocad2vtu = $(BIN)/gocad2vtu
 vtk1d2jou = $(BIN)/vtk1d2jou
 vtk2d2jou = $(BIN)/vtk2d2jou
@@ -28,7 +30,13 @@ default: all
 clean:
 	rm -f *.mod $(BIN)/*.o core
 
-all: gocad2vtu vtk1d2jou vtk2d2jou xyz2jou
+all: exodus2specfem3d exodusold2specfem3d gocad2vtu vtk1d2jou vtk2d2jou xyz2jou
+
+exodus2specfem3d:
+	$(CC_COMPILE) -o $(exodus2specfem3d) exodus2specfem3d.c
+
+exodusold2specfem3d:
+	$(CC_COMPILE) -o $(exodusold2specfem3d) exodusold2specfem3d.c
 
 gocad2vtu:
 	$(CC_COMPILE) -o $(gocad2vtu) gocad2vtu.c
