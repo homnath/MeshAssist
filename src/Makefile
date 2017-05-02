@@ -7,7 +7,7 @@ BIN = ../bin
 
 # C compiler
 CC = gcc
-CFLAGS = -fbounds-check -O5 -fno-trapping-math -Wall -Wunused
+CFLAGS = -lm -fbounds-check -O5 -fno-trapping-math -Wunused
 
 # Fortran compiler
 FC = gfortran
@@ -18,6 +18,7 @@ CC_COMPILE = $(CC) $(CFLAGS)
 FC_COMPILE = $(FC) $(FFLAGS)
 
 # main executable for 1D FEM
+exodus2specfem2d = $(BIN)/exodus2specfem2d
 exodus2specfem3d = $(BIN)/exodus2specfem3d
 exodusold2specfem3d = $(BIN)/exodusold2specfem3d
 gocad2vtu = $(BIN)/gocad2vtu
@@ -30,7 +31,16 @@ default: all
 clean:
 	rm -f *.mod $(BIN)/*.o core
 
-all: exodus2specfem3d exodusold2specfem3d gocad2vtu vtk1d2jou vtk2d2jou xyz2jou
+all: exodus2specfem2d \
+     exodus2specfem3d \
+     exodusold2specfem3d \
+     gocad2vtu \
+     vtk1d2jou \
+     vtk2d2jou \
+     xyz2jou
+
+exodus2specfem2d:
+	$(CC_COMPILE) -o $(exodus2specfem2d) exodus2specfem2d.c
 
 exodus2specfem3d:
 	$(CC_COMPILE) -o $(exodus2specfem3d) exodus2specfem3d.c
