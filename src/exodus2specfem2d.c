@@ -1,114 +1,134 @@
-/*-----------------------------------------------------------------------------
-PURPOSE:
-  This program converts the ASCII exodus file exported from the CUBIT to 
-  several input files required by the SPECFEM2D program. Currently, this 
-  program only handles the 2D quadrilateral elements with four nodes.
-  The binary exodus file (e.g., .e file) needs to be converted into ASCII file,
-  generally using a free console application "ncdump" which is a part of the
-  netCDF library, and can be downloaded from 
-  http://www.unidata.ucar.edu/downloads/netcdf/index.jsp. This is already
-  installed on clover. Please see the detail steps below.
-DEVELOPER:
-  Hom Nath Gharti
-  Princeton University
-  homnath_AT_princeton_DOT_edu
-  formerly at NORSAR, Norway
-  formerly at Institute of Engineering, Tribhuvan University, Nepal
-DEPENDENCY:
-  stringmanip.c: string manipulation routines
-COMPILE:
-  gcc trelis2specfem2d.c -o trelis2specfem2d -lm
-USAGE: 
-  trelis2specfem2d <inputfile> <OPTIONS>
-  Example: trelis2specfem2d mesh.e -bin=1
-  or
-  trelis2specfem2d mesh.txt
-OPTIONS:
-  -fac: use this option to multiply coordinates with some factor. this is 
-        important for unit 
-        conversion, e.g., to convert m to km use -fac=0.001 [DEFAULT 1]
-  -bin: use this option if you want to convert exodus binary directly, provided
-        that the command "ncdump" is in the path. The command "ncdump" is a 
-        part of netCDF library that can be downloaded freely from 
-        http://www.unidata.ucar.edu/downloads/netcdf/index.jsp.
-        use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
-  -order: use this option to check the connectivity order and make sure that
-        the connectivity is in counterclockwise order. use -order=1 for
-        checking or -order=0 for no checking [DEFAULT 0].
-  -head: use this option to attach head of input file to output file names. 
-        use -head=1 to attach header or -head=0 not to attach  [DEFAULT 0]
-  -tomo: use this option for tomography model. Since tomography model uses
-         negative identifiers, this option will write negative block IDs. 
-        use -tomo=1 to make negative block IDs or -tomo=0 not to make
-        [DEFAULT 0]
-HISTORY:
-  HNG,Jun 09,2016: fixed minor bugs
-  HNG,May 12,2016: fixed for TRELIS
-  HNG,Oct 28,2015: fixed spurious segmentation fault due to large number of 
-    blocks. problem was that the size of string in "bulk(1000)" was not enough.
-    now changed to "bulk(10000)"
-  HNG,Jan 12,2015: fixed hex-face ordering and tested for latest version of 
-    SPECFEM3D
-  HNG,Jan 18,2011: modified to convert to SPECFEM3D
-  HNG,Apr 23,2010;HNG,Apr 17,2010;HNG,Feb 08,2009
+/** @file exodus2specfem2d.c
+ *  @brief Convert ASCII exodus file to SPECFEM2D format
+ *
+ *  This program converts the ASCII exodus file exported from the CUBIT to 
+ *  several input files required by the SPECFEM2D program. Currently, this 
+ *  program only handles the 2D quadrilateral elements with four nodes.
+ *  The binary exodus file (e.g., .e file) needs to be converted into ASCII file,
+ *  generally using a free console application "ncdump" which is a part of the
+ *  netCDF library, and can be downloaded from 
+ *  http://www.unidata.ucar.edu/downloads/netcdf/index.jsp. This is already
+ *  installed on clover. Please see the detail steps below.
+ *
+ *  @author Hom Nath Gharti (homnath_AT_princeton_DOT_edu)
+ *
+ *  ## Dependencies:
+ *    stringmanip.c: string manipulation routines
+ *
+ *  ## Compile:
+ *    gcc trelis2specfem2d.c -o trelis2specfem2d -lm
+ *
+ *  ## Usage: 
+ *    trelis2specfem2d <inputfile> <OPTIONS>
+ *    Example: trelis2specfem2d mesh.e -bin=1
+ *    or
+ *    trelis2specfem2d mesh.txt
+ *
+ *  ## Options::
+ *
+ *    - -fac: use this option to multiply coordinates with some factor. this is 
+ *          important for unit 
+ *          conversion, e.g., to convert m to km use -fac=0.001 [DEFAULT 1]
+ *
+ *    - -bin: use this option if you want to convert exodus binary directly, provided
+ *          that the command "ncdump" is in the path. The command "ncdump" is a 
+ *          part of netCDF library that can be downloaded freely from 
+ *          http://www.unidata.ucar.edu/downloads/netcdf/index.jsp.
+ *          use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
+ *
+ *    - -order: use this option to check the connectivity order and make sure that
+ *          the connectivity is in counterclockwise order. use -order=1 for
+ *          checking or -order=0 for no checking [DEFAULT 0].
+ *
+ *    - -head: use this option to attach head of input file to output file names. 
+ *          use -head=1 to attach header or -head=0 not to attach  [DEFAULT 0]
+ *
+ *    - -tomo: use this option for tomography model. Since tomography model uses
+ *           negative identifiers, this option will write negative block IDs. 
+ *          use -tomo=1 to make negative block IDs or -tomo=0 not to make
+ *          [DEFAULT 0]
+ *
+ *  ## History:
+ *
+ *    - HNG,Jun 09,2016: fixed minor bugs
+ *
+ *    - HNG,May 12,2016: fixed for TRELIS
+ *
+ *    - HNG,Oct 28,2015: fixed spurious segmentation fault due to large number of 
+ *      blocks. problem was that the size of string in "bulk(1000)" was not enough.
+ *      now changed to "bulk(10000)"
+ *
+ *    - HNG,Jan 12,2015: fixed hex-face ordering and tested for latest version of 
+ *      SPECFEM3D
+ *
+ *    - HNG,Jan 18,2011: modified to convert to SPECFEM3D
+ *
+ *    - HNG,Apr 23,2010;HNG,Apr 17,2010;HNG,Feb 08,2009
+ *  
+ *  -------------------------------------------------------------------------------
+ *
+ *  # Basic steps starting from TRELIS:
+ *  
+ *  ### Step 1: prepare mesh in TRELIS/CUBIT
+ *  - define material regions using "Blocks"
+ *    For example:
+ *    block 1 add surface 1
+ *    block 2 add surface 2 3
+ *  
+ *    will assign material region 1 to surface 1 and material region 2 to
+ *    surfaces 2 and 3. These material regions will be used to define material
+ *    properties in "Par_file". this program will NOT generate "Par_file".
+ *    The file "Par_file" must be created to run SPECFEM2D!
+ *  
+ *  - define element type to be QUAD4
+ *    For example:
+ *    block all element type quad4
+ *  
+ *    NOTE: If the element types are SHELL or SHELL4, "Default" or 3D option should
+ *    be selected during export. If the element type is QUAD or QUAD4,	3D 
+ *    option should be selected. With default or 2D data, it saves only
+ *    X and Y coordinates which is not always correct.
+ *    Make sure that the node ordering is strictly anticlockwise
+ *    (no longer necessary!) for all the elements in CUBIT.
+ *  
+ *  - define surface boundary conditions using "Sidesets"
+ *    
+ *    For example:
+ *    sideset 1 add curve 1
+ *    sideset 1 name 'free_surface_file'
+ *  
+ *    will define a free or absorbing surface boundary condition on surface.
+ *    Similary,  
+ *    sideset 2 add curve 3
+ *    sideset 2 name 'absorbing_surface_file'
+ *    
+ *    will define absorbing boundary condition on the curve 3.
+ *    Note: All the above commands can also be executed using TRELIS/CUBIT GUI.
+ *    "sideset 1 name 'free_surface_file'" is equivalent to
+ *    clicking sideset 1 and renaming.
+ *  
+ *  ### Step 2: export mesh file as exodus file say "mesh.e" (always use 3D option!)
+ *  
+ *  ### Step 3: convert "mesh.e" to SPECFEM2D files
+ *    >>trelis2specfem2d mesh.e -bin=1
+ *  
+ *  There will be several output files:
+ *
+ *  - coordinates : coordinates file => total number of nodes followed by 
+ *    nodal coordinate ? (? -> x, y, z)
+ *
+ *  - connectivity : element file => total number of elements followed by
+ *    connectivity list
+ *
+ *  - materials : material file => total number of elements followed by 
+ *    material IDs
+ *
+ *  - surface* : sourface boundary condition files => total number of elements
+ *    followed by element ID and surface nodes
+ *  
+ *  -------------------------------------------------------------------------------
+ */
 
-Basic steps starting from the TRELIS:
--------------------------------------------------------------------------------
-
-step 1: prepare mesh in TRELIS/CUBIT
-- define material regions using "Blocks"
-  For example:
-  block 1 add surface 1
-  block 2 add surface 2 3
-
-  will assign material region 1 to surface 1 and material region 2 to
-  surfaces 2 and 3. These material regions will be used to define material
-  properties in "Par_file". this program will NOT generate "Par_file".
-  The file "Par_file" must be created to run SPECFEM2D!
-
-- define element type to be QUAD4
-  For example:
-  block all element type quad4
-
-  NOTE: If the element types are SHELL or SHELL4, "Default" or 3D option should
-  be selected during export. If the element type is QUAD or QUAD4,	3D 
-  option should be selected. With default or 2D data, it saves only
-  X and Y coordinates which is not always correct.
-  Make sure that the node ordering is strictly anticlockwise
-  (no longer necessary!) for all the elements in CUBIT.
-
-- define surface boundary conditions using "Sidesets"
-  
-  For example:
-  sideset 1 add curve 1
-  sideset 1 name 'free_surface_file'
-
-  will define a free or absorbing surface boundary condition on surface.
-  Similary,  
-  sideset 2 add curve 3
-  sideset 2 name 'absorbing_surface_file'
-  
-  will define absorbing boundary condition on the curve 3.
-  Note: All the above commands can also be executed using TRELIS/CUBIT GUI.
-  "sideset 1 name 'free_surface_file'" is equivalent to
-  clicking sideset 1 and renaming.
-
-step2: export mesh file as exodus file say "mesh.e" (always use 3D option!)
-
-step3: convert "mesh.e" to SPECFEM2D files
-  >>trelis2specfem2d mesh.e -bin=1
-
-There will be several output files:
-*coordinates : coordinates file => total number of nodes followed by 
-  nodal coordinate ? (? -> x, y, z)
-*connectivity : element file => total number of elements followed by
-  connectivity list
-*materials : material file => total number of elements followed by 
-  material IDs
-*surface* : sourface boundary condition files => total number of elements
-  followed by element ID and surface nodes
--------------------------------------------------------------------------------
-*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
