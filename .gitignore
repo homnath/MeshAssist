@@ -7,4 +7,4 @@ output/
 src/*~
 .*swp
 .*swo
-
+doc/latex/
