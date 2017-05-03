@@ -48,23 +48,6 @@
  *          use -tomo=1 to make negative block IDs or -tomo=0 not to make
  *          [DEFAULT 0]
  *
- *  ## History:
- *
- *    - HNG,Jun 09,2016: fixed minor bugs
- *
- *    - HNG,May 12,2016: fixed for TRELIS
- *
- *    - HNG,Oct 28,2015: fixed spurious segmentation fault due to large number of 
- *      blocks. problem was that the size of string in "bulk(1000)" was not enough.
- *      now changed to "bulk(10000)"
- *
- *    - HNG,Jan 12,2015: fixed hex-face ordering and tested for latest version of 
- *      SPECFEM3D
- *
- *    - HNG,Jan 18,2011: modified to convert to SPECFEM3D
- *
- *    - HNG,Apr 23,2010;HNG,Apr 17,2010;HNG,Feb 08,2009
- *  
  *  -------------------------------------------------------------------------------
  *
  *  # Basic steps starting from TRELIS:
