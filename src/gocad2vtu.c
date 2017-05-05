@@ -1,42 +1,39 @@
-/*
--------------------------------------------------------------------------------
-PURPOSE:
-  This program converts the GOCAD ASCII file (3-noded triangular meshes)
-  to VTK XML .vtu binary file (unstructured mesh file) which can be 
-  visualized/processed in ParaView or VTK.
-DEVELOPER: 
-	Hom Nath Ghartii
-  formerly at Institute of Engineering, Tribhuvan University, Nepal
-  formerly at NORSAR, Norway
-	Department of Geosciences, Princeton University, USA
-DEPENDENCY:
-	stringmanip.c
-COMPILE:
-  - in parent folder, type:
-  make
-  OR
-  - in src/ folder, type
-	gcc gocad2vtu.c -o gocad2vtu
-USAGE:
-	./bin/gocad2vtu <inputfile> [OPTIONS]
-	Example: ./bin/gocad2vtu ./input/gocad2vtu_example.ts
-OPTIONS:
-	-fac=value
-		Use this option to multiply the coordinates by certain factor, this is 
-		helpful for unit conversion, e.g. for m to km use 0.001, for km to m 
-    use 1000, example: gocad2vtu T2_horizon.ts -fac=0.001
-NOTES:
-	Output .vtu file is binary, therefore endianness of the processor
-  architechture is important.
-	This program automatically identify the endianness and write the output
-  accordingly. Hence if you run and process/visualize .vtu file in the
-  architecture with different endianness there may be an error. 
-HISTORY: 
-	Hom Nath Gharti, NORSAR
-	Mar 18,2009;Mar 12,2009 (Princeton University)
-FEEDBACK:
-	hngharti_AT_gmail_DOT_com
--------------------------------------------------------------------------------
+/** @file gocad2vtu.c 
+*   @brief Converts GOCAD ASCII file to VTU file.
+*
+*  This program converts the GOCAD ASCII file (3-noded triangular meshes)
+*  to VTK XML .vtu binary file (unstructured mesh file) which can be 
+*  visualized/processed in ParaView or VTK.
+*
+*  @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu)
+*
+* ##Dependencies:
+*	stringmanip.c
+*
+* ## Compile
+*  - in parent folder, type:
+*  make
+*  OR
+*  - in src/ folder, type
+*	gcc gocad2vtu.c -o gocad2vtu
+*
+* ## Usage:
+*	./bin/gocad2vtu <inputfile> [OPTIONS]
+*	Example: ./bin/gocad2vtu ./input/gocad2vtu_example.ts
+*
+*  ##Options:
+*	- -fac: Use this option to multiply the coordinates by certain factor, this is 
+*		helpful for unit conversion, e.g. for m to km use 0.001, for km to m 
+*    use 1000, example: gocad2vtu T2_horizon.ts -fac=0.001
+*
+* ##Notes:
+*	- Output .vtu file is binary, therefore endianness of the processor
+*  architechture is important.
+*
+*	- This program automatically identify the endianness and write the output
+*  accordingly. Hence if you run and process/visualize .vtu file in the
+*  architecture with different endianness there may be an error. 
+*
 */
 #include <stdio.h>
 #include <stdlib.h>

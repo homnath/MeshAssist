@@ -7,8 +7,8 @@
  *  The binary exodus file (e.g., .e file) needs to be converted into ASCII file,
  *  generally using a free console application "ncdump" which is a part of the
  *  netCDF library, and can be downloaded from 
- *  http://www.unidata.ucar.edu/downloads/netcdf/index.jsp. This is already
- *  installed on clover. Please see the detail steps below.
+ *  http://www.unidata.ucar.edu/downloads/netcdf/index.jsp. Please see the 
+ *  detail steps below.
  *
  *  @author Hom Nath Gharti (homnath_AT_princeton_DOT_edu)
  *
@@ -19,12 +19,12 @@
  *    gcc trelis2specfem2d.c -o trelis2specfem2d -lm
  *
  *  ## Usage: 
- *    trelis2specfem2d <inputfile> <OPTIONS>
+ *    trelis2specfem2d <inputfile> [OPTIONS]
  *    Example: trelis2specfem2d mesh.e -bin=1
  *    or
  *    trelis2specfem2d mesh.txt
  *
- *  ## Options::
+ *  ## Options:
  *
  *    - -fac: use this option to multiply coordinates with some factor. this is 
  *          important for unit 
@@ -47,8 +47,6 @@
  *           negative identifiers, this option will write negative block IDs. 
  *          use -tomo=1 to make negative block IDs or -tomo=0 not to make
  *          [DEFAULT 0]
- *
- *  -------------------------------------------------------------------------------
  *
  *  # Basic steps starting from TRELIS:
  *  
@@ -108,8 +106,6 @@
  *
  *  - surface* : sourface boundary condition files => total number of elements
  *    followed by element ID and surface nodes
- *  
- *  -------------------------------------------------------------------------------
  */
 
 #include <stdio.h>
