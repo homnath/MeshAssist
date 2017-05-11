@@ -16,38 +16,36 @@ void extractFileonly(char *filename, char *fileonly)
 	nchar=strlen(filename);
 	nslash=0; /* Default value */
 	for(i=0; i<nchar; i++){
-		if(filename[nchar-i]=='/' || filename[nchar-i]=='\\'){ /* Integer epression! */
+		if(filename[nchar-i]=='/' || filename[nchar-i]=='\\'){
 			nslash=nchar-i+1;
 			break;
-		}
+    }
 	}
 
 	strcpy(fileonly,&filename[nslash]);
 }
 /*======================================*/
 
-/* 	This function returns the file name removing the extension if any
-	In case of more than one '.' it will remove only last extension */
+/* 	This function returns the file name removing the extension if any.
+	In case of more than one '.' it will remove only last extension. */
 void removeExtension(char *filename, char *noextfile)
 {
 	int i, nchar, ndot;
 	/* Extract file name without directory path */
-	nchar=strlen(filename);/*printf("%s\n",filename);*//*printf("%s\n",noextfile);*/
+	nchar=strlen(filename);
 	ndot=nchar; /* Default value */
 	for(i=0; i<nchar; i++){
-		if(filename[nchar-i]=='.'){ /* Integer epression! */
+		if(filename[nchar-i]=='.'){
 			ndot=nchar-i;
 			break;
 		}
 	}
-	/* printf("%d %d\n",nchar,ndot); */
 	strncpy(noextfile,filename,ndot);
-	noextfile[ndot]='\0'; /* This is usually requred for srncpy and srncat */
-	/* printf("%s\n",noextfile); */
+	noextfile[ndot]='\0'; /* This is usually required for strncpy and strncat */
 }
 /*======================================*/
 
-/* This function had been imported from e3d by shawn larsen */
+/* This function had been imported from e3d by shawn larsen. */
 void getFileName(filename, head, tail, number, max)
 char *filename, *head, *tail; 
 int number, max;
@@ -55,15 +53,13 @@ int number, max;
 	int digits;
 	char ext[10], format[20];
 	
-	/* printf("Hi\n"); */
 	/* determine number of digits */
 	digits = 1;
 	if (max < 1) max = 1;
 	while(max /= 10) digits++;
 
 	/* determine format of number */
-	/* sprintf(format, "%%0%dd\0", digits);
-	following two lines are equivalent to previous line */
+	/* following two lines are equivalent to previous line */
 	sprintf(format, "%%0%dd", digits);
 	strcat(format,"\0");
 	sprintf(ext, format, number);
@@ -78,8 +74,8 @@ int number, max;
 }
 /*======================================*/
 
-/* This function had been imported from e3d by shawn larsen */
-/* Function to open file name inputted through command line */
+/* This function had been imported from e3d by Shawn Larsen. */
+/* Function to open file name inputted through command line. */
 FILE *
 getFile(argc, argv) 
 int    argc;
@@ -96,7 +92,8 @@ char **argv;
 }
 /*======================================*/
 
-/*	This function returns the position of last character of string s2 if s2 is found in string s1 */
+/* This function returns the position of last character of string s2 if s2 is
+   found in string s1. */
 int stringpos(char *s1, char *s2)
 {
 	int nchar1,nchar2,i1,i2,ipos,spos,stat;
@@ -125,8 +122,8 @@ int stringpos(char *s1, char *s2)
 }
 /*======================================*/
 
-/* 	This function returns 1 if string s contains '#' as the first non-white space character
-	otherwise 0 */ 
+/* 	This function returns 1 if string s contains '#' as the first non-white
+    space character otherwise 0. */ 
 int commentline(char *s)
 {
 	int i,nchar,stat; /* stat = 1:yes, 0: No */
@@ -146,7 +143,7 @@ int commentline(char *s)
 }
 /*======================================*/
 
-/* This function returns 1 if line s is blank, 0 if not blank */
+/* This function returns 1 if line s is blank, 0 if not blank. */
 int blankline(char *s)
 {
 	int i,nchar,stat; /* stat = 1:yes, 0: No */
@@ -231,15 +228,16 @@ return(0);
 }
 /*======================================*/
 
-/* 	This function assigns the corresponding value immediately after the '=' or ':' sign following 
-	the string arg to var, and exits the execution if no such arg is found in string s 
+/* 	This function assigns the corresponding value immediately after the '=' 
+    or ':' sign following the string arg to var, and exits the execution if no
+    such arg is found in string s 
 
-	May 16,2008,HNG: Now the argument name can be a part of other word in the line
-	for eg vfile and file can not be problem!*/
+	May 16,2008,HNG: Now the argument name can be a part of other word in the
+  line for, e.g., using vfile and file in a same line is fine. */
 #define nsymb 4
 int getvalue(char *s, char *arg, char *type, int *var)
 {
-	int pos,inum; /* i,nchar,apos */
+	int pos,inum;
 	double *dbl;
 	float  *flt;
 	char argt[10],*str,*symb[nsymb];
@@ -262,15 +260,7 @@ int getvalue(char *s, char *arg, char *type, int *var)
 		exit(-1);
 	}
 	
-	/*nchar=strlen(s);
-	for(i=pos; i<nchar; i++){
-		if(s[i] == '=' || s[i] == ':'){
-			apos=i+1;
-			break;
-		}
-	}
-	apos=pos;*/
-	switch(type[0]){
+  switch(type[0]){
 		case 'd':
 			*var = atoi(&s[pos]);
 			return (0);
@@ -293,9 +283,9 @@ int getvalue(char *s, char *arg, char *type, int *var)
 }
 /*======================================*/
 
-/* 	This function assigns the corresponding value immediately after the '=' or ':' sign following 
-	the string arg to var, and returns (-1) if no such arg is found in string s, otherwise this 
-	function is exactly same as getvalue */
+/* This function assigns the corresponding value immediately after the '=' or 
+   ':' sign following the string arg to var, and returns (-1) if no such arg
+   is found in string s, otherwise this function is exactly same as getvalue */
 #define nsymb 4
 int getvaluestat(char *s, char *arg, char *type, int *var)
 {
@@ -319,18 +309,9 @@ int getvaluestat(char *s, char *arg, char *type, int *var)
 	
 	if(pos == 0){
 		/* Variable not found */
-		/* printf("Variable \"%s\" not found!\n",arg); */
 		return(-1);
 	}
 	
-	/*nchar=strlen(s);
-	for(i=pos; i<nchar; i++){
-		if(s[i] == '=' || s[i] == ':'){
-			apos=i+1;
-			break;
-		}
-	}
-	apos=pos;*/
 	switch(type[0]){
 		case 'd':
 			*var = atoi(&s[pos]);
@@ -354,14 +335,15 @@ int getvaluestat(char *s, char *arg, char *type, int *var)
 }
 /*======================================*/
 
-/*	This function returns the position of last character of string s2 in s1 if s2 is found in string s1 */
+/* This function returns the position of the last character of string s2 in s1
+   if s2 is found in string s1. */
 int matchfirstword(char *s1, char *s2)
 {
 	int nchar1,nchar2,i1,i2,ipos,stat,match;
 	nchar1=strlen(s1);
 	nchar2=strlen(s2);
-	/*printf("%d %d\n",nchar1,nchar2);*/
-	match=0;
+	
+  match=0;
 	if(nchar2>nchar1)return(match); /* No match */
 	
 	for (i1=0; i1<nchar1; i1++){
@@ -385,7 +367,7 @@ int matchfirstword(char *s1, char *s2)
 }
 /*======================================*/
 
-/* 	This function extracts and returns the string in the first quotes */
+/* 	This function extracts and returns the string in the first quotes. */
 int getfirstquote(char *s1, char *s2)
 {
 	int i, nchar, ipos1,ipos2,nquote,num;
@@ -420,7 +402,7 @@ int getfirstquote(char *s1, char *s2)
 }
 /*======================================*/
 
-/* 	This function extracts and returns the string after the given string */
+/* 	This function extracts and returns the string after the given string. */
 int stringafterstring(char *, char *, char *);
 int getintegervect(char *s1, char *arg, int n, int ivect[n])
 {
@@ -444,7 +426,7 @@ int getintegervect(char *s1, char *arg, int n, int ivect[n])
 }
 /*======================================*/
 
-/* 	This function extracts and returns the string after the given string */
+/* 	This function extracts and returns the string after the given string. */
 int stringafterstring(char *s1, char *arg, char *s2)
 {
 	int i,nchar,num;
@@ -468,8 +450,8 @@ int stringafterstring(char *s1, char *arg, char *s2)
 }
 /*======================================*/
 
-/* 	This function converts all the letters of string to lower case
-	HNG,May 23,2008 */
+/* 	This function converts all the letters of string to lower case.
+	  HNG,May 23,2008 */
 int lowercase(char *s){
 	int i,nchar;
 	nchar=strlen(s);
@@ -479,8 +461,8 @@ int lowercase(char *s){
 	return(0);
 }
 
-/* 	This function converts all the letters of string to upper case
-	HNG,May 23,2008 */
+/* 	This function converts all the letters of string to upper case.
+	  HNG,May 23,2008 */
 int uppercase(char *s){
 	int i,nchar;
 	nchar=strlen(s);
@@ -491,9 +473,10 @@ int uppercase(char *s){
 }
 /*======================================*/
 
-/* This function determines the byte order of the processor architecture
+/* This function determines the byte order of the processor architecture.
 source: http://www.ibm.com/developerworks/aix/library/au-endianc/index.html?ca=drs-
-Use a character pointer to the bytes of an int and then check its first byte to see if it is 0 or 1.
+Use a character pointer to the bytes of an int and then check its first bytei
+to see if it is 0 or 1.
 Mar 18,2009 (Princeton University) */
 #define LE 0 /* Little Endian */
 #define BE 1 /* Big Endian */
@@ -508,6 +491,3 @@ int getEndian() {
         return BE;
 }
 /*======================================*/
-
-
-	
