@@ -1,20 +1,20 @@
 !------------------------------------------------------------------------------
-!PURPOSE:
-!  This program read ASCII vtk files with unstructured grid of lines and 
-!  points only, and removes the redundant lines. The redundant nodes can be 
-!  removed within the paraview itself using 'Clean to Grid' filter.
-!DEVELOPER:
-!  Hom Nath Gharti
-!  Department of Geosciences, Princeton University, USA
-!  hngharti_AT_gmail_DOT_edu
-!COMPILE:
-!  gfortran vtk1d2jou.f90 -o vtk1d2jou
-!USE:
-!  vtk1d2jou <input_file>
-!  vtk1d2jou vtk1d2jou_example.vtk
-!REVISION:
-!  Jan 28, 2009: Hom Nath Gharti
-!    - first created
+!> @file vtk1d2jou.f90
+!> @brief Converts VTK 1D file to CUBIT/Trelis journal file.
+!>
+!>  This program read ASCII vtk files with unstructured grid of lines and 
+!>  points only, and removes the redundant lines. The redundant nodes can be 
+!>  removed within the paraview itself using 'Clean to Grid' filter.
+!>
+!> @athor Hom Nath Gharti (hgharti_AT_princeton_DOT_edu
+!>
+!> ## Compile:
+!>  gfortran vtk1d2jou.f90 -o vtk1d2jou
+!>
+!> ## Usage:
+!>  vtk1d2jou <input_file>
+!>  vtk1d2jou vtk1d2jou_example.vtk
+!>
 !------------------------------------------------------------------------------
 include 'stringmanip.f90'
 program vtk1d2jou

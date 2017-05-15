@@ -1,29 +1,30 @@
 !-----------------------------------------------------
-!PURPOSE:
-!  This program converts UTM or XYZ file to CUBIT journal file. The UTM or XYZ
-!  file contains the three columns of X, Y, and Z coordinates, respectively.
-!COMPILE:
-!  - in parent folder, type:
-!  make
-!  OR
-!  - in src/ folder, type
-!  gfortran xyz2jou.f90 -o xyz2jou
-!RUN:
-!  ./bin/xyz2jou input_file [OPTIONS]
-!	 Example: ./bin/xyz2jou ./input/xyz2jou_example.utm
-!OPTIONS:
-!  -nx: Use this option if you know the number of points in a line along X axis
-!       . This will speed up the processing. For example, -nx=100. If it is not
-!       defined, nx is automatically determined. 
-!  -nskip: Use this option if you want to skip (downsample) certain number of
-!       successive points. This will skip along both X and Y axes. For example,
-!       -nskip=2. [DEFAULT 0].
-!DEVELOPER:
-!  Hom Nath Gharti
-!  Department of Geosciences, Princeton University, USA
-!  hngharti_AT_gmail_DOT_edu
-!REVISION:
-!  March 02,2012
+!> @file xyz2jou.f90
+!> @brief Coverts UTM/XYZ file to CUBIT/Trelis journal file.
+!>
+!>  This program converts UTM or XYZ file to CUBIT journal file. The UTM or XYZ
+!>  file contains the three columns of X, Y, and Z coordinates, respectively.
+!>
+!> @athor Hom Nath Gharti (hgharti_AT_princeton_DOT_edu
+!>
+!> ## Compile:
+!>  - in parent folder, type:
+!>  make
+!>  OR
+!>  - in src/ folder, type
+!>  gfortran xyz2jou.f90 -o xyz2jou
+!>
+!> ## Usage:
+!>  ./bin/xyz2jou input_file [OPTIONS]
+!>	 Example: ./bin/xyz2jou ./input/xyz2jou_example.utm
+!>
+!> ## Options:
+!> - -nx: Use this option if you know the number of points in a line along X axis
+!>       . This will speed up the processing. For example, -nx=100. If it is not
+!>       defined, nx is automatically determined. 
+!> - -nskip: Use this option if you want to skip (downsample) certain number of
+!>       successive points. This will skip along both X and Y axes. For example,
+!>       -nskip=2. [DEFAULT 0].
 !-----------------------------------------------------
 include 'stringmanip.f90'
 program xyz2jou
