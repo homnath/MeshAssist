@@ -1,92 +1,82 @@
-/*-----------------------------------------------------------------------------
-FILE:
-  exodusold2specfem3d.c
-PURPOSE:
-   This program converts the Binary (provided that ncdump command exists)
-   or ASCII exodus file exported from the CUBIT to several mesh files required
-   by the SPECFEM3D package.
-DEVELOPER:
-  Hom Nath Gharti
-  Princeton University
-  homnath_AT_princeton_DOT_edu
-  Hom Nath Gharti
-  formerly at NORSAR, Norway
-  formerly at Institute of Engineering, Tribhuvan University, Nepal
-DEPENDENCY:
-  stringmanip.c: string manipulation routines
-COMPILE:
-  gcc exodus2SPECFEM3D.c -o exodus2SPECFEM3D
-USAGE: 
-  exodus2SPECFEM3D <inputfile> <OPTIONS>
-  Example: exodus2SPECFEM3D tunnel.txt
-  or
-  exodus2SPECFEM3D tunnel.e -fac=0.001 -bin=1
-OPTIONS:
-  -fac: use this option to multiply coordinates. this is importantn for unit 
-        conversion, e.g., to convert m to km use -fac=0.001
-  -bin: use this option if you want to convert exodus binary directly, provided
-        that the command ncdump is in the path. ncdump is a part of netCDF
-        library that can be downloaded freely from 
-        http://www.unidata.ucar.edu/downloads/netcdf/index.jsp.
-        use -bin=1 for binary or -bin=0 for ascii file.
-  -norm: use this option to check the normal of the faces. use -norm=1 for
-        checking or -norm=0 (default) for no checking
-ISSUES:
-  - This does not work with new verion of Trelis/CUBIT. For the new version use
-    exodus2specfem3d.c.
-HISTORY:
-  HNG,Jan 12,2015: fixed hex-face ordering and tested for latest version of
-    SPECFEM3D
-  HNG,Jan 18,2011: modified to convert to SPECFEM3D
-  HNG,Apr 23,2010;HNG,Apr 17,2010;HNG,Feb 08,2009
-
-Basic steps starting from the CUBIT:
--------------------------------------------------------------------------------
-
-step 1: prepare mesh in CUBIT
-- define material regions using "Blocks"
-  For example:
-  block 1 add volume 1
-  block 2 add volume 2 3
-
-  will assign material region 1 to volume 1 and material region 2 to volumes 2
-  and 3. These material regions will be used to define material properties in
-  "nummaterial_velocity_file". this program will NOT generate 
-  "nummaterial_velocity_file". the file "nummaerial_veolicty_file" must be
-  created to run SPECFEM3D!
-
-- define surface boundary conditions using "Sidesets"
-  
-  For example:
-  sideset 1 add surface 1
-  sideset 1 name 'free_or_absorbing_surface_file_zmax'
-
-  will define a free or absorbing surface boundary condition on surface 1 which
-  lies at the top of the volume (zmax). similary,  
-  sideset 2 add surface 3
-  sideset 2 name 'absorbing_surface_file_bottom'
-  
-  will define absorbing boundary condition on the surface 3 which lies at the
-  bottom of the volume (zmin).
-  Note: All the above commands can also be executed using TRELIS/CUBIT GUI.
-  "sideset 1 name 'free_or_absorbing_surface_file_zmax'" is equivalent to
-  clicking sideset 1 and renaming.
-
-step2: export mesh file as exodus file say "tunnel.e" (use 3D option)
-
-step3: convert "tunnel.e" to SPECFEM3D files
-  >>exodus2specfem3d tunnel.e -bin=1
-
-There will be several output files:
-*nodes_coords_file : coordinates file => total number of nodes followed by 
-  nodal coordinate ? (? -> x, y, z)
-*mesh_file : element file => total number of elements followed by connectivity
-  list
-*materials_file : material file => total number of elements followed by 
-  material IDs
-*surface_file* : sourface boundary condition files => total number of elements
-  followed by element ID and surface nodes
--------------------------------------------------------------------------------
+/** @file exodusold2specfem3d.c
+*  @brief Converts old ASCII exodus file to SPECFEM3D files.
+*   
+*  This program converts the Binary (provided that ncdump command exists)
+*  or ASCII exodus file exported from the old CUBIT to several mesh files
+*  required by the SPECFEM3D package.
+*
+*  @author Hom Nath Gharti (homnath_AT_princeton_DOT_edu)
+*
+* ## Dependencies:
+*  stringmanip.c: string manipulation routines
+*
+* ## Compile:
+*  gcc exodus2SPECFEM3D.c -o exodus2SPECFEM3D
+*
+* ## Usage: 
+*  exodus2SPECFEM3D input_file [OPTIONS]
+*  Example: exodus2SPECFEM3D tunnel.txt
+*  or
+*  exodus2SPECFEM3D tunnel.e -fac=0.001 -bin=1
+* ## Options:
+* - -fac: use this option to multiply coordinates. this is importantn for unit 
+*        conversion, e.g., to convert m to km use -fac=0.001
+* - -bin: use this option if you want to convert exodus binary directly, provided
+*        that the command ncdump is in the path. ncdump is a part of netCDF
+*        library that can be downloaded freely from 
+*        http://www.unidata.ucar.edu/downloads/netcdf/index.jsp.
+*        use -bin=1 for binary or -bin=0 for ascii file.
+* - -norm: use this option to check the normal of the faces. use -norm=1 for
+*        checking or -norm=0 (default) for no checking
+* ## Issues:
+* - - This does not work with new verion of Trelis/CUBIT. For the new version use
+*    exodus2specfem3d.c.
+* # Basic steps starting from the CUBIT:
+*-------------------------------------------------------------------------------
+*
+* ### step 1: prepare mesh in CUBIT
+* - define material regions using "Blocks"
+*  For example:
+*  block 1 add volume 1
+*  block 2 add volume 2 3
+*
+*  will assign material region 1 to volume 1 and material region 2 to volumes 2
+*  and 3. These material regions will be used to define material properties in
+*  "nummaterial_velocity_file". this program will NOT generate 
+*  "nummaterial_velocity_file". the file "nummaerial_veolicty_file" must be
+*  created to run SPECFEM3D!
+*
+*- define surface boundary conditions using "Sidesets"
+*  
+*  For example:
+*  sideset 1 add surface 1
+*  sideset 1 name 'free_or_absorbing_surface_file_zmax'
+*
+*  will define a free or absorbing surface boundary condition on surface 1 which
+*  lies at the top of the volume (zmax). similary,  
+*  sideset 2 add surface 3
+*  sideset 2 name 'absorbing_surface_file_bottom'
+*  
+*  will define absorbing boundary condition on the surface 3 which lies at the
+*  bottom of the volume (zmin).
+*  Note: All the above commands can also be executed using TRELIS/CUBIT GUI.
+*  "sideset 1 name 'free_or_absorbing_surface_file_zmax'" is equivalent to
+*  clicking sideset 1 and renaming.
+*
+* ### step2: export mesh file as exodus file say "tunnel.e" (use 3D option)
+*
+* ### step3: convert "tunnel.e" to SPECFEM3D files
+*  >>exodus2specfem3d tunnel.e -bin=1
+*
+*There will be several output files:
+* - nodes_coords_file : coordinates file => total number of nodes followed by 
+*  nodal coordinate ? (? -> x, y, z)
+* - mesh_file : element file => total number of elements followed by connectivity
+*  list
+* - materials_file : material file => total number of elements followed by 
+*  material IDs
+* - surface_file* : sourface boundary condition files => total number of elements
+*  followed by element ID and surface nodes
 */
 #include <stdio.h>
 #include <stdlib.h>

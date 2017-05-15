@@ -1,5 +1,5 @@
 /** @file exodus2specfem3d.c
-*  @brief Converts ASCII exodus fiel to SPECFEM3D files.
+*  @brief Converts ASCII exodus file to SPECFEM3D files.
 *
 *  This program converts the Binary (provided that ncdump command exists,
 *  type ncdump to check whether ncdump command exists.) or ASCII exodus file
@@ -23,7 +23,7 @@
 *  or
 *  exodus2specfem3d tunnel.txt
 *
-* ##Options:
+* ## Options:
 *
 * - -fac: use this option to multiply coordinates with some factor. this is 
 *        important for unit 
@@ -51,9 +51,9 @@
 * - - This does not work with older verion of CUBIT. For the older version use
 *    exodusold2specfem3d.c.
 *
-* #Basic steps starting from the TRELIS:
+* # Basic steps starting from the TRELIS:
 *
-* ###step 1: prepare mesh in TRELIS/CUBIT
+* ### step 1: prepare mesh in TRELIS/CUBIT
 * - define material regions using "Blocks"
 *   For example:
 *   block 1 add volume 1
@@ -82,9 +82,9 @@
 *   "sideset 1 name 'free_or_absorbing_surface_file_zmax'" is equivalent to
 *   clicking sideset 1 and renaming.
 *
-* ###step2: export mesh file as exodus file say "tunnel.e" (use 3D option)
+* ### step2: export mesh file as exodus file say "tunnel.e" (use 3D option)
 *
-* ###step3: convert "tunnel.e" to SPECFEM3D files
+* ### step3: convert "tunnel.e" to SPECFEM3D files
 *  exodus2specfem3d tunnel.e -bin=1
 *
 *There will be several output files:

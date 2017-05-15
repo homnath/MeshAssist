@@ -1,23 +1,21 @@
-/*-----------------------------------------------------------------------------
-PURPOSE:
-  This program converts ASCII VTK file consisting of triangular/quadrilateral
-  mesh into CUBIT/Trelis Journal file.
-AUTHOR:
-  Hom Nath Gharti
-  formerly at Institute of Engineering, Tribhuvan University, Nepal
-  formerly at NORSAR, Norway
-  Department of Geosciences, Princeton University, USA
-  homnath_AT_norsar_DOT_no
-DEPENDENCY:
-  stringmanip.c: string manipulation routines
-COMPILE:
-  gcc vtk2d2jou.c -o vtk2d2jou
-USAGE: 
-  vtk2d2jou <inputfile>
-  Example: vtk2d2jou vtk2d2jou_example.vtk
-HISTORY: 
-  HNG,Dec 07,2010
------------------------------------------------------------------------------*/
+/** @file vtk2d2jou.c
+*  @brief Converts VTK file consisting of 2D mesh to CUBIT/Trelis journal file. 
+*
+*  This program converts ASCII VTK file consisting of triangular/quadrilateral
+*  mesh into CUBIT/Trelis Journal file.
+*
+*  @author Hom Nath Gharti (homnath_AT_princeton_DOT_edu)
+*
+* ## Dependences:
+*  stringmanip.c: string manipulation routines
+*
+* ## Compile:
+*  gcc vtk2d2jou.c -o vtk2d2jou
+*
+*  ## Usage: 
+*  vtk2d2jou input_file
+*  Example: vtk2d2jou vtk2d2jou_example.vtk
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

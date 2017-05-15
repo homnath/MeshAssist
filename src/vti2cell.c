@@ -1,50 +1,48 @@
-/*  This program converts the 2D/3D Binary VTK XML .vti file to unstructured mesh files (.vtu).
-  This program also generates the mesh files required by SPECFEM2D and SPECFEM3D. Note that the 
-  file formats in SPECFEM2D and SPECFEM3D are different. This should be made same format as soon 
-  as possible. For this, source codes within the decompose folder of SPECFEM3D and cubit2specfem3d.py 
-  need to be changed. 
-------------------------------------------------------
-DEPENDENCY:
-  stringmanip.c
-COMPILE:
-  gcc vti2cell.c -o vti2cell -lm
-USAGE: 
-  vti2cell inputfile OPTIONS
-  Example: vti2cell py_plane_model.vti
-OPTIONS:
-  -fac=factor (real)
-    Use this option to multiply the coordinates by certain factor, this is 
-    helpful for unit conversion, e.g. for m to km use 0.001, for km to m use 1000
-    Example: vti2cell2d py_plane_model.vti -fac=1000
-  -xmat=exclusion material id/s (integer/s)
-    Use this option to exclude certain region of the model, e.g. exclusion of air.
-    Appropriate id/s should be supplied, id s are number orderd according to the value 
-    of corresponding material properties and numbered starting from 1. This way,
-    lowest value will have id 1 and so on.
-    Example: vti2cell py_plane_model.vti -xmat=1,2
-    This command will exclude the regions with material id 1 and 2.
-      
-    Example: vti2cell py_plane_model.vti -fac=1000 -xmat=1
-    This command multiply the coordinates by 1000 and exclude the region with material id 1
-  -step=step size (integer)
-    Use this option to coarsen the mesh. This value represent the number of grids to be used as 1 element,
-    e.g., if you want to make 2 grids as 1 element, use -step=2
-  -zup=z axis direction indicator (integer)
-    Use this option to indicate whether the Z axis direction is up
-HISTORY: 
-  Hom Nath Gharti, NORSAR  
-  Sep 29,2010,HNG,NORSAR
-    - extended to 2D
-  Sep 23,2010,HNG,NORSAR
-    - multiple values for -xmat are allowed, e.g., -xamt=1,2
-  Jun 09,2010,HNG,NORSAR
-    - added options for mesh coarsening, and z direction indicator
-  Mar 13,2009;Mar 12,2009;Mar 05,2009 (Princeton University)
-FEEDBACK:
-  homnath_AT_norsar_DOT_no
-TODO:
-  make uniformity for 2D,3D, e.g., writing and reading coordinates
--------------------------------------------------------*/
+/** @file vti2cell.c
+*  @brief This file converts VTI file to VTU file.
+*
+*  This program converts the 2D/3D Binary VTK XML .vti file to unstructured mesh files (.vtu).
+*  This program also generates the mesh files required by SPECFEM2D and SPECFEM3D. Note that the 
+*  file formats in SPECFEM2D and SPECFEM3D are different. This should be made same format as soon 
+*  as possible. For this, source codes within the decompose folder of SPECFEM3D and cubit2specfem3d.py 
+*  need to be changed. 
+*
+*  @author Hom Nath Gharti (homnath_AT_princeton_DOT_edu)
+*
+* ## Dependencies:
+*  stringmanip.c
+*
+* ## Compile:
+*  gcc vti2cell.c -o vti2cell -lm
+*
+*  ## Usage: 
+*  vti2cell inputfile OPTIONS
+*  Example: vti2cell py_plane_model.vti
+*
+* ## Options:
+* - -fac=factor (real)
+*    Use this option to multiply the coordinates by certain factor, this is 
+*    helpful for unit conversion, e.g. for m to km use 0.001, for km to m use 1000
+*    Example: vti2cell2d py_plane_model.vti -fac=1000
+* - -xmat=exclusion material id/s (integer/s)
+*    Use this option to exclude certain region of the model, e.g. exclusion of air.
+*    Appropriate id/s should be supplied, id s are number orderd according to the value 
+*    of corresponding material properties and numbered starting from 1. This way,
+*    lowest value will have id 1 and so on.
+*    Example: vti2cell py_plane_model.vti -xmat=1,2
+*    This command will exclude the regions with material id 1 and 2.
+*      
+*    Example: vti2cell py_plane_model.vti -fac=1000 -xmat=1
+*    This command multiply the coordinates by 1000 and exclude the region with material id 1
+* - -step=step size (integer)
+*    Use this option to coarsen the mesh. This value represent the number of grids to be used as 1 element,
+*    e.g., if you want to make 2 grids as 1 element, use -step=2
+* - -zup=z axis direction indicator (integer)
+*    Use this option to indicate whether the Z axis direction is up
+*
+* ## Toto:
+* - make uniformity for 2D,3D, e.g., writing and reading coordinates
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
