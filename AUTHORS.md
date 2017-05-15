@@ -24,6 +24,7 @@
 
 ## Jeroen Tromp
     - Department of Geosciences, Princeton University, USA
+    - Program in Applied & Computational Mathematics, Princeton University, USA
 
     jtromp_AT_princeton_DOT_edu
 
