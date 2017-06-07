@@ -5,7 +5,7 @@
     - formerly at NORSAR, Norway
     - Department of Geosciences, Princeton University, USA
 
-    hngharti_AT_gmail_DOT_com
+    hgharti_AT_princeton_DOT_edu
 
 ## Leah Langer
     - Department of Geosciences, Princeton University, USA

@@ -7,7 +7,7 @@
 *  as possible. For this, source codes within the decompose folder of SPECFEM3D and cubit2specfem3d.py 
 *  need to be changed. 
 *
-*  @author Hom Nath Gharti (homnath_AT_princeton_DOT_edu)
+*  @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu)
 *
 * ## Dependencies:
 *  stringmanip.c

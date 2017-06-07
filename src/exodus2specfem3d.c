@@ -9,7 +9,7 @@
 *  which can be downloaded freely from
 *  https://www.unidata.ucar.edu/software/netcdf/
 *
-*  @author Hom Nath Gharti (homnath_AT_princeton_DOT_edu)
+*  @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu)
 *
 * ## Dependencies:
 *  stringmanip.c: string manipulation routines
