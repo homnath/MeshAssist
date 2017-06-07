@@ -34,9 +34,9 @@
 *There will be several output files:
 * - coord_? : total number of nodes followed by nodal coordinate ? (? -> x, y, z)
 *
-* -_connectivity : total number of elements followed by connectivity list
+* - _connectivity : total number of elements followed by connectivity list
 *
-* -_material_id : total number of elements followed by material IDs
+* - _material_id : total number of elements followed by material IDs
 *  
 * - ??bcu? : node IDs which have u? = 0 as the boundary conditions (?? -> ns or ss, ? -> x, y, z)
 */
