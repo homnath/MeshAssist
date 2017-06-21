@@ -735,7 +735,6 @@ if(dim_stat!=ON){
 
 if(ss_stat!=ON){
   printf("WARNING: side boundary conditions cannot be read!\n");
-  exit(-1);
 }
 if(con_stat!=ON){
   printf("ERROR: connectivity cannot be read!\n");
