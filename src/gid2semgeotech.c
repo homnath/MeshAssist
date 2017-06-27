@@ -5,27 +5,27 @@
 *  by the SPECFEM3D_GEOTECH package. GiD (www.gidhome.com) is a commercial pre
 *  and post processor for numerical simulations.
 *
-*  @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu)
+*  @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu), Zhenzhen Yan
 
 * ## Dependencies:
 *  stringmanip.c: string manipulation routines
 *
 * ## Compile:
 *  gcc gid2semgeotech.c -o gid2semgeotech
-*  
+*
 * ## Usage:
 *  gid2semgeotech <inputfile> <OPTIONS>
 *  Example: gid2semgeotech gid2semgeotech_example.dat
 *  or
 *  gid2semgeotech gid2semgeotech_example.dat -fac=0.001
-*  
+*
 * ## Options:
 * - -fac: use this option to multiply coordinates. this is importantn for unit
 *        conversion, e.g., to convert m to km use -fac=0.001
 * # Basic steps starting from GID:
 *
 * ### step1: export mesh file in ASCII format "mesh.dat"
-* 
+*
 * ### step2: produce mesh and BC files
 *  >>gid2semgeotech mesh.dat
 *  OR
@@ -37,7 +37,7 @@
 * - _connectivity : total number of elements followed by connectivity list
 *
 * - _material_id : total number of elements followed by material IDs
-*  
+*
 * - ??bcu? : node IDs which have u? = 0 as the boundary conditions (?? -> ns or ss, ? -> x, y, z)
 */
 #include <stdio.h>
@@ -59,26 +59,19 @@ int getfirstquote(char *, char *);
 
 /* main routine */
 int main(int argc,char **argv){
-int i,itmp,j,k;
+int i,j;
 int ielmt,iface,imat,inode,ix,iy,iz,n1,n2,n3,n4,n5,n6,n7,n8;
-int nelmt_bc,nface,nbcx,nbcy,nbcz;
+int nelmt_bc,nbcx,nbcy,nbcz;
 int ndim; /* geometry dimension */
 int nnode,nelmt; /* number of nodes, number of elements */
 int nblk,nns,nss; /* number of blocks, number of node sets */
 int elmt_count,node_count; /* element, node count */
 int blk_count,ns_count,ss_count; /* block, node set count */
-int ns_nbc; /* number of bc types in each node set */
-int ss_nbc; /* number of bc types in each side set */
 int dim_stat,ns_stat,ss_stat,con_stat,coord_stat,mat_stat; /* status */
-int *blk_nelmt,*blk_nenod; /* number of elements, number of nodes per element in each node */
-int *ns_nnode,*ss_nside; /* number of nodes in each node set */
 
 double fac,ftmp,x,y,z; /* multiplication factor for coordinates, temporary float */
-char *bulk,line[100],token[62],dumc[62],stag[62];
-char **coord_name; /* coordinates name */
+char *bulk,line[100],token[62];
 char fonly[62],infname[62],outfname[62],outfnamex[62],outfnamey[62],outfnamez[62];
-char **ns_name; /* node set names */
-char **ss_name; /* node set names */
 int ns_maxnbc; /* maximum number of BC types */
 int ss_maxnbc; /* maximum number of BC types */
 
@@ -92,7 +85,6 @@ int *ns_bc_nnode; /* number of nodes in each nodal bc */
 /* e.g., char *ss_bcname[4]={"ssbcux","ssbcuy","ssbcuz","ssbcfx"};*/
 char *ss_bcname[]={"ssbcux","ssbcuy","ssbcuz"};
 int *ss_bcfilestat;
-int *ss_elmt,*ss_side;
 int *ss_bc_nside; /* number of sides in each side bc */
 
 int gid2exodus[]={5,4,1,2,3,6};
@@ -100,7 +92,7 @@ int imatnum,idomain;
 double gamma,ym,nu,phi,coh,psi;
 int isbin; /* test if binary */
 
-FILE *inf,*tempf,*outf_dum,*outf_mat,*outf_con,*outf_coord[3],*outf_bc[3],**outf_nsbc,**outf_ssbc;
+FILE *inf,*tempf,*outf_mat,*outf_con,*outf_coord[3],*outf_bc[3],**outf_nsbc,**outf_ssbc;
 
 /* default factor and binary switch*/
 fac=1.0; isbin=OFF;
@@ -174,12 +166,12 @@ while(!feof(inf)){
   sscanf(line,"%s",token);
   /* read problem size */
   if(dim_stat!=ON && strcmp(token,"Number")==0){
-    fscanf(inf,"%d %d %d",&nelmt,&nnode,&nblk);     
-  
+    fscanf(inf,"%d %d %d",&nelmt,&nnode,&nblk);
+
     printf(" number of elements: %d\n",nelmt);
     printf(" number of nodes: %d\n",nnode);
     printf(" number of blocks: %d\n",nblk);
-    dim_stat=ON;     
+    dim_stat=ON;
     continue;
   }
   /* read and save coordinates */
@@ -205,7 +197,7 @@ while(!feof(inf)){
     fclose(outf_coord[0]);
     fclose(outf_coord[1]);
     fclose(outf_coord[2]);
-    
+
     coord_stat=ON;
     printf("complete!\n");
     continue;
@@ -255,7 +247,7 @@ while(!feof(inf)){
   if(strcmp(token,"$")==0 && strstr(line,"$ Boundary")!=NULL){
     printf("saving boundary conditions...");
     fgets(line,100,inf);/* discard this line */
-    
+
     tempf=fopen("temp_bc","w");
     nelmt_bc=0;
     nbcx=0;
@@ -287,9 +279,9 @@ while(!feof(inf)){
     }
     fclose(tempf);
     unlink("temp_bc");
-    fclose(outf_bc[0]);    
-    fclose(outf_bc[1]);    
-    fclose(outf_bc[2]);    
+    fclose(outf_bc[0]);
+    fclose(outf_bc[1]);
+    fclose(outf_bc[2]);
     printf("complete!\n");
     continue;
 exit(0);
@@ -310,9 +302,11 @@ if(dim_stat!=ON){
 }
 if(ns_stat!=ON){
   printf("WARNING: nodal boundary conditions cannot be read!\n");
+  exit(-1);
 }
 if(ss_stat!=ON){
   printf("WARNING: side boundary conditions cannot be read!\n");
+  exit(-1);
 }
 if(con_stat!=ON){
   printf("ERROR: connectivity cannot be read!\n");

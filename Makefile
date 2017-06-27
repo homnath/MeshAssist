@@ -11,9 +11,12 @@
 default: all
 
 all: createdir \
+     exodus2semgeotech \
+     exodusold2semgeotech \
      exodus2specfem2d \
      exodus2specfem3d \
      exodusold2specfem3d \
+     gid2semgeotech \
      gocad2vtu \
      vtk1d2jou \
      vtk2d2jou \
@@ -25,6 +28,12 @@ clean:
 createdir:
 	(mkdir -p bin; mkdir -p output)
 
+exodus2semgeotech:
+	(cd src; make $@)
+
+exodusold2semgeotech:
+	(cd src; make $@)
+
 exodus2specfem2d:
 	(cd src; make $@)
 
@@ -32,6 +41,9 @@ exodus2specfem3d:
 	(cd src; make $@)
 
 exodusold2specfem3d:
+	(cd src; make $@)
+
+gid2semgeotech:
 	(cd src; make $@)
 
 gocad2vtu:
