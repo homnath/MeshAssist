@@ -20,25 +20,27 @@
 *  gid2semgeotech gid2semgeotech_example.dat -fac=0.001
 *
 * ## Options:
-* - -fac: use this option to multiply coordinates. this is importantn for unit
-*        conversion, e.g., to convert m to km use -fac=0.001
+* - -fac: Use this option to multiply coordinates with a certain factor. This
+*         is useful for unit conversion, e.g., to convert m to km use:
+*         -fac=0.001
 * # Basic steps starting from GID:
 *
-* ### step1: export mesh file in ASCII format "mesh.dat"
+* ### step1: Export mesh file in ASCII format "mesh.dat"
 *
-* ### step2: produce mesh and BC files
+* ### step2: Produce mesh and BC files
 *  >>gid2semgeotech mesh.dat
 *  OR
 *  >>gid2semgeotech mesh.dat 1000.0
 *
 *There will be several output files:
-* - coord_? : total number of nodes followed by nodal coordinate ? (? -> x, y, z)
+* - coord_? : Total number of nodes followed by nodal coordinate ? (? -> x,y,z)
 *
-* - _connectivity : total number of elements followed by connectivity list
+* - _connectivity : Total number of elements followed by connectivity list
 *
-* - _material_id : total number of elements followed by material IDs
+* - _material_id : Total number of elements followed by material IDs
 *
-* - ??bcu? : node IDs which have u? = 0 as the boundary conditions (?? -> ns or ss, ? -> x, y, z)
+* - ??bcu? : node IDs which have u? = 0 as the boundary conditions
+*            (?? -> ns or ss, ? -> x,y,z)
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -69,9 +71,11 @@ int elmt_count,node_count; /* element, node count */
 int blk_count,ns_count,ss_count; /* block, node set count */
 int dim_stat,ns_stat,ss_stat,con_stat,coord_stat,mat_stat; /* status */
 
-double fac,ftmp,x,y,z; /* multiplication factor for coordinates, temporary float */
+double fac; /* multiplication factor for coordinates, temporary float */
+double ftmp,x,y,z;
 char *bulk,line[100],token[62];
-char fonly[62],infname[62],outfname[62],outfnamex[62],outfnamey[62],outfnamez[62];
+char fonly[62],infname[62],outfname[62],outfnamex[62],outfnamey[62],          \
+     outfnamez[62];
 int ns_maxnbc; /* maximum number of BC types */
 int ss_maxnbc; /* maximum number of BC types */
 
@@ -92,7 +96,8 @@ int imatnum,idomain;
 double gamma,ym,nu,phi,coh,psi;
 int isbin; /* test if binary */
 
-FILE *inf,*tempf,*outf_mat,*outf_con,*outf_coord[3],*outf_bc[3],**outf_nsbc,**outf_ssbc;
+FILE *inf,*tempf,*outf_mat,*outf_con,*outf_coord[3],*outf_bc[3],**outf_nsbc,  \
+     **outf_ssbc;
 
 /* default factor and binary switch*/
 fac=1.0; isbin=OFF;
@@ -188,7 +193,8 @@ while(!feof(inf)){
     fprintf(outf_coord[1],"%d\n",nnode);
     fprintf(outf_coord[2],"%d\n",nnode);
     for(i=0;i<nnode;i++){
-      fscanf(inf,"%d %lf %lf %lf",&inode,&x,&y,&z); /* read comma separated data */
+      fscanf(inf,"%d %lf %lf %lf",&inode,&x,&y,&z);
+      /* read comma separated data */
       fprintf(outf_coord[0],"%.15lf\n",fac*x);
       fprintf(outf_coord[1],"%.15lf\n",fac*y);
       fprintf(outf_coord[2],"%.15lf\n",fac*z);
@@ -236,8 +242,10 @@ while(!feof(inf)){
     outf_mat=fopen(outfname,"w");
     fprintf(outf_mat,"# material properties (id,domain,gamma,ym,nu,phi,coh,psi)\n");
     fprintf(outf_mat,"%d\n",nblk);
-    fscanf(inf,"%d %d %lf %lf %lf %lf %lf %lf",&imatnum,&idomain,&gamma,&ym,&nu,&phi,&coh,&psi);
-    fprintf(outf_mat,"%d %d %.6f %.6e %.6f %.6f %.6f %.6f\n",imatnum,idomain,gamma,ym,nu,phi,coh,psi);
+    fscanf(inf,"%d %d %lf %lf %lf %lf %lf %lf",&imatnum,&idomain,&gamma,&ym,  \
+      &nu,&phi,&coh,&psi);
+    fprintf(outf_mat,"%d %d %.6f %.6e %.6f %.6f %.6f %.6f\n",imatnum,idomain, \
+      gamma,ym,nu,phi,coh,psi);
     printf("complete!\n");
     fclose(outf_mat);
     continue;
@@ -324,4 +332,4 @@ if(coord_stat!=ON){
 printf("--------------------------------\n");
 return(0);
 }
-/*======================================*/
+/*===========================================================================*/
