@@ -15,7 +15,7 @@
 *  stringmanip.c: string manipulation routines
 *
 * ## Compile:
-*  gcc exodus2specfem3d.c -o trelis2specfem3d
+*  gcc exodus2specfem3d.c -o exodus2specfem3d
 *
 * ## Usage: 
 *  exodus2specfem3d <inputfile> [OPTIONS]
