@@ -11,13 +11,13 @@
 *  stringmanip.c: string manipulation routines
 *
 * ## Compile:
-*  gcc exodus2SPECFEM3D.c -o exodus2SPECFEM3D
+*  gcc exodusold2specfem3d.c -o exodusold2specfem3d
 *
 * ## Usage: 
-*  exodus2SPECFEM3D input_file [OPTIONS]
-*  Example: exodus2SPECFEM3D tunnel.txt
-*  or
-*  exodus2SPECFEM3D tunnel.e -fac=0.001 -bin=1
+*  exodusold2specfem3d input_file [OPTIONS] \n\n
+*  Example: exodusold2specfem3d tunnel.txt \n
+*  or \n
+*  exodusold2specfem3d tunnel.e -fac=0.001 -bin=1
 * ## Options:
 * - -fac: use this option to multiply coordinates. this is importantn for unit 
 *        conversion, e.g., to convert m to km use -fac=0.001

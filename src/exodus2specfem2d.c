@@ -16,13 +16,13 @@
  *    stringmanip.c: string manipulation routines
  *
  *  ## Compile:
- *    gcc trelis2specfem2d.c -o trelis2specfem2d -lm
+ *    gcc exodus2specfem2d.c -o exodus2specfem2d -lm
  *
  *  ## Usage: 
- *    trelis2specfem2d <inputfile> [OPTIONS]
- *    Example: trelis2specfem2d mesh.e -bin=1
- *    or
- *    trelis2specfem2d mesh.txt
+ *    exodus2specfem2d <inputfile> [OPTIONS] \n\n
+ *    Example: exodus2specfem2d mesh.e -bin=1 \n
+ *    or \n
+ *    exodus2specfem2d mesh.txt
  *
  *  ## Options:
  *
@@ -91,7 +91,7 @@
  *  ### Step 2: export mesh file as exodus file say "mesh.e" (always use 3D option!)
  *  
  *  ### Step 3: convert "mesh.e" to SPECFEM2D files
- *    >>trelis2specfem2d mesh.e -bin=1
+ *    >>exodus2specfem2d mesh.e -bin=1
  *  
  *  There will be several output files:
  *
