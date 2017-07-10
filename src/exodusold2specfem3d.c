@@ -66,7 +66,7 @@
 * ### step2: export mesh file as exodus file say "tunnel.e" (use 3D option)
 *
 * ### step3: convert "tunnel.e" to SPECFEM3D files
-*  >>exodus2specfem3d tunnel.e -bin=1
+*  >>exodusold2specfem3d tunnel.e -bin=1
 *
 *There will be several output files:
 * - nodes_coords_file : coordinates file => total number of nodes followed by 
