@@ -506,6 +506,10 @@ while(!feof(inf)){
 }
 fclose(inf);
 
+/* free memory */
+for(i=0;i<ndim;i++)free(coord_name[i]);
+free(coord_name);
+
 /* write coordinates file */
 printf("writing coordinates...");
 if(ndim==3)switch_coord[1]=OFF;                                             
