@@ -148,11 +148,13 @@ char **ss_name; /* node set names */
 /* change this line to look for other BCs in side sets */
 double normal[3],p[3][4];
 /* int fnod[6][4]={{1,2,6,5},{2,3,7,6},{3,4,8,7},{4,1,5,8},{2,1,4,3},{5,6,7,8}}; */ /* face nodes */
-int fnod[6][4]={{1,2,6,5},{2,3,7,6},{3,4,8,7},{1,5,8,4},{1,4,3,2},{5,6,7,8}}; /* face nodes */
+int fnod[6][4]={{1,2,6,5},{2,3,7,6},{3,4,8,7},{1,5,8,4},{1,4,3,2},{5,6,7,8}};
+/* face nodes */
 int igfnod,gfnod[4]; /* global face nodes */
 int nface_change;
 
-int count_sselmt,count_ssside,sumss_nelmt,*ss_elmt,*ss_side; /* total number of element in absorbing BC and free surface */
+int count_sselmt,count_ssside,sumss_nelmt,*ss_elmt,*ss_side;
+/* total number of element in absorbing BC and free surface */
 
 int isbin; /* test if binary */
 int ishead; /* option to add innput file header in the output file names */
@@ -499,6 +501,10 @@ while(!feof(inf)){
   
 }
 fclose(inf);
+
+/* free memory */
+for(i=0;i<ndim;i++)free(coord_name[i]);
+free(coord_name);
 
 /* write coordinates file */
 printf("writing coordinates...");
