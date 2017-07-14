@@ -235,9 +235,7 @@ outf_ssbc=malloc(ss_maxnbc*sizeof(FILE *));
 ss_bcfilestat=malloc(ss_maxnbc*sizeof(int));
 for(i=0;i<ss_maxnbc;i++)ss_bcfilestat[i]=0;
 ss_bc_nside=malloc(ss_maxnbc*sizeof(int));
-for(j=0;j<ss_maxnbc;j++){     
-  ss_bc_nside[j]=0;
-}
+for(j=0;j<ss_maxnbc;j++)ss_bc_nside[j]=0;
 fscanf(inf,"%s",token);
 if(strcmp(token,"netcdf")!=0){
   printf("ERROR: invalid exodus file or wrong -bin value!\n");
@@ -434,9 +432,8 @@ while(!feof(inf)){
         /* close bc files if writing has finished */
         if(ns_count==nns){
           /* free memory */
-          for(i=0;i<nns;i++){
-            free(ns_name[i]);
-          }
+          for(i=0;i<nns;i++)free(ns_name[i]);
+          free(ns_name);
           free(ns_bcfilestat);
           free(ns_nnode);
           ns_stat=ON;
@@ -581,9 +578,8 @@ while(!feof(inf)){
         /* close bc files if writing has finished */
         if(ss_count==nss){
           /* free memory */
-          for(i=0;i<nss;i++){
-            free(ss_name[i]);
-          }
+          for(i=0;i<nss;i++)free(ss_name[i]);
+          free(ss_name);
           free(ss_bcfilestat);      
           free(ss_nside);
           ss_stat=ON;
@@ -692,11 +688,9 @@ while(!feof(inf)){
         fclose(outf_coord[i]);
     }
     printf("complete!\n");
-    for(i=0;i<ndim;i++){
-        free(coord_name[i]);
-    }
+    for(i=0;i<ndim;i++)free(coord_name[i]);
     free(coord_name);
-    for(i=0;i<3;i++)free(coord[i]);
+    for(i=0;i<ndim;i++)free(coord[i]);
     free(coord);
   /* Coordinates */
   /*if(strcmp(token,"coord")==0){
@@ -777,4 +771,4 @@ if(coordz_stat!=ON){
 printf("--------------------------------\n");
 return(0);
 }
-/*======================================*/
+/*===========================================================================*/
