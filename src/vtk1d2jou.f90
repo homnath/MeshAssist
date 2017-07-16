@@ -43,7 +43,7 @@ character(len=10) :: dumc
 character(len=180) :: outjou_fname,inp_fname,outvtk_fname
 character(len=80) :: file_head,ext,path 
 
-!----input and initialisation----
+! Input and initialisation
 narg=command_argument_count()
 if (narg <= 0) then
   print*,'ERROR: no input file!'
@@ -177,7 +177,6 @@ deallocate(n1,n2)
 ! Processing for the creation of cubit journal file
 ! Neigbours of nodes in new system
 do i=0,nc-1
-  
   i1=elmt(i)%nod1
   i2=elmt(i)%nod2
   
@@ -186,18 +185,14 @@ do i=0,nc-1
   
   node(i1)%nelmt=node(i1)%nelmt+1
   node(i2)%nelmt=node(i2)%nelmt+1
-  
-  !print*,i1,i2,node(i1)%nelmt,node(i2)%nelmt
-  !stop
 end do
-!stop
+
 ! Count intersecting nodes
 nis=0
 do i=0,nump-1
   if(node(i)%nelmt>2)then
     node_is(nis)=i
     nis=nis+1
-    !print*,'Intersecting nodes',i,node(i)%nelmt
   end if
 end do
 
@@ -285,7 +280,6 @@ int_node: do i=0,nis-1
     end do inf_loop
     !print*,node(24)%elmt(0),node(24)%elmt(1)
     write(20,*)'create curve spline vertex ',curve(0:ncurve-1)+1
-    !stop
   end do int_elmt
 end do int_node
 
@@ -334,7 +328,6 @@ do i=0,nc-1
   end do
   write(20,*)'create curve spline vertex ',curve(0:ncurve-1)+1
   print*,i
-  !stop
 end do
 deallocate(node,elmt)
 

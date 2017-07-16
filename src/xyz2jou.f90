@@ -153,7 +153,6 @@ do
       if((isnx0.or.nc>1).and.(nx0.ne.nx))then        
         print*,'WARNING: number of Xpoints mismatch!'
         print*,'nx0:',nx0,' nx:',nx
-        !stop
       endif 
       x0=x; y0=y
       nx0=nx
@@ -170,7 +169,6 @@ do
     islastp=.true.
     islastc=.false.
   endif
-  !if(np==30000)stop
 enddo
 close(10)
 
