@@ -32,7 +32,7 @@
 *        that the command "ncdump" is in the path. The command "ncdump" is a 
 *        part of netCDF library that can be downloaded freely from 
 *        http://www.unidata.ucar.edu/downloads/netcdf/index.jsp.
-*        use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
+*        Use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
 *
 * ##Issues:
 * - - This does not work with older verion of CUBIT. For the older version use
