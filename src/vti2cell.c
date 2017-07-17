@@ -1,11 +1,12 @@
 /** @file vti2cell.c
 *  @brief This file converts VTI file to VTU file.
 *
-*  This program converts the 2D/3D Binary VTK XML .vti file to unstructured mesh files (.vtu).
-*  This program also generates the mesh files required by SPECFEM2D and SPECFEM3D. Note that the 
-*  file formats in SPECFEM2D and SPECFEM3D are different. This should be made same format as soon 
-*  as possible. For this, source codes within the decompose folder of SPECFEM3D and cubit2specfem3d.py 
-*  need to be changed. 
+*  This program converts the 2D/3D Binary VTK XML .vti file to unstructured 
+*  mesh files (.vtu). This program also generates the mesh files required by 
+*  SPECFEM2D and SPECFEM3D. Note that the file formats in SPECFEM2D and 
+*  SPECFEM3D are different. This should be made same format as soon as 
+*  possible. For this, source codes within the decompose folder of SPECFEM3D 
+*  and cubit2specfem3d.py need to be changed. 
 *
 *  @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu)
 *
@@ -88,8 +89,11 @@ int main(int argc,char **argv)
   int i_char,matid,nxmat,nchar,temp,*xmat,*new_matid;
   int step; /* coarsening factor */
   int xup,yup,zup; /* switch to indicate whether the z direction is up */
-  int ioff,off0; /* offset from off0, offset from beginning of file to where binary grid data starts in vti */
-  int idatum,isign,jdatum,jsign,kdatum,ksign; /* controllers of k index according to the z axis orientation (up or down)*/
+  int ioff,off0;
+  /* offset from off0, offset from beginning of file to where binary grid data
+     starts in vti */
+  int idatum,isign,jdatum,jsign,kdatum,ksign;
+  /* controllers of k index according to the z axis orientation (up or down)*/
   float mat[maxmat];
   float ox,oy,oz; /* Origin */
   float dx,dy,dz; /* Spacig */
@@ -97,7 +101,8 @@ int main(int argc,char **argv)
   float fac;  
   char byte_order[12],buffer[maxline],string[maxline],stag[maxline];
   char fonly[62],outfname[62],vname[62],vtype[62];
-  FILE *inf,*outf0,*outf1,*outf_abs,*outf_xmin,*outf_xmax,*outf_ymin,*outf_ymax,*outf_zmin,*outf_zmax;
+  FILE *inf,*outf0,*outf1,*outf_abs,*outf_xmin,*outf_xmax,*outf_ymin,         \
+  *outf_ymax,*outf_zmin,*outf_zmax;
   
   /* Actual parameters */   
   nvar = 5; /* Number of variable sets to be plotted in ParaView */  
@@ -120,7 +125,6 @@ int main(int argc,char **argv)
   
   if(argc>2){
     for(i=2;i<argc;i++){
-      /*printf("%s\n",argv[i]);*/
       if(matchfirstword(argv[i],"-fac")){
         getvalue(argv[i],"fac","f",(int *)&fac);
       }
@@ -145,7 +149,6 @@ int main(int argc,char **argv)
       }
 	  else if(matchfirstword(argv[i],"-xup")){
         getvalue(argv[i],"xup","d",&xup);
-        /*printf("%d\n",xup);*/
         if(xup == 0 || xup == 1){
           continue;
         }
@@ -156,7 +159,6 @@ int main(int argc,char **argv)
       }
 	  else if(matchfirstword(argv[i],"-yup")){
         getvalue(argv[i],"yup","d",&yup);
-        /*printf("%d\n",yup);*/
         if(yup == 0 || yup == 1){
           continue;
         }
@@ -167,7 +169,6 @@ int main(int argc,char **argv)
       }
       else if(matchfirstword(argv[i],"-zup")){
         getvalue(argv[i],"zup","d",&zup);
-        /*printf("%d\n",zup);*/
         if(zup == 0 || zup == 1){
           continue;
         }
@@ -219,11 +220,11 @@ int main(int argc,char **argv)
     printf("z direction: DOWN\n");
   }
   if(nxmat>0 && nxmat<=maxmat){
-        printf("Exclusion of certain region: YES [ ");
-        for(i=0;i<nxmat;i++){
-            printf("%d ",xmat[i]);
-        }
-        printf("]\n");
+    printf("Exclusion of certain region: YES [ ");
+    for(i=0;i<nxmat;i++){
+      printf("%d ",xmat[i]);
+    }
+      printf("]\n");
     }
   else {
     printf("exclusion of certain region: NO [*]\n");
@@ -321,8 +322,6 @@ int main(int argc,char **argv)
   if(nez==0)nez=1;
   nelmt=nex*ney*nez;
   
-  /*printf("%d %d %d %d %d %d\n",nx,ny,nz,nex,ney,nez);exit(-1);*/
-  
   /* Number of nodes */
   nnx=nex+1;
   nny=ney+1;
@@ -373,11 +372,6 @@ int main(int argc,char **argv)
   
   /* New origin */
   
-  
-  
-//printf("%f\n",dz);
-//exit(-1);
-
   /* always set origin at the bottom */
   /* Change origin from top to bottom if necessary */
   ox = ox-0.5*dx;
@@ -390,14 +384,14 @@ int main(int argc,char **argv)
     if(yup==0){
       dy=fabs(dy);    
       oy=oy-ney*(step*dy);
-	}
+	  }
   }
   if(ndim>2){
     oz = oz-0.5*dz;
-     if(zup==0){
-       dz=fabs(dz);    
-       oz=oz-nez*(step*dz);
-	 }
+    if(zup==0){
+      dz=fabs(dz);    
+      oz=oz-nez*(step*dz);
+	  }
   }
 
   /* new sampling nterval */
@@ -405,15 +399,15 @@ int main(int argc,char **argv)
   dy=step*dy;
   dz=step*dz;
   
-  /*printf("%f %f\n",dz,oz);exit(-1);*/
-  
   removeExtension(argv[1],fonly); 
   sprintf(outfname,"%s_mesh.vtu",fonly);
   
   outf0=fopen(outfname,"w");
 
   /* Bytes and offsets for ParaView file */ 
-  bytes[0] = (3*nnode)*sizeof(float);  /* Coordinates: in paraview both x, y, and z coordinates should be provided for all dimensions*/
+  bytes[0] = (3*nnode)*sizeof(float);i
+  /* Coordinates: in paraview both x, y, and z coordinates should be provided
+     for all dimensions */
   bytes[1] = (nenode*nelmt)*sizeof(int);  /* Connectivity */
   bytes[2] = (nelmt)*sizeof(int);     /* Offsets */
   bytes[3] = (nelmt)*sizeof(int);     /* Types */
@@ -464,17 +458,17 @@ int main(int argc,char **argv)
       for(i=0;i<nnx;i++){
         tempx=ox+i*dx; if(fac!=1.0)tempx*=fac;
         fwrite(&tempx,sizeof(float),1,outf0);
-		fwrite(&tempy,sizeof(float),1,outf0);
-		fwrite(&tempz,sizeof(float),1,outf0);
-		if(ndim==3){			       
-			fprintf(outf1,"%d %.6f %.6f %.6f\n",inode+1,tempx,tempy,tempz);
-		}
-		else if(ndim==2){       
-			fprintf(outf1,"%.6f %.6f\n",tempx,tempy);
-		}
-		else if(ndim==1){       
-			fprintf(outf1,"%.6f\n",tempx);
-		}
+        fwrite(&tempy,sizeof(float),1,outf0);
+        fwrite(&tempz,sizeof(float),1,outf0);
+        if(ndim==3){			       
+          fprintf(outf1,"%d %.6f %.6f %.6f\n",inode+1,tempx,tempy,tempz);
+        }
+        else if(ndim==2){       
+          fprintf(outf1,"%.6f %.6f\n",tempx,tempy);
+        }
+        else if(ndim==1){       
+          fprintf(outf1,"%.6f\n",tempx);
+        }
         inode++;
       }
     }
@@ -492,7 +486,8 @@ int main(int argc,char **argv)
 	  outf_xmax=fopen("absorbing_surface_file_xmax","w");
 	  outf_ymin=fopen("absorbing_surface_file_ymin","w");
 	  outf_ymax=fopen("absorbing_surface_file_ymax","w");
-	  outf_zmin=fopen("absorbing_surface_file_bottom","w"); /* for pyhaesalmi I will write both zmin and zmax in same file */
+	  outf_zmin=fopen("absorbing_surface_file_bottom","w");
+    /* for pyhaesalmi I will write both zmin and zmax in same file */
 	  printf("WARNING: top surface is saved as absorbing boundary and appended to bottom surface!\n");
 	  
 	  fprintf(outf_xmin,"%d\n",ney*nez);
@@ -512,76 +507,74 @@ int main(int argc,char **argv)
   for(k=0;k<nez;k++){
     for(j=0;j<ney;j++){
       for(i=0;i<nex;i++){
-		  if(ndim==3){
-			/* This segment is only valid for 8-noded hexahedron */       
-			enode[0]=k*nny*nnx+j*nnx+i;
-			enode[1]=enode[0]+1;
+        if(ndim==3){
+          /* This segment is only valid for 8-noded hexahedron */       
+          enode[0]=k*nny*nnx+j*nnx+i;
+          enode[1]=enode[0]+1;
 	  
-			enode[2]=enode[1]+nnx;
-			enode[3]=enode[0]+nnx;
+          enode[2]=enode[1]+nnx;
+          enode[3]=enode[0]+nnx;
 	  
-			enode[4]=enode[0]+nnx*nny;
-			enode[5]=enode[4]+1;
-	        
-			enode[6]=enode[5]+nnx;
-			enode[7]=enode[4]+nnx;
-			/*---------------------------------------------------*/
-		  }
-		  else if(ndim==2){
-			/* This segment is only valid for 4-noded quadrilateral */       
-			enode[0]=j*nnx+i;
-			enode[1]=enode[0]+1;
+          enode[4]=enode[0]+nnx*nny;
+          enode[5]=enode[4]+1;
+              
+          enode[6]=enode[5]+nnx;
+          enode[7]=enode[4]+nnx;
+          /*---------------------------------------------------*/
+        }
+        else if(ndim==2){
+          /* This segment is only valid for 4-noded quadrilateral */       
+          enode[0]=j*nnx+i;
+          enode[1]=enode[0]+1;
 	  
-			enode[2]=enode[1]+nnx;
-			enode[3]=enode[0]+nnx;
-			/*printf("%d %d %d %d\n",enode[0],enode[1],enode[2],enode[3]);*/
-			/*---------------------------------------------------*/
-		  }
-		  
+          enode[2]=enode[1]+nnx;
+          enode[3]=enode[0]+nnx;
+          /*---------------------------------------------------*/
+        }
         
         /* write absorbing boundary at xmin */
-		if(ndim==3){
-			if(i==0){
-			  fprintf(outf_xmin,"%d %d %d %d %d\n",ielmt+1,enode[3]+1,enode[0]+1,enode[4]+1,enode[7]+1);
-			}
-			/* write absorbing boundary at xmax */
-			if(i==nex-1){
-			  fprintf(outf_xmax,"%d %d %d %d %d\n",ielmt+1,enode[2]+1,enode[1]+1,enode[5]+1,enode[6]+1);
-			}
-			/* write absorbing boundary at ymin */
-			if(j==0){
-			  fprintf(outf_ymin,"%d %d %d %d %d\n",ielmt+1,enode[0]+1,enode[1]+1,enode[5]+1,enode[4]+1);
-			}
-			/* write absorbing boundary at ymin */
-			if(j==ney-1){
-			  fprintf(outf_ymax,"%d %d %d %d %d\n",ielmt+1,enode[3]+1,enode[2]+1,enode[6]+1,enode[7]+1);
-			}
-			/* write absorbing boundary at zmin */
-			if(k==0){
-			  fprintf(outf_zmin,"%d %d %d %d %d\n",ielmt+1,enode[0]+1,enode[1]+1,enode[2]+1,enode[3]+1);
-			}
-			/* write absorbing boundary at zmax */
-			if(k==nez-1){
-			  fprintf(outf_zmin,"%d %d %d %d %d\n",ielmt+1,enode[4]+1,enode[5]+1,enode[6]+1,enode[7]+1);
-			}
-		}
-		else if(ndim==2){
-			if(i==0){
-			  fprintf(outf_abs,"%d %d %d\n",ielmt+1,enode[0]+1,enode[3]+1);
-			}
-			/* write absorbing boundary at xmax */
-			if(i==nex-1){
-			  fprintf(outf_abs,"%d %d %d\n",ielmt+1,enode[1]+1,enode[2]+1);
-			}
-			/* write absorbing boundary at ymin */
-			if(j==0){
-			  fprintf(outf_abs,"%d %d %d\n",ielmt+1,enode[0]+1,enode[1]+1);
-			}
-			/* write absorbing boundary at ymin */
-			if(j==ney-1){
-			  fprintf(outf_abs,"%d %d %d\n",ielmt+1,enode[3]+1,enode[2]+1);
-			}
-		}
+        if(ndim==3){
+          if(i==0){
+            fprintf(outf_xmin,"%d %d %d %d %d\n",ielmt+1,enode[3]+1,enode[0]+1,enode[4]+1,enode[7]+1);
+          }
+          /* write absorbing boundary at xmax */
+          if(i==nex-1){
+            fprintf(outf_xmax,"%d %d %d %d %d\n",ielmt+1,enode[2]+1,enode[1]+1,enode[5]+1,enode[6]+1);
+          }
+          /* write absorbing boundary at ymin */
+          if(j==0){
+            fprintf(outf_ymin,"%d %d %d %d %d\n",ielmt+1,enode[0]+1,enode[1]+1,enode[5]+1,enode[4]+1);
+          }
+          /* write absorbing boundary at ymin */
+          if(j==ney-1){
+            fprintf(outf_ymax,"%d %d %d %d %d\n",ielmt+1,enode[3]+1,enode[2]+1,enode[6]+1,enode[7]+1);
+          }
+          /* write absorbing boundary at zmin */
+          if(k==0){
+            fprintf(outf_zmin,"%d %d %d %d %d\n",ielmt+1,enode[0]+1,enode[1]+1,enode[2]+1,enode[3]+1);
+          }
+          /* write absorbing boundary at zmax */
+          if(k==nez-1){
+            fprintf(outf_zmin,"%d %d %d %d %d\n",ielmt+1,enode[4]+1,enode[5]+1,enode[6]+1,enode[7]+1);
+          }
+        }
+        else if(ndim==2){
+          if(i==0){
+            fprintf(outf_abs,"%d %d %d\n",ielmt+1,enode[0]+1,enode[3]+1);
+          }
+          /* write absorbing boundary at xmax */
+          if(i==nex-1){
+            fprintf(outf_abs,"%d %d %d\n",ielmt+1,enode[1]+1,enode[2]+1);
+          }
+          /* write absorbing boundary at ymin */
+          if(j==0){
+            fprintf(outf_abs,"%d %d %d\n",ielmt+1,enode[0]+1,enode[1]+1);
+          }
+          /* write absorbing boundary at ymin */
+          if(j==ney-1){
+            fprintf(outf_abs,"%d %d %d\n",ielmt+1,enode[3]+1,enode[2]+1);
+          }
+        }
 
         fprintf(outf1,"%d ",ielmt+1);
         for(ienode=0;ienode<nenode;ienode++){
@@ -614,7 +607,6 @@ int main(int argc,char **argv)
   for(i=0;i<nelmt;i++){
     temp+=nenode;
     fwrite(&temp,sizeof(int),1,outf0);
-
   }
   printf("offsets: SUCCESS\n");
   
@@ -642,11 +634,11 @@ int main(int argc,char **argv)
   for(ki=0;ki<nz;ki+=step){
     k=kdatum+ksign*ki;
     for(ji=0;ji<ny;ji+=step){
-	  j=jdatum+jsign*ji;
+      j=jdatum+jsign*ji;
       for(ii=0;ii<nx;ii+=step){
         i=idatum+isign*ii;
-		ioff=sizeof(float)*(k*ny*nx+j*nx+i);/*printf("%d\n",ioff); exit(-1);*/
-		fseek(inf,off0+ioff,SEEK_SET);
+        ioff=sizeof(float)*(k*ny*nx+j*nx+i);/*printf("%d\n",ioff); exit(-1);*/
+        fseek(inf,off0+ioff,SEEK_SET);
         fread(&tempx,sizeof(float),1,inf);          
         fwrite(&tempx,sizeof(float),1,outf0);
         fwrite(&tempx,sizeof(float),1,outf1);
@@ -683,32 +675,31 @@ int main(int argc,char **argv)
 
   /* sort the material designation in ascending order and diplay */ 
   qsort(mat,nmat,sizeof(float),comp_float);
-  /*for(i=0;i<nmat;i++)printf("material %d: %f\n",i+1,mat[i]);*/
   printf("material properties: num=%d, min=%f, max=%f\n",nmat,mat[0],mat[nmat-1]);
 
   /* new material ID after exclusion */
-    new_matid=malloc(nmat*sizeof(int));
-    for(i=0;i<nmat;i++){
-        new_matid[i]=i+1;		
+  new_matid=malloc(nmat*sizeof(int));
+  for(i=0;i<nmat;i++){
+    new_matid[i]=i+1;		
+  }
+  for(i=0;i<nxmat;i++){
+    if(xmat[i]<1 || xmat[i]>nmat){
+      printf("ERROR: exclusion material ID: %d is outside the range: [%d %d]\n",xmat[i],1,nmat);
+      exit(-1);
+    }		
+    new_matid[xmat[i]-1]=OFF;
+  }
+  matid=0;
+  for(i=0;i<nmat;i++){		
+    if(new_matid[i]>OFF){
+      matid++;
+      new_matid[i]=matid;
     }
-    for(i=0;i<nxmat;i++){
-        if(xmat[i]<1 || xmat[i]>nmat){
-            printf("ERROR: exclusion material ID: %d is outside the range: [%d %d]\n",xmat[i],1,nmat);
-            exit(-1);
-        }		
-        new_matid[xmat[i]-1]=OFF;
-    }
-    matid=0;
-    for(i=0;i<nmat;i++){		
-        if(new_matid[i]>OFF){
-            matid++;
-            new_matid[i]=matid;
-        }
-    }
-    if(matid<=0){
-        printf("WARNING: all material regions cannot be excluded! Nothing will be excluded!\n");
-        nxmat=0;
-    }
+  }
+  if(matid<=0){
+    printf("WARNING: all material regions cannot be excluded! Nothing will be excluded!\n");
+    nxmat=0;
+  }
   
   inf=fopen("materials_val","rb");
   outf1=fopen("materials_file","w");
@@ -736,16 +727,16 @@ int main(int argc,char **argv)
         }
         
         if(nxmat>0){ /* Exclusion of material */
-            if(new_matid[elmt_mat[ielmt]-1]>OFF){
-                new_nelmt++;
-                estat[ielmt]=ON;
-                for(inode=0;inode<nenode;inode++)nstat[elmt_node[ielmt][inode]]=ON;
-            }
-            /*if(tempx != mat[xmat[1]-1]){
-                new_nelmt++;
-                estat[ielmt]=ON;
-                for(inode=0;inode<nenode;inode++)nstat[elmt_node[ielmt][inode]]=ON;
-            }*/
+          if(new_matid[elmt_mat[ielmt]-1]>OFF){
+            new_nelmt++;
+            estat[ielmt]=ON;
+            for(inode=0;inode<nenode;inode++)nstat[elmt_node[ielmt][inode]]=ON;
+          }
+          /*if(tempx != mat[xmat[1]-1]){
+              new_nelmt++;
+              estat[ielmt]=ON;
+              for(inode=0;inode<nenode;inode++)nstat[elmt_node[ielmt][inode]]=ON;
+          }*/
         }
         ielmt++;
       }
@@ -892,7 +883,7 @@ int main(int argc,char **argv)
   }
   else{
 	  outf_abs=fopen("absorbing_surface_file_xmat","w");  
-      printf("WARNING: all periphery is saved as absorbing boundary surface!\n");
+    printf("WARNING: all periphery is saved as absorbing boundary surface!\n");
 
 	  /* this must be modified if the boundaries are not intact after the exclusion of certain region/s */
 	  fprintf(outf_abs,"%d\n",2*(nex+ney));
@@ -908,16 +899,16 @@ int main(int argc,char **argv)
       for(i=0;i<nex;i++){
         /*for(i=0;i<nelmt;i++){*/
         /* node number just follows represents the numbering starting from 1 */
-		if(ndim==3){
+        if(ndim==3){
           fscanf(inf,"%d %d %d %d %d %d %d %d %d\n",&dumi,&enode[0],&enode[1],&enode[2],&enode[3],&enode[4],&enode[5],&enode[6],&enode[7]);
-		}
-		else if(ndim==2){
+        }
+        else if(ndim==2){
           fscanf(inf,"%d %d %d %d %d\n",&dumi,&enode[0],&enode[1],&enode[2],&enode[3]);
-		}
-		else if(ndim==1){
+        }
+        else if(ndim==1){
           fscanf(inf,"%d %d %d\n",&dumi,&enode[0],&enode[1]);
-		}
-		//exit(-1);
+        }
+        //exit(-1);
         if(estat[ielmt]==ON){
           /* nmir was determined based on the numbering starting from 0 but SPECFEM uses node number starting from 1 */       
           /* write connectivity considering mirror points to new nodes */
@@ -1062,4 +1053,4 @@ int main(int argc,char **argv)
 
   return(0);
 }
-
+/*============================================================================*/

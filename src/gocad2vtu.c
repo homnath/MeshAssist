@@ -213,7 +213,6 @@ int main(int argc,char **argv)
 			fread(&enod[j],sizeof(int),1,inf);
 			enod[j]--;
 			fwrite(&enod[j],sizeof(int),1,outf0);
-			/*printf("%d %d %d\n",enod[0],enod[1],enod[2]);*/
 			/*fprintf(outf_vtk,"4 %d %d %d\n",enod[0],enod[1],enod[2]);*/
 		}
 	}
@@ -252,3 +251,4 @@ int main(int argc,char **argv)
 
 	return(0);
 }
+/*=============================================================================*/
