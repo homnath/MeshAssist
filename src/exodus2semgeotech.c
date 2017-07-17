@@ -24,11 +24,11 @@
 *
 * ## Options:
 *
-* - -fac: use this option to multiply coordinates with some factor. this is 
+* - -fac: Use this option to multiply coordinates with some factor. This is 
 *        important for unit 
 *        conversion, e.g., to convert m to km use -fac=0.001 [DEFAULT 1]
 *
-* - -bin: use this option if you want to convert exodus binary directly, provided
+* - -bin: Use this option if you want to convert exodus binary directly, provided
 *        that the command "ncdump" is in the path. The command "ncdump" is a 
 *        part of netCDF library that can be downloaded freely from 
 *        http://www.unidata.ucar.edu/downloads/netcdf/index.jsp.
@@ -41,18 +41,18 @@
 * # Basic steps starting from the CUBIT/TRELIS:
 *
 * ### step 1: prepare mesh in TRELIS/CUBIT
-* - define material regions using "Blocks"
+* - Define material regions using "Blocks"
 *   For example:
 *   block 1 add volume 1
 *   block 2 add volume 2 3
 * 
 *   will assign material region 1 to volume 1 and material region 2 to volumes 2
 *   and 3. These material regions will be used to define material properties in
-*   "nummaterial_velocity_file". this program will NOT generate 
-*   "nummaterial_velocity_file". the file "nummaerial_veolicty_file" must be
+*   "nummaterial_velocity_file". This program will NOT generate 
+*   "nummaterial_velocity_file". The file "nummaerial_veolicty_file" must be
 *   created to run SPECFEM3D!
 * 
-* - define surface boundary conditions using "Nodesets" or "Sidesets"
+* - Define surface boundary conditions using "Nodesets" or "Sidesets"
 * -- nodal boundary conditions must be defined using node set
   -> each node set name must contain the corresponding BC names as defined in 
   char *ns_bcname[] below

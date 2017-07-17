@@ -25,26 +25,26 @@
 *
 * ## Options:
 *
-* - -fac: use this option to multiply coordinates with some factor. this is 
+* - -fac: Use this option to multiply coordinates with some factor. This is 
 *        important for unit 
 *        conversion, e.g., to convert m to km use -fac=0.001 [DEFAULT 1]
 *
-* - -bin: use this option if you want to convert exodus binary directly, provided
+* - -bin: Use this option if you want to convert exodus binary directly, provided
 *        that the command "ncdump" is in the path. The command "ncdump" is a 
 *        part of netCDF library that can be downloaded freely from 
 *        http://www.unidata.ucar.edu/downloads/netcdf/index.jsp.
 *        use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
 *
-* - -norm: use this option to check the normal of the faces in order to make sure
-*        that the surface nodes are in the right order. use -norm=1 for checking
-*        or -norm=0 for no checking [DEFAULT 0]. normally this is not necessary.
+* - -norm: Use this option to check the normal of the faces in order to make sure
+*        that the surface nodes are in the right order. Use -norm=1 for checking
+*        or -norm=0 for no checking [DEFAULT 0]. Normally this is not necessary.
 *
-* - -head: use this option to attach head of input file to output file names. 
-*        use -head=1 to attach header or -head=0 not to attach  [DEFAULT 0]
+* - -head: Use this option to attach head of input file to output file names. 
+*        Use -head=1 to attach header or -head=0 not to attach  [DEFAULT 0]
 *
-* - -tomo: use this option for tomography model. Since tomography model uses
+* - -tomo: Use this option for tomography model. Since tomography model uses
 *        negative identifiers, this option will write negative block IDs. 
-*        use -tomo=1 to make negative block IDs or -tomo=0 not to make
+*        Use -tomo=1 to make negative block IDs or -tomo=0 not to make
 *        [DEFAULT 0]
 *
 * ##Issues:
@@ -54,18 +54,18 @@
 * # Basic steps starting from the TRELIS:
 *
 * ### step 1: prepare mesh in TRELIS/CUBIT
-* - define material regions using "Blocks"
+* - Define material regions using "Blocks"
 *   For example:
 *   block 1 add volume 1
 *   block 2 add volume 2 3
 * 
 *   will assign material region 1 to volume 1 and material region 2 to volumes 2
 *   and 3. These material regions will be used to define material properties in
-*   "nummaterial_velocity_file". this program will NOT generate 
-*   "nummaterial_velocity_file". the file "nummaerial_veolicty_file" must be
+*   "nummaterial_velocity_file". This program will NOT generate 
+*   "nummaterial_velocity_file". The file "nummaerial_veolicty_file" must be
 *   created to run SPECFEM3D!
 * 
-* - define surface boundary conditions using "Sidesets"
+* - Define surface boundary conditions using "Sidesets"
 *   
 *   For example:
 *   sideset 1 add surface 1

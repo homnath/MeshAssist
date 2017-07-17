@@ -26,42 +26,42 @@
  *
  *  ## Options:
  *
- *    - -fac: use this option to multiply coordinates with some factor. this is 
+ *    - -fac: Use this option to multiply coordinates with some factor. this is 
  *          important for unit 
  *          conversion, e.g., to convert m to km use -fac=0.001 [DEFAULT 1]
  *
- *    - -bin: use this option if you want to convert exodus binary directly, provided
+ *    - -bin: Use this option if you want to convert exodus binary directly, provided
  *          that the command "ncdump" is in the path. The command "ncdump" is a 
  *          part of netCDF library that can be downloaded freely from 
  *          http://www.unidata.ucar.edu/downloads/netcdf/index.jsp.
  *          use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
  *
- *    - -order: use this option to check the connectivity order and make sure that
- *          the connectivity is in counterclockwise order. use -order=1 for
+ *    - -order: Use this option to check the connectivity order and make sure that
+ *          the connectivity is in counterclockwise order. Use -order=1 for
  *          checking or -order=0 for no checking [DEFAULT 0].
  *
- *    - -head: use this option to attach head of input file to output file names. 
- *          use -head=1 to attach header or -head=0 not to attach  [DEFAULT 0]
+ *    - -head: Use this option to attach head of input file to output file names. 
+ *          Use -head=1 to attach header or -head=0 not to attach  [DEFAULT 0]
  *
- *    - -tomo: use this option for tomography model. Since tomography model uses
+ *    - -tomo: Use this option for tomography model. Since tomography model uses
  *           negative identifiers, this option will write negative block IDs. 
- *          use -tomo=1 to make negative block IDs or -tomo=0 not to make
+ *          Use -tomo=1 to make negative block IDs or -tomo=0 not to make
  *          [DEFAULT 0]
  *
  *  # Basic steps starting from TRELIS:
  *  
  *  ### Step 1: prepare mesh in TRELIS/CUBIT
- *  - define material regions using "Blocks"
+ *  - Define material regions using "Blocks"
  *    For example:
  *    block 1 add surface 1
  *    block 2 add surface 2 3
  *  
  *    will assign material region 1 to surface 1 and material region 2 to
  *    surfaces 2 and 3. These material regions will be used to define material
- *    properties in "Par_file". this program will NOT generate "Par_file".
+ *    properties in "Par_file". This program will NOT generate "Par_file".
  *    The file "Par_file" must be created to run SPECFEM2D!
  *  
- *  - define element type to be QUAD4
+ *  - Define element type to be QUAD4
  *    For example:
  *    block all element type quad4
  *  
@@ -72,7 +72,7 @@
  *    Make sure that the node ordering is strictly anticlockwise
  *    (no longer necessary!) for all the elements in CUBIT.
  *  
- *  - define surface boundary conditions using "Sidesets"
+ *  - Define surface boundary conditions using "Sidesets"
  *    
  *    For example:
  *    sideset 1 add curve 1
