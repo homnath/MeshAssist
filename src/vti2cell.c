@@ -885,7 +885,8 @@ int main(int argc,char **argv)
 	  outf_abs=fopen("absorbing_surface_file_xmat","w");  
     printf("WARNING: all periphery is saved as absorbing boundary surface!\n");
 
-	  /* this must be modified if the boundaries are not intact after the exclusion of certain region/s */
+	  /* this must be modified if the boundaries are not intact after the 
+    exclusion of certain region/s */
 	  fprintf(outf_abs,"%d\n",2*(nex+ney));
 	  printf("WARNING: boundaries are assumed to be intact!\n");
   }
@@ -900,69 +901,79 @@ int main(int argc,char **argv)
         /*for(i=0;i<nelmt;i++){*/
         /* node number just follows represents the numbering starting from 1 */
         if(ndim==3){
-          fscanf(inf,"%d %d %d %d %d %d %d %d %d\n",&dumi,&enode[0],&enode[1],&enode[2],&enode[3],&enode[4],&enode[5],&enode[6],&enode[7]);
+          fscanf(inf,"%d %d %d %d %d %d %d %d %d\n",&dumi,&enode[0],&enode[1],\
+          &enode[2],&enode[3],&enode[4],&enode[5],&enode[6],&enode[7]);
         }
         else if(ndim==2){
-          fscanf(inf,"%d %d %d %d %d\n",&dumi,&enode[0],&enode[1],&enode[2],&enode[3]);
+          fscanf(inf,"%d %d %d %d %d\n",&dumi,&enode[0],&enode[1],&enode[2],  \
+          &enode[3]);
         }
         else if(ndim==1){
           fscanf(inf,"%d %d %d\n",&dumi,&enode[0],&enode[1]);
         }
-        //exit(-1);
         if(estat[ielmt]==ON){
-          /* nmir was determined based on the numbering starting from 0 but SPECFEM uses node number starting from 1 */       
+          /* nmir was determined based on the numbering starting from 0 but 
+          SPECFEM uses node number starting from 1 */       
           /* write connectivity considering mirror points to new nodes */
           fprintf(outf1,"%d ",inew_elmt+1);
           for(ienode=0;ienode<nenode;ienode++){
-            enode[ienode]=nmir[enode[ienode]-1]; /* nmir was determined based on the numbering starting from 0 */
+            enode[ienode]=nmir[enode[ienode]-1];
+            /* nmir was determined based on the numbering starting from 0 */
             fwrite(&enode[ienode],sizeof(int),1,outf0);
-            fprintf(outf1,"%d ",enode[ienode]+1); /* SPECFEM uses node number starting from 1 not 0 */
+            fprintf(outf1,"%d ",enode[ienode]+1);
+            /* SPECFEM uses node number starting from 1 not 0 */
             if(ienode==nenode-1)fprintf(outf1,"\n");
           }
-		  if(ndim==3){
-			  /* write absorbing boundary at xmin */
-			  if(i==0){
-				fprintf(outf_xmin,"%d %d %d %d %d\n",inew_elmt+1,enode[3]+1,enode[0]+1,enode[4]+1,enode[7]+1);
-			  }
-			  /* write absorbing boundary at xmax */
-			  if(i==nex-1){
-				fprintf(outf_xmax,"%d %d %d %d %d\n",inew_elmt+1,enode[2]+1,enode[1]+1,enode[5]+1,enode[6]+1);
-			  }
-			  /* write absorbing boundary at ymin */
-			  if(j==0){
-				fprintf(outf_ymin,"%d %d %d %d %d\n",inew_elmt+1,enode[0]+1,enode[1]+1,enode[5]+1,enode[4]+1);
-			  }
-			  /* write absorbing boundary at ymin */
-			  if(j==ney-1){
-				fprintf(outf_ymax,"%d %d %d %d %d\n",inew_elmt+1,enode[3]+1,enode[2]+1,enode[6]+1,enode[7]+1);
-			  }
-			  /* write absorbing boundary at zmin */
-			  if(k==0){
-				fprintf(outf_zmin,"%d %d %d %d %d\n",inew_elmt+1,enode[0]+1,enode[1]+1,enode[2]+1,enode[3]+1);
-			  }
-			  /* write absorbing boundary at zmax */
-			  if(k==nez-1){
-				fprintf(outf_zmin,"%d %d %d %d %d\n",inew_elmt+1,enode[4]+1,enode[5]+1,enode[6]+1,enode[7]+1);
-			  }
-		  }
-		  else if(ndim==2){
-			  /* write absorbing boundary at xmin */
-			  if(i==0){
-				fprintf(outf_abs,"%d %d %d\n",inew_elmt+1,enode[0]+1,enode[3]+1);
-			  }
-			  /* write absorbing boundary at xmax */
-			  if(i==nex-1){
-				fprintf(outf_abs,"%d %d %d\n",inew_elmt+1,enode[1]+1,enode[2]+1);
-			  }
-			  /* write absorbing boundary at ymin */
-			  if(j==0){
-				fprintf(outf_abs,"%d %d %d\n",inew_elmt+1,enode[0]+1,enode[1]+1);
-			  }
-			  /* write absorbing boundary at ymin */
-			  if(j==ney-1){
-				fprintf(outf_abs,"%d %d %d\n",inew_elmt+1,enode[3]+1,enode[2]+1);
-			  }
-		  }
+          if(ndim==3){
+            /* write absorbing boundary at xmin */
+            if(i==0){
+              fprintf(outf_xmin,"%d %d %d %d %d\n",inew_elmt+1,enode[3]+1,    \
+              enode[0]+1,enode[4]+1,enode[7]+1);
+            }
+            /* write absorbing boundary at xmax */
+            if(i==nex-1){
+              fprintf(outf_xmax,"%d %d %d %d %d\n",inew_elmt+1,enode[2]+1,    \
+              enode[1]+1,enode[5]+1,enode[6]+1);
+            }
+            /* write absorbing boundary at ymin */
+            if(j==0){
+              fprintf(outf_ymin,"%d %d %d %d %d\n",inew_elmt+1,enode[0]+1,    \
+              enode[1]+1,enode[5]+1,enode[4]+1);
+            }
+            /* write absorbing boundary at ymin */
+            if(j==ney-1){
+              fprintf(outf_ymax,"%d %d %d %d %d\n",inew_elmt+1,enode[3]+1,    \
+              enode[2]+1,enode[6]+1,enode[7]+1);
+            }
+            /* write absorbing boundary at zmin */
+            if(k==0){
+              fprintf(outf_zmin,"%d %d %d %d %d\n",inew_elmt+1,enode[0]+1,    \
+              enode[1]+1,enode[2]+1,enode[3]+1);
+            }
+            /* write absorbing boundary at zmax */
+            if(k==nez-1){
+              fprintf(outf_zmin,"%d %d %d %d %d\n",inew_elmt+1,enode[4]+1,    \
+              enode[5]+1,enode[6]+1,enode[7]+1);
+            }
+          }
+          else if(ndim==2){
+            /* write absorbing boundary at xmin */
+            if(i==0){
+              fprintf(outf_abs,"%d %d %d\n",inew_elmt+1,enode[0]+1,enode[3]+1);
+            }
+            /* write absorbing boundary at xmax */
+            if(i==nex-1){
+              fprintf(outf_abs,"%d %d %d\n",inew_elmt+1,enode[1]+1,enode[2]+1);
+            }
+            /* write absorbing boundary at ymin */
+            if(j==0){
+              fprintf(outf_abs,"%d %d %d\n",inew_elmt+1,enode[0]+1,enode[1]+1);
+            }
+            /* write absorbing boundary at ymin */
+            if(j==ney-1){
+              fprintf(outf_abs,"%d %d %d\n",inew_elmt+1,enode[3]+1,enode[2]+1);
+            }
+          }
           inew_elmt++;        
         }
         ielmt++;        
@@ -994,7 +1005,6 @@ int main(int argc,char **argv)
   for(i=0;i<new_nelmt;i++){
     temp+=nenode;
     fwrite(&temp,sizeof(int),1,outf0);
-
   }
   printf("offsets: SUCCESS\n");
   
@@ -1053,4 +1063,4 @@ int main(int argc,char **argv)
 
   return(0);
 }
-/*============================================================================*/
+/*===========================================================================*/
