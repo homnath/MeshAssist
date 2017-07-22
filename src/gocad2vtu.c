@@ -33,7 +33,6 @@
 *	- This program automatically identify the endianness and write the output
 *  accordingly. Hence if you run and process/visualize .vtu file in the
 *  architecture with different endianness there may be an error. 
-*
 */
 #include <stdio.h>
 #include <stdlib.h>

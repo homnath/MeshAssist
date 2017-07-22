@@ -33,8 +33,10 @@ integer,parameter :: kreal=selected_real_kind(12)
 character(len=180) :: cubit_fname,inp_fname,out_fname
 character(len=80) :: file_head,ext,strblk,path 
 integer :: ierr,ip1,ip2,narg,nx,nx0,npx
-integer :: np,npw ! total points, total points written
-integer :: nc,ncw ! total curves, total curves written
+! total points, total points written
+integer :: np,npw
+! total curves, total curves written
+integer :: nc,ncw
 integer :: ipskip,icskip
 integer :: i_arg,itmp,istat,nskip
 ! tolerance for straight-line slope discrepancy
@@ -210,3 +212,4 @@ close(20)
 print*,'Complete!'
 stop
 end program xyz2jou
+!==============================================================================
