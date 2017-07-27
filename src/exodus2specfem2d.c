@@ -93,7 +93,7 @@
  *  ### Step 2: export mesh file as exodus file say "mesh.e" (always use 3D option!)
  *  
  *  ### Step 3: convert "mesh.e" to SPECFEM2D files
- *    $ exodus2specfem2d mesh.e -bin=1
+ *    exodus2specfem2d mesh.e -bin=1
  *  
  *  There will be several output files:
  *
