@@ -42,8 +42,9 @@
 *
 * ### step 1: prepare mesh in TRELIS/CUBIT
 * - Define material regions using "Blocks"
-*   For example:
-*   block 1 add volume 1
+*
+*   For example:\n
+*   block 1 add volume 1\n
 *   block 2 add volume 2 3
 * 
 *   will assign material region 1 to volume 1 and material region 2 to volumes 2
@@ -55,15 +56,15 @@
 * - Define surface boundary conditions using "Nodesets" or "Sidesets"
 * -- nodal boundary conditions must be defined using node set
   -> each node set name must contain the corresponding BC names as defined in 
-  char *ns_bcname[] below
+  char *ns_bcname[] below\n
   e.g., node set name can be front_nsbcux or front_nsbcux_nsbcuy etc.
 * -- surface boundary conditions must be defined using side set
   -> each side set name must contain the corresponding BC names as defined in 
-  char *ss_bcname[] below
+  char *ss_bcname[] below\n
   e.g., side set name can be front_ssbcux or front_ssbcux_ssbcuy etc.
 
-*   For example:
-*   sideset 1 add surface 1
+*   For example:\n
+*   sideset 1 add surface 1\n
 *   sideset 1 name 'bottom_ssbcux_ssbcuy_ssbcuz'
 * 
 *   will define a surface in which all displacement components are prescribed.
