@@ -36,8 +36,9 @@
 *
 * ### step 1: prepare mesh in CUBIT
 * - define material regions using "Blocks"
-*  For example:
-*  block 1 add volume 1
+*
+*  For example:\n 
+*  block 1 add volume 1\n
 *  block 2 add volume 2 3
 *
 *  will assign material region 1 to volume 1 and material region 2 to volumes 2
@@ -48,13 +49,14 @@
 *
 *- define surface boundary conditions using "Sidesets"
 *  
-*  For example:
-*  sideset 1 add surface 1
+*  For example:\n
+*  sideset 1 add surface 1\n
 *  sideset 1 name 'free_or_absorbing_surface_file_zmax'
 *
 *  will define a free or absorbing surface boundary condition on surface 1 which
-*  lies at the top of the volume (zmax). similary,  
-*  sideset 2 add surface 3
+*  lies at the top of the volume (zmax). similary, 
+*
+*  sideset 2 add surface 3\n
 *  sideset 2 name 'absorbing_surface_file_bottom'
 *  
 *  will define absorbing boundary condition on the surface 3 which lies at the
@@ -66,7 +68,7 @@
 * ### step2: export mesh file as exodus file say "tunnel.e" (use 3D option)
 *
 * ### step3: convert "tunnel.e" to SPECFEM3D files
-*  >>exodusold2specfem3d tunnel.e -bin=1
+*  exodusold2specfem3d tunnel.e -bin=1
 *
 *There will be several output files:
 * - nodes_coords_file : coordinates file => total number of nodes followed by 
