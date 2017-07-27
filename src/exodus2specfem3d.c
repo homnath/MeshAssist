@@ -55,8 +55,9 @@
 *
 * ### step 1: prepare mesh in TRELIS/CUBIT
 * - Define material regions using "Blocks"
-*   For example:
-*   block 1 add volume 1
+*
+*   For example:\n
+*   block 1 add volume 1\n
 *   block 2 add volume 2 3
 * 
 *   will assign material region 1 to volume 1 and material region 2 to volumes 2
@@ -67,13 +68,14 @@
 * 
 * - Define surface boundary conditions using "Sidesets"
 *   
-*   For example:
-*   sideset 1 add surface 1
+*   For example:\n
+*   sideset 1 add surface 1\n
 *   sideset 1 name 'free_or_absorbing_surface_file_zmax'
 * 
 *   will define a free or absorbing surface boundary condition on surface 1 which
-*   lies at the top of the volume (zmax). similary,  
-*   sideset 2 add surface 3
+*   lies at the top of the volume (zmax). similary,
+*
+*   sideset 2 add surface 3\n
 *   sideset 2 name 'absorbing_surface_file_bottom'
 *   
 *   will define absorbing boundary condition on the surface 3 which lies at the
