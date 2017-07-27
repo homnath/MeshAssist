@@ -1,35 +1,29 @@
-% FILE
-%   dxf2jou.m
-% PURPOSE
-%   This function converts AUTOCAD 2000 (other ?) DXF ASCII file to a
-%   CUBIT/Trelis journal file, and optionally to a ParaView/VTK VTU ASCII
-%   file --- a unstructured mesh files (.vtu). The function extracts only
-%   the faces represented by 'AcDbFace' tokens in the DXF file.
-% RUN
-%   dxf2jou(inpfname, [save_vtu])
-%   Example:
-%   dxf2jou('../input/dxf2jou_example.dxf')
-%   OR
-%   dxf2jou('../input/dxf2jou_example.dxf',1)
-% INPUT
-%   inpfname: DXF input file name
-% OPTION
-%   An optional argument can be provided to save VTU
-%   ASCII file (0: No [DEFAULT] or 1: yes) .
-%   
-% OUTPUT
-%   .vtu file which can be visualized with ParaView/VTK
-% AUTHOR
-%   Hom Nath Gharti
-%   formerly ay Institute of Engineering, Tribhuvan University, Nepal
-%   formerly at NORSAR
-%   Department of Geosciences, Princeton University, USA
-%   hngharti_AT_gmail_DOT_com
-% REVISION
-%   May 01,2017: Hom Nath Gharti
-%   - Clean up
-%   Feb 15,2010: Hom Nath Gharti
-%   - First created
+%> @file dxf2jou.m
+%> @brief Converts DXF AUTOCAD file to CUBIT/Trelis journal file.
+%>
+%>   This function converts AUTOCAD 2000 (other ?) DXF ASCII file to a
+%>   CUBIT/Trelis journal file, and optionally to a ParaView/VTK VTU ASCII
+%>   file --- a unstructured mesh files (.vtu). The function extracts only
+%>   the faces represented by 'AcDbFace' tokens in the DXF file.
+%>
+%> @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu)
+%>
+%> ## Usage:
+%>   dxf2jou(inpfname, [save_vtu]) \n\n
+%>   Example: \n
+%>   dxf2jou('../input/dxf2jou_example.dxf') \n
+%>   OR \n
+%>   dxf2jou('../input/dxf2jou_example.dxf',1)
+%>
+%> ## Input:
+%>   inpfname: DXF input file name
+%>
+%> ## Options:
+%>   An optional argument can be provided to save VTU
+%>   ASCII file (0: No [DEFAULT] or 1: yes) .
+%>   
+%> ## Output:
+%>   VTK .vtu file which can be visualized with ParaView/VTK
 %--------------------------------------------------------------------------
 
 function dxf2jou(inpf_name)

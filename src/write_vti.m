@@ -1,25 +1,27 @@
-% FILE
-%   write_vti.m
-% PURPOSE
-%   This function writes the VTI binary file for structured grid data, such as 
-%   finite difference data and tomography data. The VTI file can be visualized 
-%   in ParaView (http://www.paraview.org/).
-% INPUT
-%   fname   : output file name
-%   ox      : origin vector [ox oy oz]
-%   dh      : sampling interval vector [dx dy dz]
-%   nx      : grid number vector [nx ny nz]
-%   name    : output variable name
-% USE
-%   call this functions with appropriate variables.
-% AUTHORS
-%   Hom Nath Gharti, Princeton University
-% REVISION
-%   NOV 20,2008: Hom Nath Gharti
-%   - First created
-% NOTES
-%   - For a BigEndian architecture, replace "LittleEndian" with "BigEndian"
-%     in the line below.
+%> @file write_vti.m
+%> @brief Writes 3D gridded data to VTK VTI file.
+%> 
+%>   This function writes the VTI binary file for structured grid data, such as 
+%>   finite difference data and tomography data. The VTI file can be visualized 
+%>   in ParaView (http://www.paraview.org/).
+%> 
+%> @author Hom Nath Gharti (Princeton University)
+%> 
+%> ## Input:
+%>   fname   : output file name \n
+%>   ox      : origin vector [ox oy oz] \n
+%>   dh      : sampling interval vector [dx dy dz] \n
+%>   nx      : grid number vector [nx ny nz] \n
+%>   name    : output variable name
+%> 
+%> ## Usage:
+%>   call this functions with appropriate variables.
+%> 
+%> ## Notes:
+%> 
+%> - For a BigEndian architecture, replace "LittleEndian" with "BigEndian"
+%>     in the line below.
+%------------------------------------------------------------------------------
 function write_vti(fname,ox,dh,nx,data,name)
 
 outf=fopen(fname,'w');
