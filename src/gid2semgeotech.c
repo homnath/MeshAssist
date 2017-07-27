@@ -28,9 +28,10 @@
 * ### step1: Export mesh file in ASCII format "mesh.dat"
 *
 * ### step2: Produce mesh and BC files
-*  >>gid2semgeotech mesh.dat
-*  OR
-*  >>gid2semgeotech mesh.dat 1000.0
+*
+*  gid2semgeotech mesh.dat\n
+*  OR\n
+*  gid2semgeotech mesh.dat 1000.0\n
 *
 *There will be several output files:
 * - coord_? : Total number of nodes followed by nodal coordinate ? (? -> x,y,z)
