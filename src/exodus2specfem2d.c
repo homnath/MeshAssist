@@ -52,8 +52,9 @@
  *  
  *  ### Step 1: prepare mesh in TRELIS/CUBIT
  *  - Define material regions using "Blocks"
- *    For example:
- *    block 1 add surface 1
+ *
+ *    For example:\n
+ *    block 1 add surface 1\n
  *    block 2 add surface 2 3
  *  
  *    will assign material region 1 to surface 1 and material region 2 to
@@ -62,7 +63,8 @@
  *    The file "Par_file" must be created to run SPECFEM2D!
  *  
  *  - Define element type to be QUAD4
- *    For example:
+ *
+ *    For example:\n
  *    block all element type quad4
  *  
  *    NOTE: If the element types are SHELL or SHELL4, "Default" or 3D option should
@@ -74,13 +76,13 @@
  *  
  *  - Define surface boundary conditions using "Sidesets"
  *    
- *    For example:
- *    sideset 1 add curve 1
+ *    For example:\n
+ *    sideset 1 add curve 1 \n
  *    sideset 1 name 'free_surface_file'
  *  
  *    will define a free or absorbing surface boundary condition on surface.
- *    Similary,  
- *    sideset 2 add curve 3
+ *    Similary,\n  
+ *    sideset 2 add curve 3\n
  *    sideset 2 name 'absorbing_surface_file'
  *    
  *    will define absorbing boundary condition on the curve 3.
@@ -91,7 +93,7 @@
  *  ### Step 2: export mesh file as exodus file say "mesh.e" (always use 3D option!)
  *  
  *  ### Step 3: convert "mesh.e" to SPECFEM2D files
- *    >>exodus2specfem2d mesh.e -bin=1
+ *    $ exodus2specfem2d mesh.e -bin=1
  *  
  *  There will be several output files:
  *
