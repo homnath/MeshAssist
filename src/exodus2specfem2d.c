@@ -613,6 +613,7 @@ if(nss>0 && ss_stat!=ON){
         nod1=4; nod2=1;                                                         
       }else{                                                                    
         fprintf(stderr,"ERROR: wrong side ID: %d for boundary!\n",ss_side[j]);  
+        fprintf(stderr,"HINT: make sure that all the Blocks have \"QUAD4\" Element type\n");  
         exit(-1);                                                               
       }                                                                         
                                                                                 
