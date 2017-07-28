@@ -18,19 +18,22 @@
 *  Example: exodusold2specfem3d tunnel.txt \n
 *  or \n
 *  exodusold2specfem3d tunnel.e -fac=0.001 -bin=1
+*
 * ## Options:
 * - -fac: use this option to multiply coordinates. this is importantn for unit 
 *        conversion, e.g., to convert m to km use -fac=0.001
 * - -bin: use this option if you want to convert exodus binary directly, provided
 *        that the command ncdump is in the path. ncdump is a part of netCDF
-*        library that can be downloaded freely from 
+*        library that can be downloaded freely from \n 
 *        http://www.unidata.ucar.edu/downloads/netcdf/index.jsp.
 *        use -bin=1 for binary or -bin=0 for ascii file.
 * - -norm: use this option to check the normal of the faces. use -norm=1 for
 *        checking or -norm=0 (default) for no checking
+*
 * ## Issues:
 * - - This does not work with new verion of Trelis/CUBIT. For the new version use
 *    exodus2specfem3d.c.
+*
 * # Basic steps starting from the CUBIT:
 *-------------------------------------------------------------------------------
 *

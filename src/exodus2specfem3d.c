@@ -6,7 +6,7 @@
 *  exported from the TRELIS/CUBIT to several mesh files 
 *  required by the SPECFEM3D Cartesian package. The ncdump commad is a part of
 *  NetCFD library which is generally installed already in LINUX, 
-*  which can be downloaded freely from
+*  which can be downloaded freely from \n
 *  https://www.unidata.ucar.edu/software/netcdf/
 *
 *  @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu)
@@ -31,7 +31,7 @@
 *
 * - -bin: Use this option if you want to convert exodus binary directly, provided
 *        that the command "ncdump" is in the path. The command "ncdump" is a 
-*        part of netCDF library that can be downloaded freely from 
+*        part of netCDF library that can be downloaded freely from \n
 *        http://www.unidata.ucar.edu/downloads/netcdf/index.jsp.
 *        use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
 *

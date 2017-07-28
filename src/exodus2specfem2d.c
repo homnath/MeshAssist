@@ -6,7 +6,7 @@
  *  program only handles the 2D quadrilateral elements with four nodes.
  *  The binary exodus file (e.g., .e file) needs to be converted into ASCII file,
  *  generally using a free console application "ncdump" which is a part of the
- *  netCDF library, and can be downloaded from 
+ *  netCDF library, and can be downloaded from \n 
  *  http://www.unidata.ucar.edu/downloads/netcdf/index.jsp. Please see the 
  *  detail steps below.
  *
@@ -32,7 +32,7 @@
  *
  *    - -bin: Use this option if you want to convert exodus binary directly, provided
  *          that the command "ncdump" is in the path. The command "ncdump" is a 
- *          part of netCDF library that can be downloaded freely from 
+ *          part of netCDF library that can be downloaded freely from \n 
  *          http://www.unidata.ucar.edu/downloads/netcdf/index.jsp.
  *          use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
  *
