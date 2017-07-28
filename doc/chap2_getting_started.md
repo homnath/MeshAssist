@@ -29,6 +29,8 @@ Type the following command in the terminal
 
 make all
 
+Matlab files can be opened in and run from Matlab.
+
 \section run Run
 
 [command] [input_file]
