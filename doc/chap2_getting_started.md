@@ -1,9 +1,40 @@
 # Getting started                                                        
                 
-\section Package structure
+\section pack_struct Package structure
                                                                 
- MeshAssist is a collection of tools which assist meshing of complex and 
- realistic 2D/3D models for FEM/SPECFEM simulations. As its name suggests,
- it is NOT a meshing software. It is only a meshing assistant!
- 
+ The MeshAssist pacakge can be obtained using Git. Use the following command in the terminal:
 
+ git clone \-\-recursive https://github.com/homnath/MeshAssist.git
+
+ The package has the following structure:
+
+## MeshAssist
+### doc/: Documentation files including this one. 
+### src/ : Contains all source files.
+### input/: Contains example input files.
+### LICENSE: License.
+### Makefile: GNU make file.
+ 
+\section prereq Prerequisites
+
+Package requires Make utility, latest C and Fortran compilers. For matlab files, Matlab is necessary.
+
+\section config Configuration
+
+Open src/Makefile and modify the C and Fortran compilers if necessary.
+
+\section compile Compile
+
+Type the following command in the terminal
+
+make all
+
+\section run Run
+
+[command] [input_file]
+
+Example:
+
+./bin/xyz2jou ./input/xyz2jou_example.utm
+
+See Chapter "File Documentation" for all available commands. 
