@@ -2,7 +2,7 @@
 %> @brief Converts DEM image file to ASCII XYZ file.
 %>
 %>   This program converts DEM map (TIFF image format) to ASCII XYZ 
-%>   file and ParaView/VTK VTI file format according to the 
+%>   file and optionally ParaView/VTK VTI file format according to the 
 %>   parameters defined in the input file. \n
 %>   Note: Choosing a small, say, 1 m sampling may freezes the 
 %>   program due to surfl function.
@@ -20,7 +20,7 @@
 %>   Name of input file.      
 %>
 %> ## Options:
-%>   An optional argument which must be a legimate path can be
+%>   An optional argument which must be a legitimate path can be
 %>   provided as the output path. Default path is the current path.
 %>
 %> ## Output:
