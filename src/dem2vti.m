@@ -4,8 +4,8 @@
 %>   This program converts DEM map (TIFF image format) to ASCII XYZ 
 %>   file and optionally ParaView/VTK VTI file format according to the 
 %>   parameters defined in the input file. \n
-%>   Note: Choosing a small, say, 1 m sampling may freezes the 
-%>   program due to surfl function.
+%>   Note: Choosing a small, say, 1 m sampling interval may freezes the 
+%>   program due to 'surfl' function.
 %>
 %> @author Hom Nath Gharti (Princeton University), LPG, and Michael Roth (NORSAR)
 %>

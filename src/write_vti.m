@@ -1,9 +1,9 @@
 %> @file write_vti.m
 %> @brief Writes 3D gridded data to VTK VTI file.
 %> 
-%>   This function writes the VTI binary file for structured grid data, such as 
-%>   finite difference data and tomography data. The VTI file can be visualized 
-%>   in ParaView (http://www.paraview.org/).
+%> This function writes the VTI binary file for structured grid data, such as 
+%> finite difference data and tomography data. The VTI file can be visualized 
+%> in ParaView (http://www.paraview.org/).
 %> 
 %> @author Hom Nath Gharti (Princeton University)
 %> 
@@ -53,3 +53,4 @@ fprintf(outf,'\n');
 fprintf(outf,'</AppendedData>\n');
 fprintf(outf,'</VTKFile>\n');
 fclose(outf);
+%==============================================================================
