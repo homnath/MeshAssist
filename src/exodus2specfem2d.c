@@ -20,13 +20,14 @@
  *
  *  ## Usage: 
  *    exodus2specfem2d <inputfile> [OPTIONS] \n\n
- *    Example: exodus2specfem2d mesh.e -bin=1 \n
+ *    Example: \n
+ *    exodus2specfem2d mesh.e -bin=1 \n
  *    or \n
  *    exodus2specfem2d mesh.txt
  *
  *  ## Options:
  *
- *    - -fac: Use this option to multiply coordinates with some factor. this is 
+ *    - -fac: Use this option to multiply coordinates with some factor. This is 
  *          important for unit 
  *          conversion, e.g., to convert m to km use -fac=0.001 [DEFAULT 1]
  *
@@ -34,7 +35,7 @@
  *          that the command "ncdump" is in the path. The command "ncdump" is a 
  *          part of netCDF library that can be downloaded freely from \n 
  *          http://www.unidata.ucar.edu/downloads/netcdf/index.jsp.
- *          use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
+ *          Use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
  *
  *    - -order: Use this option to check the connectivity order and make sure that
  *          the connectivity is in counterclockwise order. Use -order=1 for

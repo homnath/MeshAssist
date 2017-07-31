@@ -18,7 +18,8 @@
 *
 * ## Usage: 
 *  exodus2semgeotech <inputfile> [OPTIONS] \n\n
-*  Example: exodus2semgeotech tunnel.e -bin=1 \n
+*  Example: \n
+*  exodus2semgeotech tunnel.e -bin=1 \n
 *  or \n
 *  exodus2semgeotech tunnel.txt
 *

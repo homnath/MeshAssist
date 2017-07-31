@@ -14,7 +14,8 @@
 *
 *  ## Usage: 
 *  vtk2d2jou input_file \n\n
-*  Example: vtk2d2jou vtk2d2jou_example.vtk
+*  Example: \n
+*  vtk2d2jou vtk2d2jou_example.vtk
 */
 #include <stdio.h>
 #include <stdlib.h>

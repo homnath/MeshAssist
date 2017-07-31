@@ -18,7 +18,8 @@
 *
 *  ## Usage: 
 *  vti2cell <inputfile> [OPTIONS] \n\n
-*  Example: vti2cell py_plane_model.vti
+*  Example: \n
+*  vti2cell py_plane_model.vti
 *
 * ## Options:
 * - -fac=factor (real)

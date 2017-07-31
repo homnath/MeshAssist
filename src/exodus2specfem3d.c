@@ -19,7 +19,8 @@
 *
 * ## Usage: 
 *  exodus2specfem3d <inputfile> [OPTIONS] \n\n
-*  Example: exodus2specfem3d tunnel.e -bin=1 \n
+*  Example: \n
+*  exodus2specfem3d tunnel.e -bin=1 \n
 *  or \n
 *  exodus2specfem3d tunnel.txt
 *
@@ -33,7 +34,7 @@
 *        that the command "ncdump" is in the path. The command "ncdump" is a 
 *        part of netCDF library that can be downloaded freely from \n
 *        http://www.unidata.ucar.edu/downloads/netcdf/index.jsp.
-*        use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
+*        Use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
 *
 * - -norm: Use this option to check the normal of the faces in order to make sure
 *        that the surface nodes are in the right order. Use -norm=1 for checking

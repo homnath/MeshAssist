@@ -14,8 +14,9 @@
 *  gcc gid2semgeotech.c -o gid2semgeotech
 *
 * ## Usage:
-*  gid2semgeotech <inputfile> <OPTIONS> \n\n
-*  Example: gid2semgeotech gid2semgeotech_example.dat \n
+*  gid2semgeotech <inputfile> [OPTIONS] \n\n
+*  Example: \n
+*  gid2semgeotech gid2semgeotech_example.dat \n
 *  or \n
 *  gid2semgeotech gid2semgeotech_example.dat -fac=0.001
 *

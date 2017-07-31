@@ -16,7 +16,8 @@
 !>
 !> ## Usage:
 !>  ./bin/xyz2jou input_file [OPTIONS] \n\n
-!>	 Example: ./bin/xyz2jou ./input/xyz2jou_example.utm
+!>	Example: \n
+!>  ./bin/xyz2jou ./input/xyz2jou_example.utm
 !>
 !> ## Options:
 !> - -nx: Use this option if you know the number of points in a line along X axis
