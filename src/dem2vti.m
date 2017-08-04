@@ -143,13 +143,11 @@ if plotfig==1
     fprintf(1,'plotting figure...');
     figure;
     set(gcf,'Units','pixels','Position',[10 10 1600 1000])
-    %set(gcf, 'Renderer', 'OpenGL');   % Make rendering faster
     surfl(Xi, Yi, Z);
     lighting phongpwd
     shading interp;
     set(gca, 'Box', 'on');
     axis image;
-    %xlabel('X (m)'); ylabel('Y (m)'); zlabel('Z (m)');
     grid on;
     colormap bone;
     view(15, 15);   % Optionnal
@@ -160,7 +158,6 @@ if plotfig==1
     for i=1:nxtick
         xticklabel{i}=num2str(xticks(i)-xticks(1));
     end
-    %set(gca,'xticklabel',xticklabel,'xtick',xticks)
     set(gca,'xticklabel','')
     xstring=sprintf('UTM %6d - %6d', xticks(1),xticks(end));
     xlabel(xstring)
@@ -236,23 +233,14 @@ if save_vti3d == 1
     % Write P velocity model
     outvti=strcat(outpath,fheader,'_vp.vti');
     write_vti(outvti,[ox oy oz_top],[dh dh -dh],[nx ny nz],vp,'Vp');
-    %outfname=strcat(outpath,fheader,'_vp');
-    %outf=fopen(outfname,'w');
-    %fwrite(outf,vp,'float32');
 
     % Write S velocity model
     outvti=strcat(outpath,fheader,'_vs.vti');
     write_vti(outvti,[ox oy oz_top],[dh dh -dh],[nx ny nz],vs,'Vs');
-    %outfname=strcat(outpath,fheader,'_vs');
-    %outf=fopen(outfname,'w');
-    %fwrite(outf,vs,'float32');
 
     % Write density model
     outvti=strcat(outpath,fheader,'_rho.vti');
     write_vti(outvti,[ox oy oz_top],[dh dh -dh],[nx ny nz],ro,'Rho');
-    %outfname=strcat(outpath,fheader,'_rho');
-    %outf=fopen(outfname,'w');
-    %fwrite(outf,ro,'float32');
     fprintf(1,'complete!\n');
 end
 disp('-------------------------------------------------');
