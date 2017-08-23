@@ -130,6 +130,7 @@ int look_int(int *, char *, char *);
 int getfirstquote(char *, char *);
 int shape(double,double,double**);
 int check_normal(double [3][4],double [3]);
+int isclockwise(int, double [], double []);                                  
 
 
 /* main routine */
@@ -476,12 +477,12 @@ while(!feof(inf)){
           
           sprintf(outfname,"%smaterials",outhead);
           outf_mat=fopen(outfname,"w");
-          //fprintf(outf_mat,"%d\n",nelmt);
+          /*fprintf(outf_mat,"%d\n",nelmt);*/
         }
         
         fscanf(inf,"%s",dumc); /* = */
         for(j=0;j<blk_nelmt[i];j++){
-          fprintf(outf_con,"%d ",elmt_count+1);
+          /*fprintf(outf_con,"%d ",elmt_count+1);*/
           for(k=0;k<blk_nenod[i];k++){
             fscanf(inf,"%d,",&itmp);
             elmt_node[k][elmt_count]=itmp;
@@ -504,6 +505,7 @@ while(!feof(inf)){
         continue;
       }
     }
+
   }
   
 }
@@ -592,7 +594,7 @@ printf("anticlockwise-ordered elements: %d\n",nccw);
  * for SHELL element ndim=3, and side numbering - 3,4,5,6 */                       
 side1=1; side2=2; side3=3; side4=4;                                             
 /* side1=1; side2=4; side3=3; side4=2; */                                       
-if(ndim==3 & strstr(etype,"SHELL")!=NULL){                                      
+if(ndim==3 && strstr(etype,"SHELL")!=NULL){                                      
   /* SHELL elements. Need to check carefully whether true for all SHELL         
  *      elements, and how they number. */                                          
   side1+=2; side2+=2; side3+=2; side4+=2;                                       

@@ -7,7 +7,7 @@ BIN = ../bin
 
 # C compiler
 CC = gcc
-CFLAGS = -lm -fbounds-check -O5 -fno-trapping-math -Wunused
+CFLAGS = -g -lm -fbounds-check -O5 -fno-trapping-math -Wunused -Warray-bounds
 
 # Fortran compiler
 FC = gfortran
