@@ -120,7 +120,8 @@
 
 #define OFF 0
 #define ON 1
-#define TEST_JACOBIAN 0 /* 0 and 1; developer version */ 
+/* 0 and 1; developer version */ 
+#define TEST_JACOBIAN 0
 #define MAXBULK 100000
 #define MAXLINE 100
 /* auxiliary routines */
@@ -138,37 +139,53 @@ int main(int argc,char **argv){
 int e,i,inode,itmp,j,k;
 int i1,i2,nod1,nod2,n1,n2,n3,n4;
 int bulksize; 
-int ndim; /* geometry dimension */ 
-int nnode,nelmt; /* number of nodes, number of elements */
-int nblk,nss; /* number of blocks, number of side sets */
-int elmt_count,node_count; /* element, node count */
-int node_countx,node_county,node_countz; /* element, node count */
-int blk_count,ss_count; /* block, node set count */
-int dim_stat,ss_rstat,ss_stat,con_stat,coord_stat,mat_stat; /* status */
+/* geometry dimension */ 
+int ndim;
+/* number of nodes, number of elements */
+int nnode,nelmt;
+/* number of blocks, number of side sets */
+int nblk,nss;
+/* element, node count */
+int elmt_count,node_count;
+/* element, node count */
+int node_countx,node_county,node_countz;
+/* block, node set count */
+int blk_count,ss_count;
+/* status */
+int dim_stat,ss_rstat,ss_stat,con_stat,coord_stat,mat_stat;
 int   side1,side2,side3,side4; 
 int   switch_coord[3]; 
-int coordx_stat,coordy_stat,coordz_stat; /* status */
+/* status */
+int coordx_stat,coordy_stat,coordz_stat;
 double x[4],z[4],s[4],t[4],**lag4;                                               
 double dx_ds,dx_dt,dz_ds,dz_dt,detJ;
 /* number of elements, number of nodes per element in each node */
 int *blk_nelmt,*blk_nenod;
-int *ss_nside; /* number of nodes in each node set */
+/* number of nodes in each node set */
+int *ss_nside;
 
-double fac,dtmp; /* multiplication factor for coordinates, temporary double */
+/* multiplication factor for coordinates, temporary double */
+double fac,dtmp;
 double **coord,*xp,*zp;
 int **elmt_node;
 char *bulk,line[MAXLINE],token[62],dumc[250],etype[12],stag[62];
-char **coord_name; /* coordinates name */
+/* coordinates name */
+char **coord_name;
 char fonly[62],infname[62],outfname[62],outhead[62];
-char **ss_name; /* node set names */
+/* node set names */
+char **ss_name;
 
 /* total number of element in absorbing BC and free surface */
 int count_sselmt,count_ssside,sumss_nelmt,*ss_elmt,*ss_side;
 
-int isbin; /* test if binary */
-int ishead; /* option to add innput file header in the output file names */
-int istomo; /* option to convert block IDs to negative for tomography models */
-int ndir,isorder; /* normal direction, test if normal has to checked */
+/* test if binary */
+int isbin;
+/* option to add innput file header in the output file names */
+int ishead;
+/* option to convert block IDs to negative for tomography models */
+int istomo;
+/* normal direction, test if normal has to checked */
+int ndir,isorder;
 
 FILE *inf,*outf_mat,*outf_con,*outf_coord,*outf_side;
 int   norder[4]={0,3,2,1};                                                      
