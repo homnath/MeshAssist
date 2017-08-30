@@ -33,7 +33,7 @@ Matlab files can be opened in and run from Matlab.
 
 \section run Run
 
-[command] [input_file]
+\em command \em input_file [\em Options]
 
 Example:
 
