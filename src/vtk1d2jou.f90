@@ -12,7 +12,7 @@
 !>  gfortran vtk1d2jou.f90 -o vtk1d2jou
 !>
 !> ## Usage:
-!>  vtk1d2jou <input_file> \n\n
+!>  vtk1d2jou \em input_file \n\n
 !>  vtk1d2jou vtk1d2jou_example.vtk
 !>
 !------------------------------------------------------------------------------

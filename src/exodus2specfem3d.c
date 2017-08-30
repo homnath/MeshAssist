@@ -18,7 +18,7 @@
 *  gcc exodus2specfem3d.c -o exodus2specfem3d
 *
 * ## Usage: 
-*  exodus2specfem3d <inputfile> [OPTIONS] \n\n
+*  exodus2specfem3d \em input_file [\em Options] \n\n
 *  Example: \n
 *  exodus2specfem3d tunnel.e -bin=1 \n
 *  or \n

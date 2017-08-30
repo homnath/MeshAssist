@@ -18,7 +18,7 @@
 *	gcc gocad2vtu.c -o gocad2vtu
 *
 * ## Usage:
-*	./bin/gocad2vtu <inputfile> [OPTIONS] \n\n
+*	./bin/gocad2vtu \em input_file [\em Options] \n\n
 *	Example: ./bin/gocad2vtu ./input/gocad2vtu_example.ts
 *
 *  ##Options:

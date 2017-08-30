@@ -1,60 +1,99 @@
-/* This program converts the Binary (provided that ncdump command exists)
-or ASCII exodus file exported from the CUBIT to several mesh files required
-by the fem3d and sem3d_solid packages. Basic steps starting from the CUBIT:
-in CUBIT:
-- blocks defines only the material regions
-  -> actual material properties should not be defined within the CUBIT.
-  actual material properties can be listed later corresponding to each block 
-  (i.e., material region).
-- nodal boundary conditions must be defined using node set
+/** @file exodusold2semgeotech.c
+*  @brief Converts old ASCII exodus file to SPECFEM3D_GEOTECH files.
+*
+*  This program converts the Binary (provided that ncdump command exists)
+*  or ASCII exodus file exported from the old CUBIT to several mesh files
+*  required by the SPECFEM3D_GEOTECH package. The ncdump commad is a part of
+*  NetCFD library which is generally installed already in LINUX, 
+*  which can be downloaded freely from \n
+*  https://www.unidata.ucar.edu/software/netcdf/
+*
+* <!--  @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu) -->
+*
+* ## Dependencies:
+*  stringmanip.c: string manipulation routines
+*
+* ## Compile:
+*  gcc exodusold2semgeotech.c -o exodusold2semgeotech
+*
+* ## Usage: 
+*  exodusold2semgeotech \em input_file [\em Options] \n\n
+*  Example: \n
+*  exodusold2semgeotech tunnel.e -bin=1 \n
+*  or \n
+*  exodusold2semgeotech tunnel.txt
+*
+* ## Options:
+*
+* - -fac: Use this option to multiply coordinates with some factor. This is 
+*        important for unit 
+*        conversion, e.g., to convert m to km use -fac=0.001 [DEFAULT 1]
+*
+* - -bin: Use this option if you want to convert exodus binary directly, provided
+*        that the command "ncdump" is in the path. The command "ncdump" is a 
+*        part of netCDF library that can be downloaded freely from \n 
+*        http://www.unidata.ucar.edu/downloads/netcdf/index.jsp.
+*        Use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
+*
+* ##Issues:
+* - - This does not work with older verion of CUBIT. For the older version use
+*    exodusold2semgeotech.c.
+*
+* # Basic steps starting from the CUBIT:
+*
+* ### step 1: prepare mesh in CUBIT
+* - Define material regions using "Blocks"
+*
+*   For example:\n
+*   block 1 add volume 1\n
+*   block 2 add volume 2 3
+* 
+*   will assign material region 1 to volume 1 and material region 2 to volumes 2
+*   and 3. These material regions will be used to define material properties in
+*   "nummaterial_velocity_file". This program will NOT generate 
+*   "nummaterial_velocity_file". The file "nummaerial_veolicty_file" must be
+*   created to run SPECFEM3D!
+* 
+* - Define surface boundary conditions using "Nodesets" or "Sidesets"
+* -- nodal boundary conditions must be defined using node set
   -> each node set name must contain the corresponding BC names as defined in 
-  char *ns_bcname[] below
+  char *ns_bcname[] below\n
   e.g., node set name can be front_nsbcux or front_nsbcux_nsbcuy etc.
-- surface boundary conditions must be defined using side set
+* -- surface boundary conditions must be defined using side set
   -> each side set name must contain the corresponding BC names as defined in 
-  char *ss_bcname[] below
+  char *ss_bcname[] below\n
   e.g., side set name can be front_ssbcux or front_ssbcux_ssbcuy etc.
 
-step1: export mesh file as exodus file say "mesh.e"
-step2: convert "mesh.e" to ASCII file using
-  >>ncdump mesh.e > mesh.txt
-step3: produce mesh and BC files
-  >>exodusold2semgeotech mesh.txt
-  OR
-  >>exodusold2semgeotech mesh.txt 1000.0
-
-There will be several output files:
-*_coord_? : total number of nodes followed by nodal coordinate ? (? -> x, y, z)
-*_connectivity : total number of elements followed by connectivity list
-*_material_id : total number of elements followed by material IDs
-*_??bcu? : node IDs which have u? = 0 as the boundary conditions (?? -> ns or ss, ? -> x, y, z) 
-------------------------------------------------------
-DEVELOPER:
-  Hom Nath Gharti
-  NORSAR
-  homnath_AT_norsar_DOT_no
-DEPENDENCY:
-  stringmanip.c: string manipulation routines
-COMPILE:
-  gcc exodusold2semgeotech.c -o exodusold2semgeotech
-USAGE: 
-  exodusold2semgeotech <inputfile> <OPTIONS>
-  Example: exodusold2semgeotech sloep3d_mest.txt
-  or
-  exodusold2semgeotech slope3d_mesh.e -fac=0.001 -bin=1
-OPTIONS:
-  -fac: use this option to multiply coordinates. this is importantn for unit 
-        conversion, e.g., to convert m to km use -fac=0.001
-  -bin: use this option if you want to convert exodus binary directly, provided
-        that the command ncdump is in the path. ncdump is a part of netCDF library
-        that can be downloaded freely from 
-        http://www.unidata.ucar.edu/downloads/netcdf/index.jsp. use -bin=1 for binary 
-        or -bin=0 for ascii file.
-HISTORY: 
-  HNG,Apr 23,2010;HNG,Apr 17,2010;HNG,Feb 08,2009
-TODO:
-  - add support to side sets,i.e., surface boundary conditions
--------------------------------------------------------*/
+*   For example:\n
+*   sideset 1 add surface 1\n
+*   sideset 1 name 'bottom_ssbcux_ssbcuy_ssbcuz'
+* 
+*   will define a surface in which all displacement components are prescribed.
+*   
+*   Note: All the above commands can also be executed using TRELIS/CUBIT GUI.
+*   "sideset 1 name 'bottom_ssbcux_ssbcuy_ssbcuz'" is equivalent to
+*   clicking 'sideset 1' and renaming.
+*
+* ### step2: export mesh file as exodus file say "tunnel.e" (use 3D option)
+*
+* ### step3: convert "tunnel.e" to SPECFEM3D files
+*  exodusold2semgeotech tunnel.e -bin=1
+*
+*There will be several output files:
+*
+* - *_coord_? : coordinates file => total number of nodes followed by 
+*  nodal coordinate ? (? -> x, y, z)
+*
+* - *_connectivity : element file => total number of elements followed by connectivity
+*  list
+*
+* - *_material_id : material file => total number of elements followed by 
+*  material IDs
+*
+* - *_??bcu? : node IDs which have u? defined as the boundary conditions 
+*   (?? -> ns or ss, ? -> x, y, z). Total number of entities (nodes or faces)
+*   followed by element ID and surface nodes.
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

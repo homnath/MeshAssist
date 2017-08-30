@@ -17,7 +17,7 @@
 *  gcc exodus2semgeotech.c -o exodus2semgeotech
 *
 * ## Usage: 
-*  exodus2semgeotech <inputfile> [OPTIONS] \n\n
+*  exodus2semgeotech \em input_file [\em Options] \n\n
 *  Example: \n
 *  exodus2semgeotech tunnel.e -bin=1 \n
 *  or \n

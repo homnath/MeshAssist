@@ -13,7 +13,7 @@
 *  gcc vtk2d2jou.c -o vtk2d2jou
 *
 *  ## Usage: 
-*  vtk2d2jou input_file \n\n
+*  vtk2d2jou \em input_file \n\n
 *  Example: \n
 *  vtk2d2jou vtk2d2jou_example.vtk
 */

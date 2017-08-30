@@ -9,14 +9,14 @@
 %> <!-- @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu) -->
 %>
 %> ## Usage:
-%>   dxf2jou(inpfname, [save_vtu]) \n\n
+%>   dxf2jou(\em input_file, [save_vtu]) \n\n
 %>   Example: \n
 %>   dxf2jou('../input/dxf2jou_example.dxf') \n
 %>   OR \n
 %>   dxf2jou('../input/dxf2jou_example.dxf',1)
 %>
 %> ## Input:
-%>   inpfname: DXF input file name
+%>   input_file: DXF input file name
 %>
 %> ## Options:
 %>   An optional argument can be provided to save VTU

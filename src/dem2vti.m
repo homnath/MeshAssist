@@ -7,17 +7,18 @@
 %>   Note: Choosing a small, say, 1 m sampling interval may freezes the 
 %>   program due to 'surfl' function.
 %>
-%> <!-- @author  Hom Nath Gharti (Princeton University), LPG, and Michael Roth (NORSAR) -->
+%> <!-- @author  Hom Nath Gharti (Princeton University), LPG, and 
+%>   Michael Roth (NORSAR) -->
 %>
 %> ## Usage:
-%>   dem2vti(input_file_name, [output_path]) \n\n
+%>   dem2vti(\em input_file, [\em output_path]) \n\n
 %>   Example: \n 
 %>   dem2vti('dem2vti_example.in') \n
 %>   OR \n
 %>   dem2vti('dem2vti_example.in','../output')
 %>
 %> ## Input:
-%>   Name of input file.      
+%>   input_file: Name of DEM file.      
 %>
 %> ## Options:
 %>   An optional argument which must be a legitimate path can be

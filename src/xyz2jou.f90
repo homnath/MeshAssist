@@ -15,7 +15,7 @@
 !>  gfortran xyz2jou.f90 -o xyz2jou
 !>
 !> ## Usage:
-!>  ./bin/xyz2jou input_file [OPTIONS] \n\n
+!>  ./bin/xyz2jou \em input_file [\em Options] \n\n
 !>	Example: \n
 !>  ./bin/xyz2jou ./input/xyz2jou_example.utm
 !>

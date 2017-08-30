@@ -19,7 +19,7 @@
  *    gcc exodus2specfem2d.c -o exodus2specfem2d -lm
  *
  *  ## Usage: 
- *    exodus2specfem2d <inputfile> [OPTIONS] \n\n
+ *    exodus2specfem2d \em input_file [\em Options] \n\n
  *    Example: \n
  *    exodus2specfem2d mesh.e -bin=1 \n
  *    or \n

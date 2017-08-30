@@ -17,7 +17,7 @@
 *  gcc vti2cell.c -o vti2cell -lm
 *
 *  ## Usage: 
-*  vti2cell <inputfile> [OPTIONS] \n\n
+*  vti2cell \em input_file [\em Options] \n\n
 *  Example: \n
 *  vti2cell py_plane_model.vti
 *
