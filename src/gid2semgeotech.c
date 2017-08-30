@@ -5,7 +5,7 @@
 *  by the SPECFEM3D_GEOTECH package. GiD (www.gidhome.com) is a commercial pre
 *  and post processor for numerical simulations.
 *
-*  @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu), Zhenzhen Yan
+*  <!-- @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu), Zhenzhen Yan -->
 
 * ## Dependencies:
 *  stringmanip.c: string manipulation routines

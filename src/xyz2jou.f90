@@ -5,7 +5,7 @@
 !>  This program converts UTM or XYZ file to CUBIT journal file. The UTM or XYZ
 !>  file contains the three columns of X, Y, and Z coordinates, respectively.
 !>
-!> @athor Hom Nath Gharti (hgharti_AT_princeton_DOT_edu
+!> <!-- @athor Hom Nath Gharti (hgharti_AT_princeton_DOT_edu -->
 !>
 !> ## Compile:
 !>  - in parent folder, type:

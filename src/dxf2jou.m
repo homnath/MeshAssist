@@ -6,7 +6,7 @@
 %> file --- a unstructured mesh files (.vtu). The function extracts only
 %> the faces represented by 'AcDbFace' tokens in the DXF file.
 %>
-%> @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu)
+%> <!-- @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu) -->
 %>
 %> ## Usage:
 %>   dxf2jou(inpfname, [save_vtu]) \n\n

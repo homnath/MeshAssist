@@ -6,7 +6,7 @@
 !>  points only, and removes the redundant lines. The redundant nodes can be 
 !>  removed within the paraview itself using 'Clean to Grid' filter.
 !>
-!> @athor Hom Nath Gharti (hgharti_AT_princeton_DOT_edu
+!> <!-- @athor Hom Nath Gharti (hgharti_AT_princeton_DOT_edu -->
 !>
 !> ## Compile:
 !>  gfortran vtk1d2jou.f90 -o vtk1d2jou

@@ -5,7 +5,7 @@
 *  to VTK XML .vtu binary file (unstructured mesh file) which can be 
 *  visualized/processed in ParaView or VTK.
 *
-*  @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu)
+*  <!-- @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu) -->
 *
 * ##Dependencies:
 *	stringmanip.c

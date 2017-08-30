@@ -5,7 +5,7 @@
 *  or ASCII exodus file exported from the old CUBIT to several mesh files
 *  required by the SPECFEM3D package.
 *
-*  @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu)
+*  <!-- @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu) -->
 *
 * ## Dependencies:
 *  stringmanip.c: string manipulation routines

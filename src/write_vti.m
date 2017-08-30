@@ -5,7 +5,7 @@
 %> finite difference data and tomography data. The VTI file can be visualized 
 %> in ParaView (http://www.paraview.org/).
 %> 
-%> @author Hom Nath Gharti (Princeton University)
+%> <!-- @author Hom Nath Gharti (Princeton University) -->
 %> 
 %> ## Input:
 %>   fname   : output file name \n

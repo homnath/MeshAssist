@@ -10,7 +10,7 @@
  *  http://www.unidata.ucar.edu/downloads/netcdf/index.jsp. Please see the 
  *  detail steps below.
  *
- *  @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu)
+ * <!-- @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu) -->
  *
  *  ## Dependencies:
  *    stringmanip.c: string manipulation routines

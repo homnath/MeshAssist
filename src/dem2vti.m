@@ -7,7 +7,7 @@
 %>   Note: Choosing a small, say, 1 m sampling interval may freezes the 
 %>   program due to 'surfl' function.
 %>
-%> @author  Hom Nath Gharti (Princeton University), LPG, and Michael Roth (NORSAR)
+%> <!-- @author  Hom Nath Gharti (Princeton University), LPG, and Michael Roth (NORSAR) -->
 %>
 %> ## Usage:
 %>   dem2vti(input_file_name, [output_path]) \n\n

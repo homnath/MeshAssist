@@ -4,7 +4,7 @@
 *  This program converts ASCII VTK file consisting of triangular/quadrilateral
 *  mesh into CUBIT/Trelis Journal file.
 *
-*  @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu)
+*  <!-- @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu) -->
 *
 * ## Dependences:
 *  stringmanip.c: string manipulation routines
