@@ -1,9 +1,9 @@
 # Authors
 
 ## Hom Nath Gharti
-    - formerly at Institute of Engineering, Tribhuvan University, Nepal
-    - formerly at NORSAR, Norway
     - Department of Geosciences, Princeton University, USA
+    - formerly at NORSAR, Norway
+    - formerly at Institute of Engineering, Tribhuvan University, Nepal
 
     hgharti_AT_princeton_DOT_edu
 
