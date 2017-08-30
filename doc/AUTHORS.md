@@ -22,6 +22,9 @@
 
     michael_AT_nosar_DOT_no
 
+## Zhenzhen Yan
+    - Institute of Remote Sensing and Digital Earth, CAS, China
+
 ## Jeroen Tromp
     - Department of Geosciences, Princeton University, USA
     - Program in Applied & Computational Mathematics, Princeton University, USA
