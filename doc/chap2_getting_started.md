@@ -40,3 +40,7 @@ Example:
 ./bin/xyz2jou ./input/xyz2jou_example.utm
 
 See Chapter "File Documentation" for all available commands. 
+
+\section bug Bug Report
+
+hgharti_AT_princeton_DOT_edu
