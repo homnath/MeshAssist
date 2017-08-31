@@ -1,11 +1,11 @@
 /** @file exodus2semgeotech.c
 *  @brief Converts ASCII exodus file to SPECFEM3D_GEOTECH files.
 *
-*  This program converts the Binary (provided that ncdump command exists)
+*  This program converts the Binary (provided that "ncdump" command exists)
 *  or ASCII exodus file exported from the CUBIT/Trelis to several mesh files
-*  required by the SPECFEM3D_GEOTECH package. The ncdump commad is a part of
+*  required by the SPECFEM3D_GEOTECH package. The "ncdump" commad is a part of
 *  NetCFD library which is generally installed already in LINUX, 
-*  which can be downloaded freely from \n
+*  which can be downloaded for free from \n
 *  https://www.unidata.ucar.edu/software/netcdf/
 *
 * <!--  @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu) -->
@@ -29,14 +29,14 @@
 *        important for unit 
 *        conversion, e.g., to convert m to km use -fac=0.001 [DEFAULT 1]
 *
-* - -bin: Use this option if you want to convert exodus binary directly, provided
+* - -bin: Use this option if you want to convert exodus binary file directly, provided
 *        that the command "ncdump" is in the path. The command "ncdump" is a 
-*        part of netCDF library that can be downloaded freely from \n 
+*        part of netCDF library that can be downloaded for free from \n 
 *        http://www.unidata.ucar.edu/downloads/netcdf/index.jsp.
 *        Use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
 *
 * ##Issues:
-* - - This does not work with older verion of CUBIT. For the older version use
+* - - This does not work with older version of CUBIT. For the older version use
 *    exodusold2semgeotech.c.
 *
 * # Basic steps starting from the CUBIT/TRELIS:
@@ -50,9 +50,9 @@
 * 
 *   will assign material region 1 to volume 1 and material region 2 to volumes 2
 *   and 3. These material regions will be used to define material properties in
-*   "nummaterial_velocity_file". This program will NOT generate 
-*   "nummaterial_velocity_file". The file "nummaerial_veolicty_file" must be
-*   created to run SPECFEM3D!
+*   "*material_list". This program will NOT generate 
+*   "*material_list". The file "material_list" must be
+*   created to run SPECFEM3D_GEOTECH!
 * 
 * - Define surface boundary conditions using "Nodesets" or "Sidesets"
 * -- nodal boundary conditions must be defined using node set
@@ -123,7 +123,8 @@ int ns_nbc; /* number of bc types in each node set */
 int ss_nbc; /* number of bc types in each side set */
 int dim_stat,ns_stat,ss_stat,con_stat,coord_stat,mat_stat; /* status */
 int coordx_stat,coordy_stat,coordz_stat; /* status */
-int *blk_nelmt,*blk_nenod; /* number of elements, number of nodes per element in each node */
+/* number of elements, number of nodes per element in each node */
+int *blk_nelmt,*blk_nenod;
 int *ns_nnode,*ss_nside; /* number of nodes in each node set */
 
 double fac,dtmp; /* multiplication factor for coordinates, temporary float */

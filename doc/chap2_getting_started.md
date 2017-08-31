@@ -17,7 +17,7 @@
  
 \section prereq Prerequisites
 
-Package requires Make utility, latest C and Fortran compilers. For matlab files, Matlab is necessary.
+The package requires Make utility, latest C and Fortran compilers. For matlab files, Matlab is necessary.
 
 \section config Configuration
 

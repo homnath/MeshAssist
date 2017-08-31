@@ -1,7 +1,7 @@
 /** @file exodusold2specfem3d.c
 *  @brief Converts old ASCII exodus file to SPECFEM3D files.
 *   
-*  This program converts the Binary (provided that ncdump command exists)
+*  This program converts the Binary (provided that "ncdump" command exists)
 *  or ASCII exodus file exported from the old CUBIT to several mesh files
 *  required by the SPECFEM3D package.
 *
@@ -23,8 +23,8 @@
 * - -fac: use this option to multiply coordinates. this is importantn for unit 
 *        conversion, e.g., to convert m to km use -fac=0.001
 * - -bin: use this option if you want to convert exodus binary directly, provided
-*        that the command ncdump is in the path. ncdump is a part of netCDF
-*        library that can be downloaded freely from \n 
+*        that the command "ncdump" is in the path. The command "ncdump" is a part of netCDF
+*        library that can be downloaded for free from \n 
 *        http://www.unidata.ucar.edu/downloads/netcdf/index.jsp.
 *        use -bin=1 for binary or -bin=0 for ascii file.
 * - -norm: use this option to check the normal of the faces. use -norm=1 for

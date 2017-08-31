@@ -8,7 +8,7 @@
  *  generally using a free console application "ncdump" which is a part of the
  *  netCDF library, and can be downloaded from \n 
  *  http://www.unidata.ucar.edu/downloads/netcdf/index.jsp. Please see the 
- *  detail steps below.
+ *  detailed steps below.
  *
  * <!-- @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu) -->
  *
@@ -33,7 +33,7 @@
  *
  *    - -bin: Use this option if you want to convert exodus binary directly, provided
  *          that the command "ncdump" is in the path. The command "ncdump" is a 
- *          part of netCDF library that can be downloaded freely from \n 
+ *          part of netCDF library that can be downloaded for free from \n 
  *          http://www.unidata.ucar.edu/downloads/netcdf/index.jsp.
  *          Use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
  *

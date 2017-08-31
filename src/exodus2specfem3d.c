@@ -1,12 +1,12 @@
 /** @file exodus2specfem3d.c
 *  @brief Converts ASCII exodus file to SPECFEM3D files.
 *
-*  This program converts the Binary (provided that ncdump command exists,
-*  type ncdump to check whether ncdump command exists.) or ASCII exodus file
+*  This program converts the Binary (provided that "ncdump" command exists,
+*  type "ncdump" to check whether "ncdump" command exists.) or ASCII exodus file
 *  exported from the TRELIS/CUBIT to several mesh files 
-*  required by the SPECFEM3D Cartesian package. The ncdump commad is a part of
-*  NetCFD library which is generally installed already in LINUX, 
-*  which can be downloaded freely from \n
+*  required by the SPECFEM3D Cartesian package. The "ncdump" commad is a part of
+*  NetCFD library which is generally installed already in LINUX. If this
+*  library is not found, it can be downloaded for free from \n
 *  https://www.unidata.ucar.edu/software/netcdf/
 *
 * <!-- @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu) -->
@@ -32,7 +32,7 @@
 *
 * - -bin: Use this option if you want to convert exodus binary directly, provided
 *        that the command "ncdump" is in the path. The command "ncdump" is a 
-*        part of netCDF library that can be downloaded freely from \n
+*        part of netCDF library that can be downloaded for free from \n
 *        http://www.unidata.ucar.edu/downloads/netcdf/index.jsp.
 *        Use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
 *

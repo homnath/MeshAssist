@@ -1,11 +1,11 @@
 /** @file exodusold2semgeotech.c
 *  @brief Converts old ASCII exodus file to SPECFEM3D_GEOTECH files.
 *
-*  This program converts the Binary (provided that ncdump command exists)
+*  This program converts the Binary (provided that "ncdump" command exists)
 *  or ASCII exodus file exported from the old CUBIT to several mesh files
-*  required by the SPECFEM3D_GEOTECH package. The ncdump commad is a part of
+*  required by the SPECFEM3D_GEOTECH package. The "ncdump" commad is a part of
 *  NetCFD library which is generally installed already in LINUX, 
-*  which can be downloaded freely from \n
+*  which can be downloaded for free from \n
 *  https://www.unidata.ucar.edu/software/netcdf/
 *
 * <!--  @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu) -->
@@ -31,7 +31,7 @@
 *
 * - -bin: Use this option if you want to convert exodus binary directly, provided
 *        that the command "ncdump" is in the path. The command "ncdump" is a 
-*        part of netCDF library that can be downloaded freely from \n 
+*        part of netCDF library that can be downloaded for free from \n 
 *        http://www.unidata.ucar.edu/downloads/netcdf/index.jsp.
 *        Use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
 *

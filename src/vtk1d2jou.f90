@@ -4,7 +4,7 @@
 !>
 !>  This program read ASCII vtk files with unstructured grid of lines and 
 !>  points only, and removes the redundant lines. The redundant nodes can be 
-!>  removed within the paraview itself using 'Clean to Grid' filter.
+!>  removed within the paraview itself using the 'Clean to Grid' filter.
 !>
 !> <!-- @athor Hom Nath Gharti (hgharti_AT_princeton_DOT_edu -->
 !>
