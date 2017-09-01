@@ -1,0 +1,99 @@
+%% Do not edit unless you really know what you are doing.
+\documentclass[12pt,a4paper]{report}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{color,geometry,graphicx}
+\usepackage[absolute]{textpos}
+\usepackage{doxygen}
+\usepackage{pdfpages}
+\usepackage{float,textcomp,amsmath,paralist,calc}
+\usepackage{natbib}
+\usepackage{titlesec}
+\usepackage{xr}
+\usepackage[titletoc]{appendix}
+\geometry{verbose,a4paper,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\newcommand{\ap}{\textquotesingle}
+\newcommand{\sq}[1]{\textquotesingle{#1}\textquotesingle}
+\setlength\parindent{0pt}
+
+% from Doxygen refman.tex------------------------------------------------------
+\usepackage{sectsty}
+\renewcommand{\familydefault}{\sfdefault}
+\allsectionsfont{%
+  \fontseries{bc}\selectfont%
+  \color{darkgray}%
+}
+\renewcommand{\DoxyLabelFont}{%
+  \fontseries{bc}\selectfont%
+  \color{darkgray}%
+}
+\newcommand{\+}{\discretionary{\mbox{\scriptsize$\hookleftarrow$}}{}{}}
+% from Doxygen refman.tex------------------------------------------------------
+
+\definecolor{gray}{rgb}{0.8,0.8,0.8}
+
+\newcommand{\frontmatter}{\cleardoublepage
+  \pagenumbering{roman}}
+\newcommand{\mainmatter}{\cleardoublepage
+  \pagenumbering{arabic}}
+\newcommand{\backmatter}{\cleardoublepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+%\renewcommand{\baselinestretch}{1.5}
+
+% hyperlinks to sections and references
+\usepackage{cite}
+\usepackage{hyperref}
+\hypersetup{colorlinks, linkcolor=blue, citecolor=blue, urlcolor=blue}
+%\usepackage[pdftex,bookmarks=true,bookmarksnumbered=true,pdfpagemode=None,pdfstartview=FitH,pdfpagelayout=SinglePage,pdfborder={0 0 0}]{hyperref}
+\newcommand{\tsup}[1]{\textsuperscript{#1}}
+\newenvironment{desclist}[1]
+{\begin{list}{}
+{\renewcommand\makelabel[1]{{##1}\hfill}
+\settowidth\labelwidth{\makelabel{#1}}
+\setlength\leftmargin{\labelwidth+\labelsep}}}
+{\end{list}}
+
+\newenvironment{adescription}[1]
+{\begin{list}{}
+{\renewcommand\makelabel[1]{\texttt{##1}\hfill}
+\settowidth\labelwidth{\makelabel{#1}}
+\setlength\leftmargin{\labelwidth+\labelsep}}}
+{\end{list}}
+
+% Package name and version
+\def\pack{MeshAssist}
+\def\packver{\pack\ v1.0.0}
+
+\begin{document}
+\includepdf[fitpaper]{cover_MeshAssist}
+
+\thispagestyle{empty} % no page number
+\title{\textbf{\packver \\
+User Manual}}
+
+\input{authors.tex}
+
+\maketitle
+
+\frontmatter
+
+\input{licensing.tex}
+\input{acknowledgements.tex}
+\tableofcontents
+\clearpage
+
+\mainmatter
+\input{chap1_introduction.tex}
+\input{chap2_getting_started.tex}
+\input{chap3_file_index.tex}
+\input{chap4_file_documentation.tex}
+
+%\begin{appendices}
+%  \input{a1_cubit_example}
+%\end{appendices}
+
+\bibliographystyle{chicago}
+\bibliography{manual_MeshAssist}
+
+\end{document}

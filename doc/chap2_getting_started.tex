@@ -1,0 +1,49 @@
+\chapter{Getting started}
+\label{chap:start}
+\section{Package structure}
+The \pack\ pacakge can be obtained using Git. Use the following command in the terminal:\\
+
+\texttt{git clone \-\-recursive https://github.com/homnath/MeshAssist.git}\\
+
+The package has the following structure:\\
+
+\texttt{\pack/}
+\begin{adescription}{~~CMakeLists.txt}
+\item[~~LICENSE]               : License.
+\item[~~Makefile]                : brief description of the package.
+\item[~~bin/]                  : all object files and executables are stored in this folder.
+\item[~~doc/]                  : documentation file/s for the \pack\ package.
+\item[~~input/]                : contains input files.
+\item[~~output/]               : default output folder. All output files are stored in this folder unless the different output path is defined from command.
+\item[~~src/]                  : contains all source files.
+\end{adescription}
+ 
+\section{Prerequisites}
+
+The package requires Make utility, latest C and Fortran compilers. For matlab files, Matlab is necessary.
+
+\section{Configuration}
+
+Open src/Makefile and modify the C and Fortran compilers if necessary.
+
+\section{Compile}
+
+Type the following command in the terminal
+
+make all
+
+Matlab files can be opened in and run from Matlab.
+
+\section{Run}
+
+{\em command} {\em input\_file} [{\em Options}]
+
+Example:
+
+./bin/xyz2jou ./input/xyz2jou\_example.utm
+
+See Chapter "File Documentation" for all available commands. 
+
+\section{Bug Report}
+
+hgharti\_AT\_princeton\_DOT\_edu
