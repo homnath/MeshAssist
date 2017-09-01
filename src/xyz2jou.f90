@@ -2,7 +2,7 @@
 !> @file xyz2jou.f90
 !> @brief Coverts UTM/XYZ file to CUBIT/Trelis journal file.
 !>
-!>  This program converts UTM or XYZ file to CUBIT journal file. The UTM or XYZ
+!>  This program converts a UTM or XYZ file to a CUBIT journal file. The UTM or XYZ
 !>  file contains the three columns of X, Y, and Z coordinates, respectively.
 !>
 !> <!-- @athor Hom Nath Gharti (hgharti_AT_princeton_DOT_edu -->

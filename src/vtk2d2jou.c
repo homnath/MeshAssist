@@ -1,8 +1,8 @@
 /** @file vtk2d2jou.c
 *  @brief Converts VTK file consisting of 2D mesh to CUBIT/Trelis journal file. 
 *
-*  This program converts ASCII VTK file consisting of triangular/quadrilateral
-*  mesh into CUBIT/Trelis Journal file.
+*  This program converts an ASCII VTK file consisting of triangular/quadrilateral
+*  mesh into a CUBIT/Trelis Journal file.
 *
 *  <!-- @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu) -->
 *

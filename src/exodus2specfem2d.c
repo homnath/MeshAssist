@@ -1,10 +1,10 @@
 /** @file exodus2specfem2d.c
  *  @brief Convert ASCII exodus file to SPECFEM2D format
  *
- *  This program converts the ASCII exodus file exported from the CUBIT to 
+ *  This program converts the ASCII exodus file exported from CUBIT to 
  *  several input files required by the SPECFEM2D program. Currently, this 
  *  program only handles the 2D quadrilateral elements with four nodes.
- *  The binary exodus file (e.g., .e file) needs to be converted into ASCII file,
+ *  The binary exodus file (e.g., .e file) needs to be converted into an ASCII file,
  *  generally using a free console application "ncdump" which is a part of the
  *  netCDF library, and can be downloaded from \n 
  *  http://www.unidata.ucar.edu/downloads/netcdf/index.jsp. Please see the 
@@ -27,7 +27,7 @@
  *
  *  ## Options:
  *
- *    - -fac: Use this option to multiply coordinates with some factor. This is 
+ *    - -fac: Use this option to multiply coordinates by some factor. This is 
  *          important for unit 
  *          conversion, e.g., to convert m to km use -fac=0.001 [DEFAULT 1]
  *

@@ -22,7 +22,7 @@
 *	Example: ./bin/gocad2vtu ./input/gocad2vtu_example.ts
 *
 *  ##Options:
-*	- -fac: Use this option to multiply the coordinates by certain factor, this is 
+*	- -fac: Use this option to multiply the coordinates by a certain factor, this is 
 *		helpful for unit conversion, e.g. for m to km use 0.001, for km to m 
 *    use 1000, example: gocad2vtu T2_horizon.ts -fac=0.001
 *
