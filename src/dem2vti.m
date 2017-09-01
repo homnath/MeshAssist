@@ -4,8 +4,8 @@
 %>   This program converts DEM map (TIFF image format) to ASCII XYZ 
 %>   file and optionally ParaView/VTK VTI file format according to the 
 %>   parameters defined in the input file. \n
-%>   Note: Choosing a relativel small sampling interval may freeze the 
-%>   program due to 'surfl' function.
+%>   Note: Choosing a relatively small sampling interval may freeze the 
+%>   program due to the 'surfl' function.
 %>
 %> <!-- @author  Hom Nath Gharti (Princeton University), LPG, and 
 %>   Michael Roth (NORSAR) -->
@@ -22,11 +22,11 @@
 %>
 %> ## Options:
 %>   An optional argument which must be a legitimate path can be
-%>   provided as the output path. Default path is the current path.
+%>   provided as the output path. The default path is the current path.
 %>
 %> ## Output:
 %>   All output files will be saved in the output_path provided.
-%>   If no output_path is provided, current path is used.
+%>   If no output_path is provided, the current path is used.
 %------------------------------------------------------------------------------
 
 function dem2vti(infname,varargin)

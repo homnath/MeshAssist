@@ -25,7 +25,7 @@
 *
 * ## Options:
 *
-* - -fac: Use this option to multiply coordinates with some factor. This is 
+* - -fac: Use this option to multiply coordinates by some factor. This is 
 *        important for unit 
 *        conversion, e.g., to convert m to km use -fac=0.001 [DEFAULT 1]
 *

@@ -2,10 +2,10 @@
 *  @brief Converts ASCII exodus file to SPECFEM3D_GEOTECH files.
 *
 *  This program converts the Binary (provided that "ncdump" command exists)
-*  or ASCII exodus file exported from the CUBIT/Trelis to several mesh files
-*  required by the SPECFEM3D_GEOTECH package. The "ncdump" commad is a part of
-*  NetCFD library which is generally installed already in LINUX, 
-*  which can be downloaded for free from \n
+*  or ASCII exodus file exported from CUBIT/Trelis to several mesh files
+*  required by the SPECFEM3D_GEOTECH package. The "ncdump" command is a part of
+*  NetCFD library which is generally installed already in LINUX. 
+*  If it is not installed, it can be downloaded for free from \n
 *  https://www.unidata.ucar.edu/software/netcdf/
 *
 * <!--  @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu) -->
@@ -25,7 +25,7 @@
 *
 * ## Options:
 *
-* - -fac: Use this option to multiply coordinates with some factor. This is 
+* - -fac: Use this option to multiply coordinates by some factor. This is 
 *        important for unit 
 *        conversion, e.g., to convert m to km use -fac=0.001 [DEFAULT 1]
 *
@@ -36,10 +36,10 @@
 *        Use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
 *
 * ##Issues:
-* - - This does not work with older version of CUBIT. For the older version use
+* - - This does not work with older versions of CUBIT. For the older versions use
 *    exodusold2semgeotech.c.
 *
-* # Basic steps starting from the CUBIT/TRELIS:
+* # Basic steps starting from CUBIT/TRELIS:
 *
 * ### step 1: prepare mesh in TRELIS/CUBIT
 * - Define material regions using "Blocks"

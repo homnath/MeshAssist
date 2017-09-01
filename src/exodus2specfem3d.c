@@ -3,7 +3,7 @@
 *
 *  This program converts the Binary (provided that "ncdump" command exists,
 *  type "ncdump" to check whether "ncdump" command exists.) or ASCII exodus file
-*  exported from the TRELIS/CUBIT to several mesh files 
+*  exported from TRELIS/CUBIT to several mesh files 
 *  required by the SPECFEM3D Cartesian package. The "ncdump" commad is a part of
 *  NetCFD library which is generally installed already in LINUX. If this
 *  library is not found, it can be downloaded for free from \n
@@ -26,7 +26,7 @@
 *
 * ## Options:
 *
-* - -fac: Use this option to multiply coordinates with some factor. This is 
+* - -fac: Use this option to multiply coordinates by some factor. This is 
 *        important for unit 
 *        conversion, e.g., to convert m to km use -fac=0.001 [DEFAULT 1]
 *

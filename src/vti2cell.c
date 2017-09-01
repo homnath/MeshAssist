@@ -23,7 +23,7 @@
 *
 * ## Options:
 * - -fac=factor (real)
-*    Use this option to multiply the coordinates by certain factor, this is 
+*    Use this option to multiply the coordinates by a certain factor, this is 
 *    helpful for unit conversion, e.g. for m to km use 0.001, for km to m use 1000
 *    Example: vti2cell2d py_plane_model.vti -fac=1000
 * - -xmat=exclusion material id/s (integer/s)

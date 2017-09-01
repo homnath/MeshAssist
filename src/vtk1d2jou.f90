@@ -2,7 +2,7 @@
 !> @file vtk1d2jou.f90
 !> @brief Converts VTK 1D file to CUBIT/Trelis journal file.
 !>
-!>  This program read ASCII vtk files with unstructured grid of lines and 
+!>  This program reads ASCII vtk files with unstructured grid of lines and 
 !>  points only, and removes the redundant lines. The redundant nodes can be 
 !>  removed within the paraview itself using the 'Clean to Grid' filter.
 !>

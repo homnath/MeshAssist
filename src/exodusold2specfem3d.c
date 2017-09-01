@@ -20,7 +20,7 @@
 *  exodusold2specfem3d tunnel.e -fac=0.001 -bin=1
 *
 * ## Options:
-* - -fac: use this option to multiply coordinates. this is importantn for unit 
+* - -fac: use this option to multiply coordinates. this is important for unit 
 *        conversion, e.g., to convert m to km use -fac=0.001
 * - -bin: use this option if you want to convert exodus binary directly, provided
 *        that the command "ncdump" is in the path. The command "ncdump" is a part of netCDF
