@@ -28,6 +28,9 @@ clean:
 createdir:
 	(mkdir -p bin; mkdir -p output)
 
+exodusall2semgeotech:
+	(cd src; make $@)
+
 exodus2semgeotech:
 	(cd src; make $@)
 

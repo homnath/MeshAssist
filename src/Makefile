@@ -18,6 +18,7 @@ CC_COMPILE = $(CC) $(CFLAGS)
 FC_COMPILE = $(FC) $(FFLAGS)
 
 # main executable for 1D FEM
+exodusall2semgeotech = $(BIN)/exodusall2semgeotech
 exodus2semgeotech = $(BIN)/exodus2semgeotech
 exodusold2semgeotech = $(BIN)/exodusold2semgeotech
 exodus2specfem2d = $(BIN)/exodus2specfem2d
@@ -43,6 +44,9 @@ clean:
 #     vtk1d2jou \
 #     vtk2d2jou \
 #     xyz2jou
+
+exodusall2semgeotech:
+	$(CC_COMPILE) -o $(exodusall2semgeotech) exodusall2semgeotech.c
 
 exodus2semgeotech:
 	$(CC_COMPILE) -o $(exodus2semgeotech) exodus2semgeotech.c
