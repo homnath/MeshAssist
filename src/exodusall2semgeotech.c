@@ -36,8 +36,7 @@
 *        Use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
 *
 * ##Issues:
-* - - This does not work with older versions of CUBIT. For the older versions use
-*    exodusold2semgeotech.c.
+* - - 
 *
 * # Basic steps starting from CUBIT/TRELIS:
 *
