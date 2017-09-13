@@ -245,6 +245,8 @@ if(strcmp(token,"netcdf")!=0){
   exit(-1);
 }
 
+/* First, we need to determine the EXODUS file format. It may be determined 
+ * from the file header or from the coordinates layout*/
 while(!feof(inf)){
   fscanf(inf,"%s",token);
   /* read dimensions */
@@ -258,7 +260,8 @@ while(!feof(inf)){
       /* allocate memory */
       coord_name=malloc(ndim*sizeof(char *));
       for(i=0;i<ndim;i++){      
-      coord_name[i]=malloc(62*sizeof(char)); /* each name has maximum of 62 characters */   
+      coord_name[i]=malloc(62*sizeof(char));
+      /* each name has maximum of 62 characters */   
       }   
     }else{
       printf("ERROR: illegal value of dimension!\n");
@@ -278,12 +281,14 @@ while(!feof(inf)){
       /* allocate memory */
       ns_name=malloc(nns*sizeof(char *));
       for(i=0;i<nns;i++){
-        ns_name[i]=malloc(62*sizeof(char)); /* each name has maximum of 62 characters */
+        ns_name[i]=malloc(62*sizeof(char));
+        /* each name has maximum of 62 characters */
       }
       ns_nnode=malloc(nns*sizeof(int));
     }
     
-    if(nns>0){ /* This segment has a significance only if nns has legitimate value */
+    if(nns>0){
+    /* This segment has a significance only if nns has legitimate value */
       for(i=0;i<nns;i++){
         sprintf(stag,"num_nod_ns%d =",i+1);
         get_int(&ns_nnode[i],stag,bulk);          
