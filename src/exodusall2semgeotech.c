@@ -7,6 +7,8 @@
 *  NetCFD library which is generally installed already in LINUX. 
 *  If it is not installed, it can be downloaded for free from \n
 *  https://www.unidata.ucar.edu/software/netcdf/
+*  The exodus file uses the different layouts for small and large files.
+*  This program automatically detemines the layout. 
 *
 * <!--  @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu) -->
 *
