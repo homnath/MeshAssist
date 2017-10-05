@@ -196,7 +196,8 @@ if (isbin){
   /* convert binary netCDF file to ascii file */
   sprintf(dumc,"ncdump %s > %s.txt",argv[1],fonly);  
   if (system(dumc)!=0){
-    printf("ERROR: command \"%s\" cannot be executed! use -bin=0 or no option for ascii input file! \n",dumc);
+    printf("ERROR: command \"%s\" cannot be executed! use -bin=0 or no option \ 
+            for ascii input file! \n",dumc);
     exit(-1);
   }
   printf("complete!\n");
@@ -243,7 +244,8 @@ for(j=0;j<ss_maxnbc;j++)ss_bc_nside[j]=0;
 fscanf(inf,"%s",token);
 if(strcmp(token,"netcdf")!=0){
   printf("ERROR: invalid exodus file or wrong -bin value!\n");
-  printf("HINT: try correct value for -bin option or use valid exodus file!\n");
+  printf("HINT: try correct value for -bin option or use valid exodus \ 
+          file!\n");
   exit(-1);
 }
 
@@ -312,12 +314,14 @@ while(!feof(inf)){
       /* allocate memory */
       ss_name=malloc(nss*sizeof(char *));
       for(i=0;i<nss;i++){
-        ss_name[i]=malloc(62*sizeof(char)); /* each name has maximum of 62 characters */
+        /* each name has maximum of 62 characters */
+        ss_name[i]=malloc(62*sizeof(char));
       }
       ss_nside=malloc(nss*sizeof(int));
     }
     
-    if(nss>0){ /* This segment has a significance only if nss has legitimate value */
+    /* This segment has a significance only if nss has legitimate value */
+    if(nss>0){
       for(i=0;i<nss;i++){
         sprintf(stag,"num_side_ss%d =",i+1);
         get_int(&ss_nside[i],stag,bulk);          
@@ -402,7 +406,8 @@ while(!feof(inf)){
         } /* for(j=0 ..) */
     
         if(ns_nbc==0){
-          printf("WARNING: no BC name found in node side \"%s\"!\n",ns_name[i]);
+          printf("WARNING: no BC name found in node side \"%s\"!\n", \
+            ns_name[i]);
         }
 
         fscanf(inf,"%s",dumc); /* = */
@@ -544,7 +549,8 @@ while(!feof(inf)){
           }
         }else{
           /* write to a dummy file with a name of ss_name */
-          printf("WARNING: no BC name found in sideset name \"%s\"!\n",ss_name[i]);
+          printf("WARNING: no BC name found in sideset name \"%s\"!\n", \
+            ss_name[i]);
           /* Open a filename with a name of sideset name */
           sprintf(outfname,"%s_%s",fonly,ss_name[i]);
           outf_dum=fopen(outfname,"w");
@@ -729,7 +735,8 @@ while(!feof(inf)){
 /* check status */
 if(coordx_stat!=ON && coordx_stat!=ON && coordx_stat!=ON){
   printf("ERROR: coordinates cannot be read!\n");
-  printf("HINT: it seems that the EXODUS file format is \"set large exodus file off\"!\n");
+  printf("HINT: it seems that the EXODUS file format is \"set large exodus \
+    file off\"!\n");
   printf("      Please try using exodusold2semgeotech instead!\n");
   exit(-1);
 }
