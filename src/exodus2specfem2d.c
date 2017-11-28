@@ -132,7 +132,7 @@ int getfirstquote(char *, char *);
 int shape(double,double,double**);
 int check_normal(double [3][4],double [3]);
 int isclockwise(int, double [], double []);                                  
-double maxval(int, double []);
+double absmaxval(int, double []);
 
 /* main routine */
 int main(int argc,char **argv){
@@ -537,7 +537,7 @@ printf("writing coordinates...");
 inum=0;
 for(i=0; i<ndim; i++)idim[i]=-9999;
 for(i=0; i<ndim; i++){
-  if(maxval(nnode,coord[i])==0.){
+  if(absmaxval(nnode,coord[i])==0.){
     switch_coord[i]=OFF;
     if(i==0)printf("X coordinate switched OFF!\n");
     if(i==1)printf("Y coordinate switched OFF!\n");
@@ -928,15 +928,16 @@ return(iflag);
 }                                                                               
 /*---------------------------------------------------------------------------*/
 
-/* get absolute maximum value of an array */                                     
-double maxval(int n, double x[n])                                  
+/* Get absolute maximum value of an array */                                     
+double absmaxval(int n, double x[n])                                  
 {                                                                               
 int i;                                                                    
-double xmax;                                                                 
+double absx,xmax;                                                                 
           
-xmax=x[0];                                                                      
-for(i=1; i<n-1; i++){                                                         
-  if(x[i]>xmax)xmax=x[i];
+xmax=abs(x[0]);                                                                      
+for(i=1; i<n-1; i++){
+  absx=abs(x[i]);                                                        
+  if(absx>xmax)xmax=absx;
 }                                                                             
 return(xmax);                                                                  
 }                                                                               
