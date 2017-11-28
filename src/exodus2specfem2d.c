@@ -601,9 +601,11 @@ if(nblk>0 && con_stat==ON){
   free(zp);                                                                     
   free(blk_nelmt);                                                              
   free(blk_nenod);                                                              
-}                                                                               
-printf("clockwise-ordered elements: %d\n",ncw);                                 
-printf("anticlockwise-ordered elements: %d\n",nccw);   
+}
+if(isorder==1){
+  printf("clockwise-ordered elements: %d\n",ncw);                                 
+  printf("anticlockwise-ordered elements: %d\n",nccw);   
+}
 
 /* Write boundary files */                                                      
 /* Side numbering:                                                              
