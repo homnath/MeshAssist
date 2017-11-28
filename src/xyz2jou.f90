@@ -22,7 +22,7 @@
 !> ## Options:
 !> - -nx: Use this option if you know the number of points in a line along X axis
 !>       . This will speed up the processing. For example, -nx=100. If it is not
-!>       defined, nx is automatically determined. 
+!>       defined, nx is automatically determined.
 !> - -nskip: Use this option if you want to skip (downsample) certain number of
 !>       successive points. This will skip along both X and Y axes. For example,
 !>       -nskip=2. [DEFAULT 0].
@@ -32,7 +32,7 @@ program xyz2jou
 implicit none
 integer,parameter :: kreal=selected_real_kind(12)
 character(len=180) :: cubit_fname,inp_fname,out_fname
-character(len=80) :: file_head,ext,strblk,path 
+character(len=80) :: file_head,ext,strblk,path
 integer :: ierr,ip1,ip2,narg,nx,nx0,npx
 ! total points, total points written
 integer :: np,npw
@@ -67,7 +67,7 @@ if(narg>1)then
       isnx0=.true.
       cycle
     endif
-    
+
     ! read nskip parameter
     call look_int(strblk,'-nskip=',itmp,istat)
     if(istat.eq.0)then
@@ -129,13 +129,13 @@ do
   islastp=.false.
   !write(20,*)'create vertex ',x,y,z
   ! compute slope
-  m=(y-y0)/(x-x0)  
+  m=(y-y0)/(x-x0)
   if(setm0)then
     !write(20,*)'create vertex ',x,y,z
     m0=m
     setm0=.false.
     npx=1
-  else  
+  else
     if((isnx0.and.npx.eq.nx0) .or. (.not.isnx0.and.abs(m-m0).gt.eps))then
       nx=npx ! point in each curve
       !ip2=np-1
@@ -147,23 +147,23 @@ do
       ! do not skip the first curve
       if(nc.eq.1 .or. icskip.gt.nskip)then
         write(20,*)'create curve spline vertex ',ip1,' to ',ip2
-        write(20,*)('delete vertex all')  
+        write(20,*)('delete vertex all')
         ncw=ncw+1
         !if(ncw.ge.5)stop
         icskip=0
         islastc=.true.
       endif
-      if((isnx0.or.nc>1).and.(nx0.ne.nx))then        
+      if((isnx0.or.nc>1).and.(nx0.ne.nx))then
         print*,'WARNING: number of Xpoints mismatch!'
         print*,'nx0:',nx0,' nx:',nx
-      endif 
+      endif
       x0=x; y0=y
       nx0=nx
       setm0=.true.
       ip1=ip2+1
       if(nc.le.1)print*,'Total points in X direction:',nx0
     endif
-    !write(20,*)'create vertex ',x,y,z    
+    !write(20,*)'create vertex ',x,y,z
   endif
   if((nc.eq.0 .or. icskip.gt.nskip-1) .and. ipskip.gt.nskip)then
     npw=npw+1
@@ -190,7 +190,7 @@ if(.not.islastc)then
   nc=nc+1 ! number of curves
   ! do not skip last curve
   write(20,*)'create curve spline vertex ',ip1,' to ',ip2
-  write(20,*)('delete vertex all')  
+  write(20,*)('delete vertex all')
   ncw=ncw+1
 endif
 if(nc*nx.ne.np)then
@@ -202,9 +202,9 @@ print*,'Total points skipped:',np-npw
 print*,'Total curves:',nc
 print*,'Total curves written:',ncw
 print*,'Total curves skipped:',nc-ncw
-  
+
 write(20,*)'create surface skin curve all'
- 
+
 write(20,*)('delete curve all')
 write(20,*)('compress all ')
 cubit_fname=trim(file_head)//'_surface.cub'

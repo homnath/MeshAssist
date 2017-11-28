@@ -2,8 +2,8 @@
 !> @file vtk1d2jou.f90
 !> @brief Converts VTK 1D file to CUBIT/Trelis journal file.
 !>
-!>  This program reads ASCII vtk files with unstructured grid of lines and 
-!>  points only, and removes the redundant lines. The redundant nodes can be 
+!>  This program reads ASCII vtk files with unstructured grid of lines and
+!>  points only, and removes the redundant lines. The redundant nodes can be
 !>  removed within the paraview itself using the 'Clean to Grid' filter.
 !>
 !> <!-- @athor Hom Nath Gharti (hgharti_AT_princeton_DOT_edu -->
@@ -39,9 +39,9 @@ curve(0:999),ncurve
 integer,allocatable :: n1(:),n2(:),new_n1(:),new_n2(:),cid(:),nb(:),nmir(:),  &
 op2np(:)
 real(kind=kreal),allocatable :: xyz(:,:)
-character(len=10) :: dumc      
+character(len=10) :: dumc
 character(len=180) :: outjou_fname,inp_fname,outvtk_fname
-character(len=80) :: file_head,ext,path 
+character(len=80) :: file_head,ext,path
 
 ! Input and initialisation
 narg=command_argument_count()
@@ -71,14 +71,14 @@ allocate(n1(0:temp_nc-1),n2(0:temp_nc-1),cid(0:temp_nc-1))
 nc=0
 do i=0,temp_nc-1
   read(10,*)dumi,temp_n1,temp_n2
-  if (temp_n1/=temp_n2) then    
+  if (temp_n1/=temp_n2) then
     n1(nc)=temp_n1
     n2(nc)=temp_n2
     nc=nc+1
   end if
 end do
 close(10)
- 
+
 ! Remove double curves
 cid=1 ! Initially all cid are 1
 numc=nc
@@ -119,7 +119,7 @@ do i=0,numc-1
   if(nb(new_n1(i))==1 .or. nb(new_n2(i))==1)then
     cid(i)=0
     nc=nc-1
-  end if  
+  end if
 end do
 deallocate(n1,n2)
 
@@ -127,7 +127,7 @@ allocate(n1(0:nc-1),n2(0:nc-1))
 ! Renumbering cells
 nc=0
 do i=0,numc-1
-  if(cid(i)/=0)then   
+  if(cid(i)/=0)then
     n1(nc)=new_n1(i)
     n2(nc)=new_n2(i)
     nc=nc+1
@@ -162,7 +162,7 @@ do i=0,nump-1
   node(i)%x=xyz(0,nmir(i))
   node(i)%y=xyz(1,nmir(i))
   node(i)%z=xyz(2,nmir(i))
-  
+
   node(i)%nelmt=0 ! Initialize
 end do
 deallocate(xyz)
@@ -179,10 +179,10 @@ deallocate(n1,n2)
 do i=0,nc-1
   i1=elmt(i)%nod1
   i2=elmt(i)%nod2
-  
+
   node(i1)%elmt(node(i1)%nelmt)=i
   node(i2)%elmt(node(i2)%nelmt)=i
-  
+
   node(i1)%nelmt=node(i1)%nelmt+1
   node(i2)%nelmt=node(i2)%nelmt+1
 end do
@@ -228,42 +228,42 @@ close(10)
 
 ! Create splines for crossing curves
 int_node: do i=0,nis-1
-  !write(*,'(5(i4,1x))')node_is(i),elmt(node(node_is(i))%elmt(0:2))%id  
+  !write(*,'(5(i4,1x))')node_is(i),elmt(node(node_is(i))%elmt(0:2))%id
   int_elmt: do j=0,node(node_is(i))%nelmt-1
-    
+
     ncurve=0
     curve=-1
     e=node(node_is(i))%elmt(j)
-    
+
     ! This element is already included in the curve
     if(elmt(e)%id==1)cycle int_elmt
     curve(ncurve)=node_is(i)
     ncurve=ncurve+1
-    
+
     pnode=node_is(i)
     pelmt=e
     inf_loop: do
       ! Next node
       if(elmt(pelmt)%nod1==pnode)then
         next_node=elmt(pelmt)%nod2
-      else if(elmt(pelmt)%nod2==pnode)then 
+      else if(elmt(pelmt)%nod2==pnode)then
         next_node=elmt(pelmt)%nod1
       else
         print*,'ERROR: Node and element mismatch!',pnode,elmt(pelmt)%nod1,    &
         elmt(pelmt)%nod2
         stop
       end if
-      
+
       curve(ncurve)=next_node
       ncurve=ncurve+1
-      
+
       elmt(pelmt)%id=1 ! Now it is included in the curve
-      
+
       ! Meet another intersection point or starting point
       if(node(next_node)%nelmt>2 .or. next_node==node_is(i))exit inf_loop
-      
+
       pnode=next_node
-      
+
       ! Next element
       if(node(next_node)%elmt(0)==pelmt)then
         next_elmt=node(next_node)%elmt(1)
@@ -273,8 +273,8 @@ int_node: do i=0,nis-1
         print*,'ERROR: illegal next element for a node!'
         stop
       end if
-      pelmt=next_elmt     
-      
+      pelmt=next_elmt
+
       ! print*,'IntNode: ',pnode,pelmt
       !if(ncurve==6)exit
     end do inf_loop
@@ -284,15 +284,15 @@ int_node: do i=0,nis-1
 end do int_node
 
 ! Create curves for sigle loops
-do i=0,nc-1   
+do i=0,nc-1
   ncurve=0
   curve=-1
-    
+
   if(elmt(i)%id==1)cycle
-    
+
   curve(ncurve)=elmt(i)%nod1
   ncurve=ncurve+1
-    
+
   pnode=elmt(i)%nod1
   pelmt=i
   do
@@ -302,27 +302,27 @@ do i=0,nc-1
     else
       next_node=elmt(pelmt)%nod1
     end if
-      
+
     curve(ncurve)=next_node
     ncurve=ncurve+1
-      
+
     elmt(pelmt)%id=1 ! Now it is included in the curve
-      
+
     ! Meet another intersection point
     if(node(next_node)%nelmt>2 .or. next_node==elmt(i)%nod1)exit
-      
+
     pnode=next_node
-      
+
     ! Next element
     if(node(next_node)%elmt(0)==pelmt)then
       next_elmt=node(next_node)%elmt(1)
     else
       next_elmt=node(next_node)%elmt(0)
     end if
-    pelmt=next_elmt     
-      
+    pelmt=next_elmt
+
     print*,'IntNode: ',ncurve,pnode,pelmt
-    
+
     if(elmt(next_elmt)%id==1)exit
     !if(ncurve==6)exit
   end do

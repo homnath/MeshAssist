@@ -1,5 +1,5 @@
 /** @file vtk2d2jou.c
-*  @brief Converts VTK file consisting of 2D mesh to CUBIT/Trelis journal file. 
+*  @brief Converts VTK file consisting of 2D mesh to CUBIT/Trelis journal file.
 *
 *  This program converts an ASCII VTK file consisting of triangular/quadrilateral
 *  mesh into a CUBIT/Trelis Journal file.
@@ -12,7 +12,7 @@
 * ## Compile:
 *  gcc vtk2d2jou.c -o vtk2d2jou
 *
-*  ## Usage: 
+*  ## Usage:
 *  vtk2d2jou \em input_file \n\n
 *  Example: \n
 *  vtk2d2jou vtk2d2jou_example.vtk
@@ -61,14 +61,14 @@ if(inf==NULL){
 }
 /*printf("--------------------------------\n");*/
 
-    
+
 /* initialize some variables to 0 */
 nnode=0; nelmt=0;
 
 /* set default status to OFF */
 point_stat=OFF; cell_stat=OFF;
 
-sprintf(outfname,"%s.jou",fonly);			  
+sprintf(outfname,"%s.jou",fonly);
 printf("output file: %s\n",outfname);
 outf=fopen(outfname,"w");
 
