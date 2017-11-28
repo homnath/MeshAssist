@@ -1,12 +1,12 @@
 /** @file vti2cell.c
 *  @brief This file converts VTI file to VTU file.
 *
-*  This program converts the 2D/3D Binary VTK XML .vti file to unstructured 
-*  mesh files (.vtu). This program also generates the mesh files required by 
-*  SPECFEM2D and SPECFEM3D. Note that the file formats in SPECFEM2D and 
-*  SPECFEM3D are different. This should be made same format as soon as 
-*  possible. For this, source codes within the decompose folder of SPECFEM3D 
-*  and cubit2specfem3d.py need to be changed. 
+*  This program converts the 2D/3D Binary VTK XML .vti file to unstructured
+*  mesh files (.vtu). This program also generates the mesh files required by
+*  SPECFEM2D and SPECFEM3D. Note that the file formats in SPECFEM2D and
+*  SPECFEM3D are different. This should be made same format as soon as
+*  possible. For this, source codes within the decompose folder of SPECFEM3D
+*  and cubit2specfem3d.py need to be changed.
 *
 *  <!-- @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu) -->
 *
@@ -16,24 +16,24 @@
 * ## Compile:
 *  gcc vti2cell.c -o vti2cell -lm
 *
-*  ## Usage: 
+*  ## Usage:
 *  vti2cell \em input_file [\em Options] \n\n
 *  Example: \n
 *  vti2cell py_plane_model.vti
 *
 * ## Options:
 * - -fac=factor (real)
-*    Use this option to multiply the coordinates by a certain factor, this is 
+*    Use this option to multiply the coordinates by a certain factor, this is
 *    helpful for unit conversion, e.g. for m to km use 0.001, for km to m use 1000
 *    Example: vti2cell2d py_plane_model.vti -fac=1000
 * - -xmat=exclusion material id/s (integer/s)
 *    Use this option to exclude certain region of the model, e.g. exclusion of air.
-*    Appropriate id/s should be supplied, id s are number orderd according to the value 
+*    Appropriate id/s should be supplied, id s are number orderd according to the value
 *    of corresponding material properties and numbered starting from 1. This way,
 *    lowest value will have id 1 and so on.
 *    Example: vti2cell py_plane_model.vti -xmat=1,2
 *    This command will exclude the regions with material id 1 and 2.
-*      
+*
 *    Example: vti2cell py_plane_model.vti -fac=1000 -xmat=1
 *    This command multiply the coordinates by 1000 and exclude the region with material id 1
 * - -step=step size (integer)
@@ -75,7 +75,7 @@ int main(int argc,char **argv)
 {
   int ch,i,ielmt,inode,j,k;
   int ii,ji,ki;
-  int endian,etype,ienode; 
+  int endian,etype,ienode;
   int dumi,*enode;
   int ndim,nenode,nvar,nmat;
   int nx,ny,nz; /* number of grid points */
@@ -83,7 +83,7 @@ int main(int argc,char **argv)
   int nnx,nny,nnz; /* number of nodes */
   int next,bytes[maxvar],offset[maxvar];
   int nnode,nelmt,new_nnode,new_nelmt,inew_elmt;
-  int **elmt_node,*nstat,*estat,*nmir,*elmt_mat; 
+  int **elmt_node,*nstat,*estat,*nmir,*elmt_mat;
   int wx1,wx2,wy1,wy2,wz1,wz2; /* Whole extent */
   int px1,px2,py1,py2,pz1,pz2; /* Piece extent */
   int imat,emat_id,match;
@@ -98,21 +98,21 @@ int main(int argc,char **argv)
   float mat[maxmat];
   float ox,oy,oz; /* Origin */
   float dx,dy,dz; /* Spacig */
-  float tempx,tempy,tempz;  
-  float fac;  
+  float tempx,tempy,tempz;
+  float fac;
   char byte_order[12],buffer[maxline],string[maxline],stag[maxline];
   char fonly[62],outfname[62],vname[62],vtype[62];
   FILE *inf,*outf0,*outf1,*outf_abs,*outf_xmin,*outf_xmax,*outf_ymin,         \
   *outf_ymax,*outf_zmin,*outf_zmax;
-  
-  /* Actual parameters */   
-  nvar = 5; /* Number of variable sets to be plotted in ParaView */  
-    
-  fac=1.0; nxmat=0; step=1; 
+
+  /* Actual parameters */
+  nvar = 5; /* Number of variable sets to be plotted in ParaView */
+
+  fac=1.0; nxmat=0; step=1;
   xup=yup=zup=1;
   idatum=jdatum=kdatum=0;
   isign=jsign=ksign=1; /* default is z up */
-    
+
   /* Open input file */
   if(argc<2){
     fprintf(stderr,"ERROR: input file not entered!\n");
@@ -123,7 +123,7 @@ int main(int argc,char **argv)
     fprintf(stderr,"ERROR: file \"%s\" not found!\n",argv[1]);
     exit(-1);
   }
-  
+
   if(argc>2){
     for(i=2;i<argc;i++){
       if(matchfirstword(argv[i],"-fac")){
@@ -138,7 +138,7 @@ int main(int argc,char **argv)
 			if(argv[i][i_char]==','){
 			nxmat++;
 			}
-		}				
+		}
 		xmat=malloc(nxmat*sizeof(int));
 		getintegervect(argv[i],"=",nxmat,xmat);
     }
@@ -198,9 +198,9 @@ int main(int argc,char **argv)
     exit(-1);
   }
 
-  printf("--------------------------------\n"); 
+  printf("--------------------------------\n");
   printf("input file: %s\n",argv[1]);
-  printf("coordinates multiplication factor: %f\n",fac);  
+  printf("coordinates multiplication factor: %f\n",fac);
   printf("coursening factor: %d\n",step);
   if(xup==1){
     printf("x direction: UP\n");
@@ -238,42 +238,42 @@ int main(int argc,char **argv)
     if(matchfirstword(buffer,"<ImageData")){
       /* WholeExtent */
       getvalue(buffer,"WholeExtent","s",(int *)string);
-      getfirstquote(string,stag);     
-      sscanf(stag,"%d %d %d %d %d %d",&wx1,&wx2,&wy1,&wy2,&wz1,&wz2);     
+      getfirstquote(string,stag);
+      sscanf(stag,"%d %d %d %d %d %d",&wx1,&wx2,&wy1,&wy2,&wz1,&wz2);
       printf("WholeExtent: %d %d %d %d %d %d\n",wx1,wx2,wy1,wy2,wz1,wz2);
-      
+
       /* Origin */
       getvalue(buffer,"Origin","s",(int *)string);
-      getfirstquote(string,stag);           
-      sscanf(stag,"%f %f %f",&ox,&oy,&oz);      
+      getfirstquote(string,stag);
+      sscanf(stag,"%f %f %f",&ox,&oy,&oz);
       printf("Origin: %f %f %f\n",ox,oy,oz);
-      
+
       /* Spacing */
       getvalue(buffer,"Spacing","s",(int *)string);
       getfirstquote(string,stag);
-      sscanf(stag,"%f %f %f",&dx,&dy,&dz);      
+      sscanf(stag,"%f %f %f",&dx,&dy,&dz);
       printf("Spacing: %f %f %f\n",dx,dy,dz);
     }
-    
+
     if(matchfirstword(buffer,"<Piece")){
       /* WholeExtent */
       getvalue(buffer,"Extent","s",(int *)string);
-      getfirstquote(string,stag);     
-      sscanf(stag,"%d %d %d %d %d %d",&px1,&px2,&py1,&py2,&pz1,&pz2);     
+      getfirstquote(string,stag);
+      sscanf(stag,"%d %d %d %d %d %d",&px1,&px2,&py1,&py2,&pz1,&pz2);
       printf("Piece Extent: %d %d %d %d %d %d\n",px1,px2,py1,py2,pz1,pz2);
     }
-    
+
     if(matchfirstword(buffer,"<DataArray")){
       /* type */
       getvalue(buffer,"type","s",(int *)string);
-      getfirstquote(string,stag);     
-      strcpy(vtype,stag);     
+      getfirstquote(string,stag);
+      strcpy(vtype,stag);
       printf("type: %s\n",vtype);
-      
+
       /* Name */
       getvalue(buffer,"Name","s",(int *)string);
-      getfirstquote(string,stag);     
-      strcpy(vname,stag);     
+      getfirstquote(string,stag);
+      strcpy(vname,stag);
       printf("Name: %s\n",vname);
     }
   }
@@ -283,13 +283,13 @@ int main(int argc,char **argv)
   if(ch != '_'){
     printf("ERROR: wrong transition character found!\n");
     exit(-1);
-  } 
-        
+  }
+
   printf("header status: SUCCESS\n");
   printf("--------------------------------\n");
-  
+
   printf("original model...\n");
-  
+
   /* Number of grid points */
   nx=wx2-wx1+1;
   ny=wy2-wy1+1;
@@ -313,16 +313,16 @@ int main(int argc,char **argv)
 	  etype=3; /* VTK line */
   }
   enode=malloc(nenode*sizeof(int));
-  
+
   /* Number of element */
   nex=floor(nx/step);
-  ney=floor(ny/step); 
+  ney=floor(ny/step);
   nez=floor(nz/step);
   if(nex==0)nex=1;
   if(ney==0)ney=1;
   if(nez==0)nez=1;
   nelmt=nex*ney*nez;
-  
+
   /* Number of nodes */
   nnx=nex+1;
   nny=ney+1;
@@ -333,8 +333,8 @@ int main(int argc,char **argv)
   else if(ndim==2){
     nnz=1;
   }
-  nnode=nnx*nny*nnz;  
-  
+  nnode=nnx*nny*nnz;
+
   /* Memory allocation */
   elmt_node=malloc (nelmt * sizeof(int *));
   if(elmt_node == NULL){
@@ -360,37 +360,37 @@ int main(int argc,char **argv)
     fprintf(stderr, "ERROR: out of memory\n");
     exit(-1);
   }
-  
+
   elmt_mat=malloc(nelmt * sizeof(int));
   if(elmt_mat == NULL){
     fprintf(stderr, "ERROR: out of memory\n");
     exit(-1);
   }
-  
+
   /* Initialization */
   for(i=0;i<nnode;i++)nstat[i]=OFF;
-  for(i=0;i<nelmt;i++)estat[i]=OFF;    
-  
+  for(i=0;i<nelmt;i++)estat[i]=OFF;
+
   /* New origin */
-  
+
   /* always set origin at the bottom */
   /* Change origin from top to bottom if necessary */
   ox = ox-0.5*dx;
   if(xup==0){
-    dx=fabs(dx);    
+    dx=fabs(dx);
     ox=ox-nex*(step*dx);
   }
   if(ndim>1){
     oy = oy-0.5*dy;
     if(yup==0){
-      dy=fabs(dy);    
+      dy=fabs(dy);
       oy=oy-ney*(step*dy);
 	  }
   }
   if(ndim>2){
     oz = oz-0.5*dz;
     if(zup==0){
-      dz=fabs(dz);    
+      dz=fabs(dz);
       oz=oz-nez*(step*dz);
 	  }
   }
@@ -399,13 +399,13 @@ int main(int argc,char **argv)
   dx=step*dx;
   dy=step*dy;
   dz=step*dz;
-  
-  removeExtension(argv[1],fonly); 
+
+  removeExtension(argv[1],fonly);
   sprintf(outfname,"%s_mesh.vtu",fonly);
-  
+
   outf0=fopen(outfname,"w");
 
-  /* Bytes and offsets for ParaView file */ 
+  /* Bytes and offsets for ParaView file */
   bytes[0] = (3*nnode)*sizeof(float);i
   /* Coordinates: in paraview both x, y, and z coordinates should be provided
      for all dimensions */
@@ -413,12 +413,12 @@ int main(int argc,char **argv)
   bytes[2] = (nelmt)*sizeof(int);     /* Offsets */
   bytes[3] = (nelmt)*sizeof(int);     /* Types */
   bytes[4] = (nelmt)*sizeof(float);     /* Cell data */
-  
+
   offset[0]=0; /* 1st offset */
-  for (i=0; i<nvar; i++){   
+  for (i=0; i<nvar; i++){
     if(i<nvar-1)offset[i+1]=offset[i]+sizeof(int)+bytes[i];
     bytes[i]=bytes[i]+sizeof(int);
-  } 
+  }
 
   /* Header for VTK XML .vtu file */
   fprintf(outf0,"<?xml version=\"1.0\"?>\n");
@@ -429,7 +429,7 @@ int main(int argc,char **argv)
   fprintf(outf0,"<DataArray type=\"Float32\" NumberOfComponents=\"3\" format=\"appended\" offset=\"%d\"/>\n",offset[0]);
   fprintf(outf0,"</Points>\n");
   fprintf(outf0,"<PointData>\n");
-  fprintf(outf0,"</PointData>\n");    
+  fprintf(outf0,"</PointData>\n");
   fprintf(outf0,"<Cells>\n");
   fprintf(outf0,"<DataArray type=\"Int32\" Name=\"connectivity\" format=\"appended\" offset=\"%d\"/>\n",offset[1]);
   fprintf(outf0,"<DataArray type=\"Int32\" Name=\"offsets\" format=\"appended\" offset=\"%d\"/>\n",offset[2]);
@@ -445,7 +445,7 @@ int main(int argc,char **argv)
 
   /* Coordinates */
   outf1=fopen("nodes_coords_file","w");
-  fprintf(outf1,"%d\n",nnode);  
+  fprintf(outf1,"%d\n",nnode);
 
   next=0;
 
@@ -461,13 +461,13 @@ int main(int argc,char **argv)
         fwrite(&tempx,sizeof(float),1,outf0);
         fwrite(&tempy,sizeof(float),1,outf0);
         fwrite(&tempz,sizeof(float),1,outf0);
-        if(ndim==3){			       
+        if(ndim==3){
           fprintf(outf1,"%d %.6f %.6f %.6f\n",inode+1,tempx,tempy,tempz);
         }
-        else if(ndim==2){       
+        else if(ndim==2){
           fprintf(outf1,"%.6f %.6f\n",tempx,tempy);
         }
-        else if(ndim==1){       
+        else if(ndim==1){
           fprintf(outf1,"%.6f\n",tempx);
         }
         inode++;
@@ -475,8 +475,8 @@ int main(int argc,char **argv)
     }
   }
   fclose(outf1);
-  printf("coordinates: SUCCESS\n"); 
-  
+  printf("coordinates: SUCCESS\n");
+
   /* Connectivity */
   outf1=fopen("mesh_file","w");
   fprintf(outf1,"%d\n",nelmt);
@@ -490,49 +490,49 @@ int main(int argc,char **argv)
 	  outf_zmin=fopen("absorbing_surface_file_bottom","w");
     /* for pyhaesalmi I will write both zmin and zmax in same file */
 	  printf("WARNING: top surface is saved as absorbing boundary and appended to bottom surface!\n");
-	  
+
 	  fprintf(outf_xmin,"%d\n",ney*nez);
 	  fprintf(outf_xmax,"%d\n",ney*nez);
 	  fprintf(outf_ymin,"%d\n",nex*nez);
 	  fprintf(outf_ymax,"%d\n",nex*nez);
-	  fprintf(outf_zmin,"%d\n",2*(nex*ney)); 
+	  fprintf(outf_zmin,"%d\n",2*(nex*ney));
   }
   else if(ndim==2){
 	  outf_abs=fopen("absorbing_surface_file","w");
 	  fprintf(outf_abs,"%d\n",2*(nex+ney));
 	  printf("WARNING: all periphery is saved as absorbing boundary surface!\n");
   }
-  
+
   fwrite(&bytes[next],sizeof(int),1,outf0);next++;
   ielmt=0;
   for(k=0;k<nez;k++){
     for(j=0;j<ney;j++){
       for(i=0;i<nex;i++){
         if(ndim==3){
-          /* This segment is only valid for 8-noded hexahedron */       
+          /* This segment is only valid for 8-noded hexahedron */
           enode[0]=k*nny*nnx+j*nnx+i;
           enode[1]=enode[0]+1;
-	  
+
           enode[2]=enode[1]+nnx;
           enode[3]=enode[0]+nnx;
-	  
+
           enode[4]=enode[0]+nnx*nny;
           enode[5]=enode[4]+1;
-              
+
           enode[6]=enode[5]+nnx;
           enode[7]=enode[4]+nnx;
           /*---------------------------------------------------*/
         }
         else if(ndim==2){
-          /* This segment is only valid for 4-noded quadrilateral */       
+          /* This segment is only valid for 4-noded quadrilateral */
           enode[0]=j*nnx+i;
           enode[1]=enode[0]+1;
-	  
+
           enode[2]=enode[1]+nnx;
           enode[3]=enode[0]+nnx;
           /*---------------------------------------------------*/
         }
-        
+
         /* write absorbing boundary at xmin */
         if(ndim==3){
           if(i==0){
@@ -582,7 +582,7 @@ int main(int argc,char **argv)
           elmt_node[ielmt][ienode]=enode[ienode];
           fwrite(&enode[ienode],sizeof(int),1,outf0);
           fprintf(outf1,"%d ",enode[ienode]+1);
-          if(ienode==nenode-1)fprintf(outf1,"\n");        
+          if(ienode==nenode-1)fprintf(outf1,"\n");
         }
         ielmt++;
       }
@@ -601,7 +601,7 @@ int main(int argc,char **argv)
   }
   fclose(outf1);
   printf("connectivity: SUCCESS\n");
-  
+
   /* Offsets */
   fwrite(&bytes[next],sizeof(int),1,outf0);next++;
   temp=0;
@@ -610,23 +610,23 @@ int main(int argc,char **argv)
     fwrite(&temp,sizeof(int),1,outf0);
   }
   printf("offsets: SUCCESS\n");
-  
+
   /* Types */
-  fwrite(&bytes[next],sizeof(int),1,outf0);next++;  
+  fwrite(&bytes[next],sizeof(int),1,outf0);next++;
   for(i=0;i<nelmt;i++){
     fwrite(&etype,sizeof(int),1,outf0);
   }
   printf("types: SUCCESS\n");
-  
-  /* Cell data */ 
+
+  /* Cell data */
   outf1=fopen("materials_val","wb");
   fread(&dumi,sizeof(int),1,inf);
   off0=ftell(inf);  /* from this offset gridded data starts */
 
   fwrite(&bytes[next],sizeof(int),1,outf0);next++;
-  
+
   for(imat=0;imat<maxmat;imat++)mat[imat]=0.0;
-  
+
   if(zup==0){
     kdatum=nz-1;
     ksign=-1;
@@ -640,15 +640,15 @@ int main(int argc,char **argv)
         i=idatum+isign*ii;
         ioff=sizeof(float)*(k*ny*nx+j*nx+i);/*printf("%d\n",ioff); exit(-1);*/
         fseek(inf,off0+ioff,SEEK_SET);
-        fread(&tempx,sizeof(float),1,inf);          
+        fread(&tempx,sizeof(float),1,inf);
         fwrite(&tempx,sizeof(float),1,outf0);
         fwrite(&tempx,sizeof(float),1,outf1);
 
-        /* count and designate material regions */        
+        /* count and designate material regions */
         if(nmat==0){/* Initialize */
           mat[nmat]=tempx;printf("material property: %.6f\n",tempx);
           nmat++;
-        }       
+        }
         else{
           match=OFF;
           for(imat=0;imat<nmat;imat++){
@@ -667,31 +667,31 @@ int main(int argc,char **argv)
               exit(-1);
             }
           }
-        } /* if(nmat */       
+        } /* if(nmat */
       } /* for(i */
     } /* for(j */
   } /* for(ki */
   fclose(inf);
   fclose(outf1);
 
-  /* sort the material designation in ascending order and diplay */ 
+  /* sort the material designation in ascending order and diplay */
   qsort(mat,nmat,sizeof(float),comp_float);
   printf("material properties: num=%d, min=%f, max=%f\n",nmat,mat[0],mat[nmat-1]);
 
   /* new material ID after exclusion */
   new_matid=malloc(nmat*sizeof(int));
   for(i=0;i<nmat;i++){
-    new_matid[i]=i+1;		
+    new_matid[i]=i+1;
   }
   for(i=0;i<nxmat;i++){
     if(xmat[i]<1 || xmat[i]>nmat){
       printf("ERROR: exclusion material ID: %d is outside the range: [%d %d]\n",xmat[i],1,nmat);
       exit(-1);
-    }		
+    }
     new_matid[xmat[i]-1]=OFF;
   }
   matid=0;
-  for(i=0;i<nmat;i++){		
+  for(i=0;i<nmat;i++){
     if(new_matid[i]>OFF){
       matid++;
       new_matid[i]=matid;
@@ -701,12 +701,12 @@ int main(int argc,char **argv)
     printf("WARNING: all material regions cannot be excluded! Nothing will be excluded!\n");
     nxmat=0;
   }
-  
+
   inf=fopen("materials_val","rb");
   outf1=fopen("materials_file","w");
   ielmt=0;new_nelmt=0;
-  
-  ielmt=0;  
+
+  ielmt=0;
   for(k=0;k<nez;k++){
     for(j=0;j<ney;j++){
       for(i=0;i<nex;i++){
@@ -726,7 +726,7 @@ int main(int argc,char **argv)
           printf("ERROR: material mismatched [%d %f]!\n",ielmt,tempx);
           exit(-1);
         }
-        
+
         if(nxmat>0){ /* Exclusion of material */
           if(new_matid[elmt_mat[ielmt]-1]>OFF){
             new_nelmt++;
@@ -744,26 +744,26 @@ int main(int argc,char **argv)
     }
   }
   free(elmt_node);
-  fclose(outf1);    
+  fclose(outf1);
   fclose(inf);
-  printf("cell data: SUCCESS\n"); 
-  
+  printf("cell data: SUCCESS\n");
+
   fprintf(outf0,"\n");
   fprintf(outf0,"</AppendedData>\n");
   fprintf(outf0,"</VTKFile>\n");
   fclose(outf0);
-  
+
   printf("nodes: %d\n",nnode);
   printf("elements: %d\n",nelmt);
   printf("status: SUCCESS\n");
   printf("--------------------------------\n");
-  
+
   if(nxmat<=0 || nxmat>maxmat)return(0);
 
   /* processing to exclude air */
 
   printf("exclude certain region...\n");
-  
+
   /* count new nodes */
   new_nnode=0;
   for(i=0;i<nnode;i++){
@@ -771,22 +771,22 @@ int main(int argc,char **argv)
   }
 
   sprintf(outfname,"%s_mesh_xmat.vtu",fonly);
-  
+
   outf0=fopen(outfname,"wb");
-  
+
   /* bytes and offsets for ParaView file */
   bytes[0] = (3*new_nnode)*sizeof(float);  /* Coordinates: in paraview both x, y, and z coordinates should be provided for all dimensions*/
   bytes[1] = (nenode*new_nelmt)*sizeof(int);  /* Connectivity */
   bytes[2] = (new_nelmt)*sizeof(int);     /* Offsets */
   bytes[3] = (new_nelmt)*sizeof(int);     /* Types */
   bytes[4] = (new_nelmt)*sizeof(float);     /* Cell data */
-  
+
   offset[0]=0; /* 1st offset */
-  for (i=0; i<nvar; i++){   
+  for (i=0; i<nvar; i++){
     if(i<nvar-1)offset[i+1]=offset[i]+sizeof(int)+bytes[i];
     bytes[i]=bytes[i]+sizeof(int);
   }
-  
+
   /* header for VTK XML .vtu file */
   fprintf(outf0,"<?xml version=\"1.0\"?>\n");
   fprintf(outf0,"<VTKFile type=\"UnstructuredGrid\" version=\"0.1\" byte_order=\"%s\">\n",byte_order);
@@ -796,7 +796,7 @@ int main(int argc,char **argv)
   fprintf(outf0,"<DataArray type=\"Float32\" NumberOfComponents=\"3\" format=\"appended\" offset=\"%d\"/>\n",offset[0]);
   fprintf(outf0,"</Points>\n");
   fprintf(outf0,"<PointData>\n");
-  fprintf(outf0,"</PointData>\n");    
+  fprintf(outf0,"</PointData>\n");
   fprintf(outf0,"<Cells>\n");
   fprintf(outf0,"<DataArray type=\"Int32\" Name=\"connectivity\" format=\"appended\" offset=\"%d\"/>\n",offset[1]);
   fprintf(outf0,"<DataArray type=\"Int32\" Name=\"offsets\" format=\"appended\" offset=\"%d\"/>\n",offset[2]);
@@ -820,10 +820,10 @@ int main(int argc,char **argv)
   /* coordinates and mirror */
   inf=fopen("nodes_coords_file","r");
   fscanf(inf,"%d\n",&dumi);
-  
+
   outf1=fopen("nodes_coords_file_xmat","w");
   fprintf(outf1,"%d\n",new_nnode);
-  
+
   next=0;
   fwrite(&bytes[next],sizeof(int),1,outf0);next++;
   inode=0;
@@ -841,7 +841,7 @@ int main(int argc,char **argv)
 		fwrite(&tempx,sizeof(float),1,outf0);
 		fwrite(&tempy,sizeof(float),1,outf0);
 		fwrite(&tempz,sizeof(float),1,outf0);
-		if(ndim==3){		  
+		if(ndim==3){
 		  fprintf(outf1,"%d %.6f %.6f %.6f\n",inode+1,tempx,tempy,tempz);
 		}
 		else if(ndim==2){
@@ -857,14 +857,14 @@ int main(int argc,char **argv)
   free(nstat);
   fclose(outf1);
   printf("coordinates and mirror: SUCCESS\n");
-  
+
   /* connectivity */
   inf=fopen("mesh_file","r");
   fscanf(inf,"%d\n",&dumi);
-  
+
   outf1=fopen("mesh_file_xmat","w");
   fprintf(outf1,"%d\n",new_nelmt);
-  
+
   /* absorbing surface files */
   if(ndim==3){
 	  outf_xmin=fopen("absorbing_surface_file_xmin_xmat","w");
@@ -872,8 +872,8 @@ int main(int argc,char **argv)
 	  outf_ymin=fopen("absorbing_surface_file_ymin_xmat","w");
 	  outf_ymax=fopen("absorbing_surface_file_ymax_xmat","w");
 	  outf_zmin=fopen("absorbing_surface_file_bottom_xmat","w"); /* for pyhaesalmi I will write both zmin and zmax in same file */
-	  printf("WARNING: top surface is saved as absorbing boundary and appended to bottom surface!\n");  
-	  
+	  printf("WARNING: top surface is saved as absorbing boundary and appended to bottom surface!\n");
+
 	  /* this must be modified if the boundaries are not intact after the exclusion of certain region/s */
 	  fprintf(outf_xmin,"%d\n",ney*nez);
 	  fprintf(outf_xmax,"%d\n",ney*nez);
@@ -883,17 +883,17 @@ int main(int argc,char **argv)
 	  printf("WARNING: boundaries are assumed to be intact!\n");
   }
   else{
-	  outf_abs=fopen("absorbing_surface_file_xmat","w");  
+	  outf_abs=fopen("absorbing_surface_file_xmat","w");
     printf("WARNING: all periphery is saved as absorbing boundary surface!\n");
 
-	  /* this must be modified if the boundaries are not intact after the 
+	  /* this must be modified if the boundaries are not intact after the
     exclusion of certain region/s */
 	  fprintf(outf_abs,"%d\n",2*(nex+ney));
 	  printf("WARNING: boundaries are assumed to be intact!\n");
   }
-  
+
   fwrite(&bytes[next],sizeof(int),1,outf0);next++;
-  
+
   ielmt=0;
   inew_elmt=0;
   for(k=0;k<nez;k++){
@@ -913,8 +913,8 @@ int main(int argc,char **argv)
           fscanf(inf,"%d %d %d\n",&dumi,&enode[0],&enode[1]);
         }
         if(estat[ielmt]==ON){
-          /* nmir was determined based on the numbering starting from 0 but 
-          SPECFEM uses node number starting from 1 */       
+          /* nmir was determined based on the numbering starting from 0 but
+          SPECFEM uses node number starting from 1 */
           /* write connectivity considering mirror points to new nodes */
           fprintf(outf1,"%d ",inew_elmt+1);
           for(ienode=0;ienode<nenode;ienode++){
@@ -975,11 +975,11 @@ int main(int argc,char **argv)
               fprintf(outf_abs,"%d %d %d\n",inew_elmt+1,enode[3]+1,enode[2]+1);
             }
           }
-          inew_elmt++;        
+          inew_elmt++;
         }
-        ielmt++;        
+        ielmt++;
       }
-    }   
+    }
   }
   if(inew_elmt!=new_nelmt){
     printf("ERROR: number of elements mismatch for exclusion!\n");
@@ -1008,25 +1008,25 @@ int main(int argc,char **argv)
     fwrite(&temp,sizeof(int),1,outf0);
   }
   printf("offsets: SUCCESS\n");
-  
+
   /* Types */
   fwrite(&bytes[next],sizeof(int),1,outf0);next++;
   for(i=0;i<new_nelmt;i++){
     fwrite(&etype,sizeof(int),1,outf0);
   }
   printf("types: SUCCESS\n");
-  
+
   /* Cell data */
   inf=fopen("materials_val","rb");
-  
+
   fwrite(&bytes[next],sizeof(int),1,outf0);next++;
 
   outf1=fopen("materials_file_xmat","w");
   //ielmt=0;
   for(i=0;i<nelmt;i++){
-    fread(&tempx,sizeof(float),1,inf);        
+    fread(&tempx,sizeof(float),1,inf);
     if(estat[i]==ON){
-      fwrite(&tempx,sizeof(float),1,outf0);     
+      fwrite(&tempx,sizeof(float),1,outf0);
       fprintf(outf1,"%d\n",new_matid[elmt_mat[i]]);
         /*if(xmat[1]<elmt_mat[i]){
             fprintf(outf1,"%d\n",elmt_mat[i]-1);
@@ -1049,18 +1049,18 @@ int main(int argc,char **argv)
   fclose(outf1);
 
   if(remove("materials_val"))printf("WARNING: \"mesh.tmp\" cannot be deleted!\n");
-  
+
   printf("cell data: SUCCESS\n");
-    
+
   fprintf(outf0,"\n");
   fprintf(outf0,"</AppendedData>\n");
   fprintf(outf0,"</VTKFile>\n");
   fclose(outf0);
-  
+
   printf("new nodes: %d\n",new_nnode);
   printf("new elements: %d\n",new_nelmt);
   printf("status: SUCCESS\n");
-  printf("--------------------------------\n");     
+  printf("--------------------------------\n");
 
   return(0);
 }
