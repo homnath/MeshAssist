@@ -132,7 +132,7 @@ int getfirstquote(char *, char *);
 int shape(double,double,double**);
 int check_normal(double [3][4],double [3]);
 int isclockwise(int, double [], double []);                                  
-
+double absmaxval(int, double []);
 
 /* main routine */
 int main(int argc,char **argv){
@@ -153,8 +153,8 @@ int node_countx,node_county,node_countz;
 int blk_count,ss_count;
 /* status */
 int dim_stat,ss_rstat,ss_stat,con_stat,coord_stat,mat_stat;
-int   side1,side2,side3,side4; 
-int   switch_coord[3]; 
+int side1,side2,side3,side4; 
+int inum,idim[3],switch_coord[3]; 
 /* status */
 int coordx_stat,coordy_stat,coordz_stat;
 double x[4],z[4],s[4],t[4],**lag4;                                               
@@ -279,7 +279,7 @@ node_countx=0; node_county=0; node_countz=0;
 
 /* set default status to OFF */
 dim_stat=OFF; ss_rstat=OFF; ss_stat=OFF; con_stat=OFF; coord_stat=OFF;
-coord_stat=OFF; coord_stat=OFF; coord_stat=OFF;
+coordx_stat=OFF; coordx_stat=OFF; coordx_stat=OFF;
 
 fscanf(inf,"%s",token);
 if(strcmp(token,"netcdf")!=0){
@@ -534,7 +534,26 @@ free(coord_name);
 
 /* write coordinates file */
 printf("writing coordinates...");
-if(ndim==3)switch_coord[1]=OFF;                                             
+inum=0;
+for(i=0; i<ndim; i++)idim[i]=-9999;
+for(i=0; i<ndim; i++){
+  if(absmaxval(nnode,coord[i])==0.){
+    switch_coord[i]=OFF;
+    if(i==0)printf("X coordinate switched OFF!\n");
+    if(i==1)printf("Y coordinate switched OFF!\n");
+    if(i==2)printf("Z coordinate switched OFF!\n");
+    continue;
+  }
+  if(inum>2){
+    fprintf(stderr,"ERROR: number of active dimension must be 2!\n");  
+    fprintf(stderr,"HINT: run exodus2specfem3d instead for 3D models!\n");  
+    exit(-1);
+  }                                                               
+    
+  idim[inum]=i;
+  inum++;
+}
+/*if(ndim==3)switch_coord[1]=OFF;*/
 /* for SHELL element make Y coordinates OFF. TODO: add option for this. */
 sprintf(outfname,"%scoordinates",outhead);
 outf_coord=fopen(outfname,"w");
@@ -577,8 +596,8 @@ if(nblk>0 && con_stat==ON){
          counterclockwise */
       for(j=0; j<4; j++){       
         inode=elmt_node[j][i]-1;                                                
-        xp[j]=coord[0][inode];                                                  
-        zp[j]=coord[2][inode];                                                  
+        xp[j]=coord[idim[0]][inode];                                                  
+        zp[j]=coord[idim[1]][inode];                                                  
       }                                                                         
       isflag=isclockwise(4,xp,zp);                                              
       if(isflag>0){                                                             
@@ -681,15 +700,20 @@ if(TEST_JACOBIAN==1){
       printf("%f %f %f %f\n",lag4[2][0],lag4[2][1],lag4[2][2],lag4[2][3]);        
                                                                                   
       /* Anticlockwise mapping */                                                 
-      x[0]=coord[0][n1]; x[1]=coord[0][n2];                                       
-      x[2]=coord[0][n3]; x[3]=coord[0][n4];                                       
+      x[0]=coord[idim[0]][n1]; x[1]=coord[idim[0]][n2];                                       
+      x[2]=coord[idim[0]][n3]; x[3]=coord[idim[0]][n4];                                       
+      
+      z[0]=coord[idim[1]][n1]; z[1]=coord[idim[1]][n2];                                     
+      z[2]=coord[idim[1]][n3]; z[3]=coord[idim[1]][n4];                                     
+      /*
       if(ndim==2){                                                                
         z[0]=coord[1][n1]; z[1]=coord[1][n2];                                     
         z[2]=coord[1][n3]; z[3]=coord[1][n4];                                     
       }else{                                                                      
         z[0]=coord[2][n1]; z[1]=coord[2][n2];                                     
         z[2]=coord[2][n3]; z[3]=coord[2][n4];                                     
-      }                                                                           
+      } 
+      */                                                                          
                                                                                   
       dx_ds=0.0; dx_dt=0.0; dz_ds=0.0; dz_dt=0.0;                                 
       for(k=0; k<4; k++){                                                         
@@ -707,15 +731,20 @@ if(TEST_JACOBIAN==1){
       if(detJ <= 0.0){                                                            
         /* printf("Negative Jacobian: %f for element: %d\n",detJ,i+1); */         
         /* Clockwise mapping */                                                   
-        x[0]=coord[0][n1]; x[1]=coord[0][n4];                                     
-        x[2]=coord[0][n3]; x[3]=coord[0][n2];                                     
+        x[0]=coord[idim[0]][n1]; x[1]=coord[idim[0]][n4];                                     
+        x[2]=coord[idim[0]][n3]; x[3]=coord[idim[0]][n2];                                     
+        
+        z[0]=coord[idim[1]][n1]; z[1]=coord[idim[1]][n2];                                   
+        z[2]=coord[idim[1]][n3]; z[3]=coord[idim[1]][n4];                                   
+        /*
         if(ndim==2){                                                              
           z[0]=coord[1][n1]; z[1]=coord[1][n2];                                   
           z[2]=coord[1][n3]; z[3]=coord[1][n4];                                   
         }else{                                                                    
           z[0]=coord[2][n1]; z[1]=coord[2][n2];                                   
           z[2]=coord[2][n3]; z[3]=coord[2][n4];                                   
-        }                                                                         
+        } 
+        */                                                                        
                                                                                   
         dx_ds=0.0; dx_dt=0.0; dz_ds=0.0; dz_dt=0.0;                               
                                                                                   
@@ -899,3 +928,17 @@ return(iflag);
 }                                                                               
 /*---------------------------------------------------------------------------*/
 
+/* Get absolute maximum value of an array */                                     
+double absmaxval(int n, double x[n])                                  
+{                                                                               
+int i;                                                                    
+double absx,xmax;                                                                 
+          
+xmax=abs(x[0]);                                                                      
+for(i=1; i<n-1; i++){
+  absx=abs(x[i]);                                                        
+  if(absx>xmax)xmax=absx;
+}                                                                             
+return(xmax);                                                                  
+}                                                                               
+/*---------------------------------------------------------------------------*/
