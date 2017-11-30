@@ -553,7 +553,6 @@ for(i=0; i<ndim; i++){
   idim[inum]=i;
   inum++;
 }
-/*if(ndim==3)switch_coord[1]=OFF;*/
 /* for SHELL element make Y coordinates OFF. TODO: add option for this. */
 sprintf(outfname,"%scoordinates",outhead);
 outf_coord=fopen(outfname,"w");
@@ -877,9 +876,9 @@ lag4[2][2]=quart*sp; lag4[2][3]=-quart*sm;
 
 return 0;
 }
-/*---------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 
-/* check whether the nodes are clockwise */
+/* Check whether the nodes are clockwise */
 #define SUMEDGE 0
 #define NORMAL 1
 #define APPROACH NORMAL /* SUMEDGE or NORMAL */
@@ -890,7 +889,11 @@ double sum_edge;
 double norm,nvec[3],v1[3],v2[3];
 
 if(APPROACH == SUMEDGE){
-  /* sum over edges approach */
+  /* 
+   Sum over edges approach:
+    1: Clockwise ordering
+   -1: Counterclockwise ordering
+  */
   sum_edge=0.0;
   for(i=0; i<n-1; i++){
     sum_edge+=(x[i+1]-x[i])*(z[i+1]+z[i]);
@@ -902,7 +905,14 @@ if(APPROACH == SUMEDGE){
     iflag=-1;
   }
 }else{
-  /* normal approach */
+  /*
+   Normal approach:
+   First compute the normal to the face. The direction of the normal
+   determines the node ordering of the element.
+    1: Clockwise ordering
+   -1: Counterclockwise ordering
+    0: ZERO Jacobian
+  */
   v1[0]=  x[1]-x[0]; v1[1]=0.0; v1[2]=  z[1]-z[0];
   v2[0]=x[n-1]-x[0]; v2[1]=0.0; v2[2]=z[n-1]-z[0];
 
@@ -926,7 +936,7 @@ if(APPROACH == SUMEDGE){
 }
 return(iflag);
 }
-/*---------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 
 /* Get absolute maximum value of an array */
 double absmaxval(int n, double x[n])
@@ -941,4 +951,4 @@ for(i=1; i<n-1; i++){
 }
 return(xmax);
 }
-/*---------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
