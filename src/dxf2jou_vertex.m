@@ -2,9 +2,8 @@
 %> @brief Converts DXF AUTOCAD file to CUBIT/Trelis journal file.
 %>
 %> This function converts AUTOCAD 2000 (other ?) DXF ASCII file to a
-%> CUBIT/Trelis journal file, and optionally to a ParaView/VTK VTU ASCII
-%> file --- an unstructured mesh file (.vtu). The function extracts only
-%> the faces represented by 'AcDbFace' tokens in the DXF file.
+%> CUBIT/Trelis journal file. The function extracts only
+%> the 'VERTEX' tokens in the DXF file.
 %>
 %> <!-- @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu) -->
 %>
