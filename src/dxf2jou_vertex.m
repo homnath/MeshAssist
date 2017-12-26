@@ -18,7 +18,7 @@
 %> ## Output:
 %>   .jou file which can be opened with CUBIT/Trelis.
 %--------------------------------------------------------------------------
-
+% TODO: add creating polyline/s in journal file
 function dxf2jou_vertex(inpf_name)
 if ~exist('inpf_name','var')
     error('dxf2vtk accepts exactly 1 argument! Enter dxf file as an argument!');
