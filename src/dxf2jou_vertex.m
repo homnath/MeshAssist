@@ -74,7 +74,7 @@ fprintf(1,'complete!\n');
 
 fprintf(1,'removing duplicate nodes...');
 % Remove duplicates and renumber
-ucoord=unique(coord,'rows','stable');
+ucoord=uunique(coord,'rows','stable');
 clear coord;
 fprintf(1,'complete!\n');
 
@@ -99,5 +99,4 @@ function [b, im, in] = uunique(a)
     end
     b = a(ia,:);
 end
-
-%==============================================================================
+%==========================================================================
