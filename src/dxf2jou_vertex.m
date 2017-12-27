@@ -17,11 +17,13 @@
 %>
 %> ## Output:
 %>   .jou file which can be opened with CUBIT/Trelis.
-%--------------------------------------------------------------------------
 % TODO: add creating polyline/s in journal file
+%--------------------------------------------------------------------------
+
 function dxf2jou_vertex(inpf_name)
 if ~exist('inpf_name','var')
-    error('dxf2vtk accepts exactly 1 argument! Enter dxf file as an argument!');
+    error(strcat('dxf2vtk accepts exactly 1 argument!', ...
+    ' Enter dxf file as an argument!'));
 end
 [path,fheader]=fileparts(inpf_name);
 if isempty(path)
@@ -72,8 +74,8 @@ if nvert ~= ivert
 end
 fprintf(1,'complete!\n');
 
-fprintf(1,'removing duplicate nodes...');
 % Remove duplicates and renumber
+fprintf(1,'removing duplicate nodes...');
 ucoord=uunique(coord,'rows','stable');
 clear coord;
 fprintf(1,'complete!\n');
