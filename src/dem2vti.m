@@ -19,7 +19,8 @@
 %>   dem2vti('dem2vti_example.in','../output')
 %>
 %> ## Input:
-%>   input_file: Name of DEM file.      
+%>   input_file: Input file which consists of DEM file name and other
+%>   relevant information.      
 %>
 %> ## Options:
 %>   An optional argument which must be a legitimate path can be
