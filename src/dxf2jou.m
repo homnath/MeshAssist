@@ -9,6 +9,7 @@
 %> <!-- @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu) -->
 %>
 %> ## Usage:
+%>   Open Matlab. In the Matlab command widnow, go to src/ folder and type:\n\n 
 %>   dxf2jou(\em input_file, [save_vtu]) \n\n
 %>   Example: \n
 %>   dxf2jou('../input/dxf2jou_example.dxf') \n
