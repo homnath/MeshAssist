@@ -11,6 +11,7 @@
 %>   Michael Roth (NORSAR) -->
 %>
 %> ## Usage:
+%>   Open Matlab. In the Matlab command widnow, go to src/ folder and type:\n\n 
 %>   dem2vti(\em input_file, [\em output_path]) \n\n
 %>   Example: \n 
 %>   dem2vti('dem2vti_example.in') \n

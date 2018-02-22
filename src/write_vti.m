@@ -15,12 +15,12 @@
 %>   name    : output variable name
 %>
 %> ## Usage:
-%>   call this functions with appropriate variables.
+%>   Call this function with appropriate variables in Matlab.
 %>
 %> ## Notes:
 %>
 %> - For a BigEndian architecture, replace "LittleEndian" with "BigEndian"
-%>     in the line below.
+%>     in the source code.
 %------------------------------------------------------------------------------
 function write_vti(fname,ox,dh,nx,data,name)
 
