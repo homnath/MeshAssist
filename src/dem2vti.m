@@ -14,9 +14,9 @@
 %>   Open Matlab. In the Matlab command widnow, go to src/ folder and type:\n\n 
 %>   dem2vti(\em input_file, [\em output_path]) \n\n
 %>   Example: \n 
-%>   dem2vti('dem2vti_example.in') \n
+%>   dem2vti('../input/dem2vti_example.in') \n
 %>   OR \n
-%>   dem2vti('dem2vti_example.in','../output')
+%>   dem2vti('../input/dem2vti_example.in','../output')
 %>
 %> ## Input:
 %>   input_file: Input file which consists of DEM file name and other
@@ -105,8 +105,8 @@ nyb = info.Height;
 %pct = 100 * effsize / demsize;
 
 if ~isfield(info.CornerCoords,'PCSX')
- oxb=info.CornerCoords.X(1);
- oyb=info.CornerCoords.Y(3);
+    oxb=info.CornerCoords.X(1);
+    oyb=info.CornerCoords.Y(3);
 else
     oxb=info.CornerCoords.PCSX(2);
     oyb=info.CornerCoords.PCSY(2);
