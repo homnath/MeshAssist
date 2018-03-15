@@ -1,7 +1,7 @@
 %> @file dem2vti.m
 %> @brief Converts DEM image file to ASCII XYZ file.
 %>
-%>   This program converts DEM map (TIFF image format) to ASCII XYZ 
+%>   This program converts DEM map (GeoTIFF image format) to ASCII XYZ 
 %>   file and optionally ParaView/VTK VTI file format according to the 
 %>   parameters defined in the input file. \n
 %>   Note: Choosing a relatively small sampling interval may freeze the 
