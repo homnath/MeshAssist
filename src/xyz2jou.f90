@@ -139,7 +139,7 @@ do
     if((isnx0.and.npx.eq.nx0) .or. (.not.isnx0.and.abs(m-m0).gt.eps))then
       nx=npx ! point in each curve
       !ip2=np-1
-      ip2=npw-1
+      ip2=npw!-1
       nc=nc+1 ! number of curves
       icskip=icskip+1
 
