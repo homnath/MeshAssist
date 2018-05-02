@@ -91,12 +91,15 @@
  *    "sideset 1 name 'free_surface_file'" is equivalent to
  *    clicking sideset 1 and renaming.
  *
- *  ### Step 2: export mesh file as exodus file say "mesh.e" (always use 3D option!)
+ *  ### Step 2: export mesh file as exodus file say "mesh.e"
+ *   - Always choose "3d" in "Dimension"!
+ *   - Always select "Use Large File Format" option!
  *
  *  ### Step 3: convert "mesh.e" to SPECFEM2D files
- *    exodus2specfem2d mesh.e -bin=1
  *
- *  There will be several output files:
+ *   \n\n exodus2specfem2d mesh.e -bin=1 \n\n
+ *
+ *  This will generate several files:
  *
  *  - coordinates : coordinates file => total number of nodes followed by
  *    nodal coordinate ? (? -> x, y, z)

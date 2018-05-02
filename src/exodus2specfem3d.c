@@ -85,12 +85,15 @@
 *   "sideset 1 name 'free_or_absorbing_surface_file_zmax'" is equivalent to
 *   clicking sideset 1 and renaming.
 *
-* ### step2: export mesh file as exodus file say "tunnel.e" (use 3D option)
+* ### step2: export mesh file as exodus file say "tunnel.e"
+*   - Always choose "3d" in "Dimension"!
+*   - Always select "Use Large File Format" option!
 *
 * ### step3: convert "tunnel.e" to SPECFEM3D files
-*  exodus2specfem3d tunnel.e -bin=1
 *
-*There will be several output files:
+*  \n\n exodus2specfem3d tunnel.e -bin=1 \n\n
+*
+*  This will generate several files:
 *
 * - nodes_coords_file : coordinates file => total number of nodes followed by
 *  nodal coordinate ? (? -> x, y, z)
