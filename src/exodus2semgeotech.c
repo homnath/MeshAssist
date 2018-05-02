@@ -74,12 +74,15 @@
 *   "sideset 1 name 'bottom_ssbcux_ssbcuy_ssbcuz'" is equivalent to
 *   clicking 'sideset 1' and renaming.
 *
-* ### step2: export mesh file as exodus file say "tunnel.e" (use 3D option)
+* ### step2: export mesh file as exodus file say "tunnel.e"
+*   - Always choose "3d" in "Dimension"!
+*   - Always select "Use Large File Format" option!
 *
-* ### step3: convert "tunnel.e" to SPECFEM3D files
-*  exodus2semgeotech tunnel.e -bin=1
+* ### step3: convert "tunnel.e" to SPECFEM3D files \n
 *
-*There will be several output files:
+*   \n\n exodus2semgeotech tunnel.e -bin=1 \n\n
+*
+*  This will generate several files:
 *
 * - *_coord_? : coordinates file => total number of nodes followed by
 *  nodal coordinate ? (? -> x, y, z)
