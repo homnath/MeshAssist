@@ -563,7 +563,7 @@ fprintf(outf_coord,"%d\n",nnode);
 for(j=0;j<nnode;j++){
   for(i=0;i<ndim;i++){
     /* Do not write Y coordinates */
-    if(switch_coord[i]!=OFF)fprintf(outf_coord,"%.6f ",fac*coord[i][j]);
+    if(switch_coord[i]!=OFF)fprintf(outf_coord,"%.6f ",coord[i][j]);
   }
   fprintf(outf_coord,"\n");
 }
