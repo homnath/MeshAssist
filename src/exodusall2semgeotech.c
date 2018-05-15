@@ -7,6 +7,8 @@
 *  NetCFD library which is generally installed already in LINUX.
 *  If it is not installed, it can be downloaded for free from \n
 *  https://www.unidata.ucar.edu/software/netcdf/
+*  The exodus file uses the different layouts for small and large files.
+*  This program automatically detemines the layout.
 *
 * <!--  @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu) -->
 *
@@ -36,8 +38,7 @@
 *        Use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
 *
 * ##Issues:
-* - - This does not work with older versions of CUBIT. For the older versions use
-*    exodusold2semgeotech.c.
+* - -
 *
 * # Basic steps starting from CUBIT/TRELIS:
 *
@@ -74,15 +75,12 @@
 *   "sideset 1 name 'bottom_ssbcux_ssbcuy_ssbcuz'" is equivalent to
 *   clicking 'sideset 1' and renaming.
 *
-* ### step2: export mesh file as exodus file say "tunnel.e"
-*   - Always choose "3d" in "Dimension"!
-*   - Always select "Use Large File Format" option!
+* ### step2: export mesh file as exodus file say "tunnel.e" (use 3D option)
 *
-* ### step3: convert "tunnel.e" to SPECFEM3D files \n
+* ### step3: convert "tunnel.e" to SPECFEM3D files
+*  exodus2semgeotech tunnel.e -bin=1
 *
-*   \n\n exodus2semgeotech tunnel.e -bin=1 \n\n
-*
-*  This will generate several files:
+*There will be several output files:
 *
 * - *_coord_? : coordinates file => total number of nodes followed by
 *  nodal coordinate ? (? -> x, y, z)
@@ -198,7 +196,8 @@ if (isbin){
   /* convert binary netCDF file to ascii file */
   sprintf(dumc,"ncdump %s > %s.txt",argv[1],fonly);
   if (system(dumc)!=0){
-    printf("ERROR: command \"%s\" cannot be executed! use -bin=0 or no option for ascii input file! \n",dumc);
+    printf("ERROR: command \"%s\" cannot be executed! use -bin=0 or no option \
+            for ascii input file! \n",dumc);
     exit(-1);
   }
   printf("complete!\n");
@@ -245,10 +244,13 @@ for(j=0;j<ss_maxnbc;j++)ss_bc_nside[j]=0;
 fscanf(inf,"%s",token);
 if(strcmp(token,"netcdf")!=0){
   printf("ERROR: invalid exodus file or wrong -bin value!\n");
-  printf("HINT: try correct value for -bin option or use valid exodus file!\n");
+  printf("HINT: try correct value for -bin option or use valid exodus \
+          file!\n");
   exit(-1);
 }
 
+/* First, we need to determine the EXODUS file format. It may be determined
+ * from the file header or from the coordinates layout*/
 while(!feof(inf)){
   fscanf(inf,"%s",token);
   /* read dimensions */
@@ -262,7 +264,8 @@ while(!feof(inf)){
       /* allocate memory */
       coord_name=malloc(ndim*sizeof(char *));
       for(i=0;i<ndim;i++){
-      coord_name[i]=malloc(62*sizeof(char)); /* each name has maximum of 62 characters */
+      coord_name[i]=malloc(62*sizeof(char));
+      /* each name has maximum of 62 characters */
       }
     }else{
       printf("ERROR: illegal value of dimension!\n");
@@ -282,12 +285,14 @@ while(!feof(inf)){
       /* allocate memory */
       ns_name=malloc(nns*sizeof(char *));
       for(i=0;i<nns;i++){
-        ns_name[i]=malloc(62*sizeof(char)); /* each name has maximum of 62 characters */
+        ns_name[i]=malloc(62*sizeof(char));
+        /* each name has maximum of 62 characters */
       }
       ns_nnode=malloc(nns*sizeof(int));
     }
 
-    if(nns>0){ /* This segment has a significance only if nns has legitimate value */
+    if(nns>0){
+    /* This segment has a significance only if nns has legitimate value */
       for(i=0;i<nns;i++){
         sprintf(stag,"num_nod_ns%d =",i+1);
         get_int(&ns_nnode[i],stag,bulk);
@@ -309,12 +314,14 @@ while(!feof(inf)){
       /* allocate memory */
       ss_name=malloc(nss*sizeof(char *));
       for(i=0;i<nss;i++){
-        ss_name[i]=malloc(62*sizeof(char)); /* each name has maximum of 62 characters */
+        /* each name has maximum of 62 characters */
+        ss_name[i]=malloc(62*sizeof(char));
       }
       ss_nside=malloc(nss*sizeof(int));
     }
 
-    if(nss>0){ /* This segment has a significance only if nss has legitimate value */
+    /* This segment has a significance only if nss has legitimate value */
+    if(nss>0){
       for(i=0;i<nss;i++){
         sprintf(stag,"num_side_ss%d =",i+1);
         get_int(&ss_nside[i],stag,bulk);
@@ -399,7 +406,8 @@ while(!feof(inf)){
         } /* for(j=0 ..) */
 
         if(ns_nbc==0){
-          printf("WARNING: no BC name found in node side \"%s\"!\n",ns_name[i]);
+          printf("WARNING: no BC name found in node side \"%s\"!\n", \
+            ns_name[i]);
         }
 
         fscanf(inf,"%s",dumc); /* = */
@@ -541,7 +549,8 @@ while(!feof(inf)){
           }
         }else{
           /* write to a dummy file with a name of ss_name */
-          printf("WARNING: no BC name found in sideset name \"%s\"!\n",ss_name[i]);
+          printf("WARNING: no BC name found in sideset name \"%s\"!\n", \
+            ss_name[i]);
           /* Open a filename with a name of sideset name */
           sprintf(outfname,"%s_%s",fonly,ss_name[i]);
           outf_dum=fopen(outfname,"w");
@@ -726,7 +735,8 @@ while(!feof(inf)){
 /* check status */
 if(coordx_stat!=ON && coordx_stat!=ON && coordx_stat!=ON){
   printf("ERROR: coordinates cannot be read!\n");
-  printf("HINT: it seems that the EXODUS file format is \"set large exodus file off\"!\n");
+  printf("HINT: it seems that the EXODUS file format is \"set large exodus \
+    file off\"!\n");
   printf("      Please try using exodusold2semgeotech instead!\n");
   exit(-1);
 }
@@ -777,4 +787,4 @@ if(coordz_stat!=ON){
 printf("--------------------------------\n");
 return(0);
 }
-/*============================================================================*/
+/*===========================================================================*/

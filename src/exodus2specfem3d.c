@@ -3,7 +3,7 @@
 *
 *  This program converts the Binary (provided that "ncdump" command exists,
 *  type "ncdump" to check whether "ncdump" command exists.) or ASCII exodus file
-*  exported from TRELIS/CUBIT to several mesh files 
+*  exported from TRELIS/CUBIT to several mesh files
 *  required by the SPECFEM3D Cartesian package. The "ncdump" commad is a part of
 *  NetCFD library which is generally installed already in LINUX. If this
 *  library is not found, it can be downloaded for free from \n
@@ -17,7 +17,7 @@
 * ## Compile:
 *  gcc exodus2specfem3d.c -o exodus2specfem3d
 *
-* ## Usage: 
+* ## Usage:
 *  exodus2specfem3d \em input_file [\em Options] \n\n
 *  Example: \n
 *  exodus2specfem3d tunnel.e -bin=1 \n
@@ -26,12 +26,12 @@
 *
 * ## Options:
 *
-* - -fac: Use this option to multiply coordinates by some factor. This is 
-*        important for unit 
+* - -fac: Use this option to multiply coordinates by some factor. This is
+*        important for unit
 *        conversion, e.g., to convert m to km use -fac=0.001 [DEFAULT 1]
 *
 * - -bin: Use this option if you want to convert exodus binary directly, provided
-*        that the command "ncdump" is in the path. The command "ncdump" is a 
+*        that the command "ncdump" is in the path. The command "ncdump" is a
 *        part of netCDF library that can be downloaded for free from \n
 *        http://www.unidata.ucar.edu/downloads/netcdf/index.jsp.
 *        Use -bin=1 for binary or -bin=0 for ascii file. [DEFAULT 0]
@@ -40,11 +40,11 @@
 *        that the surface nodes are in the right order. Use -norm=1 for checking
 *        or -norm=0 for no checking [DEFAULT 0]. Normally this is not necessary.
 *
-* - -head: Use this option to attach head of input file to output file names. 
+* - -head: Use this option to attach head of input file to output file names.
 *        Use -head=1 to attach header or -head=0 not to attach  [DEFAULT 0]
 *
 * - -tomo: Use this option for tomography model. Since tomography model uses
-*        negative identifiers, this option will write negative block IDs. 
+*        negative identifiers, this option will write negative block IDs.
 *        Use -tomo=1 to make negative block IDs or -tomo=0 not to make
 *        [DEFAULT 0]
 *
@@ -60,45 +60,48 @@
 *   For example:\n
 *   block 1 add volume 1\n
 *   block 2 add volume 2 3
-* 
+*
 *   will assign material region 1 to volume 1 and material region 2 to volumes 2
 *   and 3. These material regions will be used to define material properties in
-*   "nummaterial_velocity_file". This program will NOT generate 
+*   "nummaterial_velocity_file". This program will NOT generate
 *   "nummaterial_velocity_file". The file "nummaerial_veolicty_file" must be
 *   created to run SPECFEM3D!
-* 
+*
 * - Define surface boundary conditions using "Sidesets"
-*   
+*
 *   For example:\n
 *   sideset 1 add surface 1\n
 *   sideset 1 name 'free_or_absorbing_surface_file_zmax'
-* 
+*
 *   will define a free or absorbing surface boundary condition on surface 1 which
 *   lies at the top of the volume (zmax). similary,
 *
 *   sideset 2 add surface 3\n
 *   sideset 2 name 'absorbing_surface_file_bottom'
-*   
+*
 *   will define absorbing boundary condition on the surface 3 which lies at the
 *   bottom of the volume (zmin).
 *   Note: All the above commands can also be executed using TRELIS/CUBIT GUI.
 *   "sideset 1 name 'free_or_absorbing_surface_file_zmax'" is equivalent to
 *   clicking sideset 1 and renaming.
 *
-* ### step2: export mesh file as exodus file say "tunnel.e" (use 3D option)
+* ### step2: export mesh file as exodus file say "tunnel.e"
+*   - Always choose "3d" in "Dimension"!
+*   - Always select "Use Large File Format" option!
 *
 * ### step3: convert "tunnel.e" to SPECFEM3D files
-*  exodus2specfem3d tunnel.e -bin=1
 *
-*There will be several output files:
+*  \n\n exodus2specfem3d tunnel.e -bin=1 \n\n
 *
-* - nodes_coords_file : coordinates file => total number of nodes followed by 
+*  This will generate several files:
+*
+* - nodes_coords_file : coordinates file => total number of nodes followed by
 *  nodal coordinate ? (? -> x, y, z)
 *
 * - mesh_file : element file => total number of elements followed by connectivity
 *  list
 *
-* - materials_file : material file => total number of elements followed by 
+* - materials_file : material file => total number of elements followed by
 *  material IDs
 *
 * - surface_file* : sourface boundary condition files => total number of elements
@@ -127,8 +130,8 @@ int check_normal(double [3][4],double [3]);
 /* main routine */
 int main(int argc,char **argv){
 int i,ielmt,iface,itmp,j,k;
-int bulksize; 
-int ndim; /* geometry dimension */ 
+int bulksize;
+int ndim; /* geometry dimension */
 int nnode,nelmt; /* number of nodes, number of elements */
 int nblk,nss; /* number of blocks, number of side sets */
 int elmt_count,node_count; /* element, node count */
@@ -166,7 +169,7 @@ int ndir,isnorm; /* normal direction, test if normal has to checked */
 
 FILE *inf,*outf_mat,*outf_con,*outf_coord,*outf_side;
 
-/* default factor and binary switch*/    
+/* default factor and binary switch*/
 fac=1.0; isbin=OFF; isnorm=OFF; ishead=OFF; istomo=OFF; ndir=1;
 
 if(argc<2){
@@ -178,7 +181,7 @@ if(argc<2){
 if(argc>2){
   for(i=2;i<argc;i++){
     if(look_double(&dtmp,"-fac=",argv[i])==0){
-    fac=dtmp;     
+    fac=dtmp;
     continue;
   }
   else if(look_int(&itmp,"-bin=",argv[i])==0){
@@ -218,7 +221,7 @@ if (isbin){
   sprintf(infname,"%s.txt",fonly);
 
   /* convert binary netCDF file to ascii file */
-  sprintf(dumc,"ncdump %s > %s.txt",argv[1],fonly);  
+  sprintf(dumc,"ncdump %s > %s.txt",argv[1],fonly);
   printf("conversion command: \"%s\" !\n",dumc);
   if (system(dumc)!=0){
   printf("ERROR: command \"%s\" cannot be executed! use -bin=0 or no option for ascii input file! \n",dumc);
@@ -245,12 +248,12 @@ if(ishead){
 /* if the size below is not large enough segmentation fault might occur
    elsewhere such as in malloc */
 bulk=malloc(MAXBULK); /* bulk string */
-      
+
 /* initialize some variables to 0 */
 ndim=0; nblk=0; nnode=0; nelmt=0; nss=0;
 
 /* intialize count to 0 */
-blk_count=0; ss_count=0; node_count=0; elmt_count=0;  
+blk_count=0; ss_count=0; node_count=0; elmt_count=0;
 node_countx=0; node_county=0; node_countz=0;
 
 /* set default status to OFF */
@@ -270,21 +273,21 @@ while(!feof(inf)){
   /* read dimensions */
   if(dim_stat!=ON && strcmp(token,"dimensions:")==0){
     printf("reading dimensions...");
-    while(strstr(fgets(line,MAXLINE,inf),"variables:") == NULL){    
+    while(strstr(fgets(line,MAXLINE,inf),"variables:") == NULL){
       bulksize+=MAXLINE;
       if(bulksize>MAXBULK){
         printf("ERROR: not enough bulk size! Set MAXBULK > %d!\n",bulksize);
         exit(-1);
       }
-      strncat(bulk,line,strcspn(line,";")+1);              
-    }    
+      strncat(bulk,line,strcspn(line,";")+1);
+    }
     get_int(&ndim,"num_dim =",bulk);
-    if(ndim>0){   
+    if(ndim>0){
       /* allocate memory */
       coord_name=malloc(ndim*sizeof(char *));
-      for(i=0;i<ndim;i++){      
-      coord_name[i]=malloc(62*sizeof(char)); /* each name has maximum of 62 characters */   
-      }   
+      for(i=0;i<ndim;i++){
+      coord_name[i]=malloc(62*sizeof(char)); /* each name has maximum of 62 characters */
+      }
     }else{
       printf("ERROR: illegal value of dimension!\n");
       exit(-1);
@@ -292,7 +295,7 @@ while(!feof(inf)){
     get_int(&nnode,"num_nodes =",bulk);
     get_int(&nelmt,"num_elem =",bulk);
     get_int(&nblk,"num_el_blk =",bulk);
-   
+
     /* allocate memory */
     blk_nelmt=malloc(nblk*sizeof(int));
     blk_nenod=malloc(nblk*sizeof(int));
@@ -329,64 +332,64 @@ while(!feof(inf)){
       }
       ss_nside=malloc(nss*sizeof(int));
     }
-    
+
     if(nss>0){ /* This segment has a significance only if nss has legitimate value */
       for(i=0;i<nss;i++){
         sprintf(stag,"num_side_ss%d =",i+1);
-        get_int(&ss_nside[i],stag,bulk);          
+        get_int(&ss_nside[i],stag,bulk);
       }
     }
 
-    /* block information */        
+    /* block information */
     for(i=0;i<nblk;i++){
       sprintf(stag,"num_el_in_blk%d =",i+1);
-      get_int(&blk_nelmt[i],stag,bulk); 
-      
+      get_int(&blk_nelmt[i],stag,bulk);
+
       sprintf(stag,"num_nod_per_el%d =",i+1);
       get_int(&blk_nenod[i],stag,bulk);
-    }    
-      
+    }
+
     dim_stat=ON;
     free(bulk);
     printf("complete!\n");
-    printf(" geometry dimension: %d\n",ndim);    
+    printf(" geometry dimension: %d\n",ndim);
     printf(" number of nodes: %d\n",nnode);
     printf(" number of elements: %d\n",nelmt);
     printf(" number of blocks: %d\n",nblk);
     printf(" number of sidesets: %d\n",nss);
     continue;
-  }  
-  
+  }
+
   /* Coordinates */
   if(strcmp(token,"coordx")==0){
     printf("reading x coordinates...");
     fscanf(inf,"%s",dumc);
     for(j=0;j<nnode;j++){
-      fscanf(inf,"%lf,",&dtmp); /* read comma separated data */ 
+      fscanf(inf,"%lf,",&dtmp); /* read comma separated data */
       coord[0][j]=fac*dtmp;
       node_countx++;
     }
     coordx_stat=ON;
     printf("complete!\n");
     continue;
-  }  
+  }
   if(strcmp(token,"coordy")==0){
     printf("reading y coordinates...");
     fscanf(inf,"%s",dumc);
     for(j=0;j<nnode;j++){
-      fscanf(inf,"%lf,",&dtmp); /* read comma separated data */ 
+      fscanf(inf,"%lf,",&dtmp); /* read comma separated data */
       coord[1][j]=fac*dtmp;
       node_county++;
     }
     coordy_stat=ON;
     printf("complete!\n");
     continue;
-  }  
+  }
   if(strcmp(token,"coordz")==0){
     printf("reading z coordinates...");
     fscanf(inf,"%s",dumc);
     for(j=0;j<nnode;j++){
-      fscanf(inf,"%lf,",&dtmp); /* read comma separated data */ 
+      fscanf(inf,"%lf,",&dtmp); /* read comma separated data */
       coord[2][j]=fac*dtmp;
       node_countz++;
     }
@@ -394,37 +397,37 @@ while(!feof(inf)){
     printf("complete!\n");
     continue;
   }
-  
+
   /* read and store side boundary conditions */
   if(strcmp(token,"ss_names")==0){
     /* printf("saving side BCs..."); */
-    fscanf(inf,"%s",dumc); /* = */      
-    for (i=0; i<nss; i++){  
-      fscanf(inf,"%s",dumc);   
+    fscanf(inf,"%s",dumc); /* = */
+    for (i=0; i<nss; i++){
+      fscanf(inf,"%s",dumc);
       getfirstquote(dumc,ss_name[i]);
-      if(!strcmp(ss_name[i],"")){ 
+      if(!strcmp(ss_name[i],"")){
         sprintf(ss_name[i],"unnamed_sideset%d",i);
       }
     }
     /* total number of sideset elements */
     sumss_nelmt=0;
-    for(i=0;i<nss;i++)sumss_nelmt+=ss_nside[i]; 
+    for(i=0;i<nss;i++)sumss_nelmt+=ss_nside[i];
 
     ss_elmt=malloc(sumss_nelmt*sizeof(int));
-    ss_side=malloc(sumss_nelmt*sizeof(int)); 
+    ss_side=malloc(sumss_nelmt*sizeof(int));
     continue;
   }
 
   /* read coordinate names */
-  if(strcmp(token,"coor_names")==0){    
-    fscanf(inf,"%s",dumc); /* = */      
+  if(strcmp(token,"coor_names")==0){
+    fscanf(inf,"%s",dumc); /* = */
     for (i=0; i<ndim; i++){
-      fscanf(inf,"%s",dumc);    
-      getfirstquote(dumc,coord_name[i]);    
-    } 
+      fscanf(inf,"%s",dumc);
+      getfirstquote(dumc,coord_name[i]);
+    }
     continue;
-  }  
-  
+  }
+
   if(ss_stat!=ON){
     for(i=0;i<nss;i++){
       sprintf(stag,"elem_ss%d",i+1);
@@ -432,9 +435,9 @@ while(!feof(inf)){
         fscanf(inf,"%s",dumc); /* = */
         for(j=0;j<ss_nside[i]; j++){
           fscanf(inf,"%d,",&ss_elmt[count_sselmt]); /* read comma separated data */
-          count_sselmt++; 
+          count_sselmt++;
         }
-        
+
         fscanf(inf,"%s",dumc); /* ; */
         fscanf(inf,"%s",token);
         sprintf(stag,"side_ss%d",i+1);
@@ -444,33 +447,33 @@ while(!feof(inf)){
             fscanf(inf,"%d,",&ss_side[count_ssside]); /* read comma separated data */
             count_ssside++;
           }
-        } 
+        }
         continue;
-      }          
+      }
     }
   }
-   
+
   /* Connectivity */
-  if(nblk>0 && con_stat!=ON){   
-   
-    /* write connectivity and material id */  
+  if(nblk>0 && con_stat!=ON){
+
+    /* write connectivity and material id */
     for(i=0;i<nblk;i++){
       sprintf(stag,"connect%d",i+1);
       if(strcmp(token,stag)==0){
         blk_count++;
-        
+
         /* open connectivity and material files */
-        if(blk_count==1){          
-          printf("writing connectivity and materials..."); 
+        if(blk_count==1){
+          printf("writing connectivity and materials...");
           sprintf(outfname,"%smesh_file",outhead);
           outf_con=fopen(outfname,"w");
           fprintf(outf_con,"%d\n",nelmt);
-          
+
           sprintf(outfname,"%smaterials_file",outhead);
           outf_mat=fopen(outfname,"w");
           /* fprintf(outf_mat,"%d\n",nelmt); */
         }
-        
+
         fscanf(inf,"%s",dumc); /* = */
         for(j=0;j<blk_nelmt[i];j++){
           fprintf(outf_con,"%d ",elmt_count+1);
@@ -486,8 +489,8 @@ while(!feof(inf)){
             fprintf(outf_mat,"%d %d\n",elmt_count+1,i+1);
           }
           elmt_count++;
-        }        
-        
+        }
+
         if(blk_count==nblk){
           con_stat=ON;
           mat_stat=ON;
@@ -501,7 +504,7 @@ while(!feof(inf)){
       }
     }
   }
-  
+
 }
 fclose(inf);
 
@@ -549,7 +552,7 @@ if(nss>0 && ss_stat!=ON){
     for(j=0;j<ss_nside[i];j++){
       fprintf(outf_side,"%d ",ss_elmt[count_sselmt]);
       ielmt=ss_elmt[count_sselmt]-1; /* index starts from 0!*/
-      iface=ss_side[count_sselmt]-1; /* index starts from 0!*/      
+      iface=ss_side[count_sselmt]-1; /* index starts from 0!*/
       for(k=0;k<4;k++){
         gfnod[k]=elmt_node[fnod[iface][k]-1][ielmt]; /* index starts from 0!*/
         igfnod=gfnod[k]-1; /* index starts from 0!*/
@@ -568,7 +571,7 @@ if(nss>0 && ss_stat!=ON){
         printf("ERROR: absurd value of ndir:%d for normal orientation!\n",ndir);
         exit(-1);
       }
-      count_sselmt++;     
+      count_sselmt++;
     }
     fclose(outf_side);
     ss_stat=ON;
@@ -577,15 +580,15 @@ if(nss>0 && ss_stat!=ON){
   printf(" number of side sets written: %d\n",nss);
   printf(" number of reversed normals: %d\n",nface_change);
 }
- 
+
 for(i=0;i<3;i++)free(coord[i]);
 free(coord);
 for(i=0;i<8;i++)free(elmt_node[i]);
 free(elmt_node);
-if(nss>0){                                                              
-  free(ss_elmt);                                                                  
+if(nss>0){
+  free(ss_elmt);
   free(ss_side);
-}                                                                  
+}
 /* check status */
 if(nnode!=node_countx || nnode!=node_county || nnode!=node_countz){
   printf("ERROR: number of nodes inconsistent!\n");
@@ -631,7 +634,7 @@ return(0);
 /* this function check the direction of normal to the given normal
 and returns 1 if the direction matches, returns -1 if does not. */
 int check_normal(double p[3][4],double normal[3])
-{ 
+{
   int i;
   double a[3],b[3],comp_normal[3],dot;
 

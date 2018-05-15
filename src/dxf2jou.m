@@ -9,6 +9,7 @@
 %> <!-- @author Hom Nath Gharti (hgharti_AT_princeton_DOT_edu) -->
 %>
 %> ## Usage:
+%>   Open Matlab. In the Matlab command widnow, go to src/ folder and type:\n\n 
 %>   dxf2jou(\em input_file, [save_vtu]) \n\n
 %>   Example: \n
 %>   dxf2jou('../input/dxf2jou_example.dxf') \n
@@ -21,7 +22,7 @@
 %> ## Options:
 %>   An optional argument can be provided to save VTU
 %>   ASCII file (0: No [DEFAULT] or 1: yes) .
-%>   
+%>
 %> ## Output:
 %>   VTK .vtu file which can be visualized with ParaView/VTK
 %--------------------------------------------------------------------------
@@ -43,9 +44,9 @@ end
 % count number of 3D faces
 nface=0; nline=0;
 fprintf(1,'counting faces...');
-while(~feof(inpf))    
+while(~feof(inpf))
     if strcmp(fgetl(inpf),'AcDbFace')
-        nface=nface+1;        
+        nface=nface+1;
     end
     if nface==0
         nline=nline+1;
@@ -62,7 +63,7 @@ for i_line=1:nline; fgetl(inpf); end
 for i_face=1:nface
     inode=[1 2 3]+(i_face-1)*3;
     fgetl(inpf);
-    strblk=textscan(inpf,'%s',18);    
+    strblk=textscan(inpf,'%s',18);
     coord(inode,:)=reshape(str2double(strblk{1}(2:2:18)),[3,3])';
     for i_line=1:22; fgetl(inpf); end
 end
@@ -77,7 +78,7 @@ fprintf(1,'complete!\n');
 fprintf(1,'assigning face connectivity...');
 face=int32(1:3*nface)';
 for i_m=1:length(m)
-    face(n==i_m)=i_m;    
+    face(n==i_m)=i_m;
 end
 fprintf(1,'complete!\n');
 
@@ -95,17 +96,17 @@ write_vtu(ucoord,face,5,outf_name);
 fprintf(1,'complete!\n');
 end
 
-% This function finds unsorted unique    
-function [b, im, in] = uunique(a)     
-    [~, im, in] = unique(a, 'rows','first'); 
-    if nargout > 2 
-        [ia, tmp] = sort(im); 
+% This function finds unsorted unique
+function [b, im, in] = uunique(a)
+    [~, im, in] = unique(a, 'rows','first');
+    if nargout > 2
+        [ia, tmp] = sort(im);
         [~, in] = ismember(in, tmp);
         clear tmp
-    else 
-       im = sort(im); 
-    end 
-    b = a(ia,:); 
+    else
+       im = sort(im);
+    end
+    b = a(ia,:);
 end
 
 % This function writes a VTU ASCII file
