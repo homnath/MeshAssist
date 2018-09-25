@@ -135,7 +135,7 @@ int getfirstquote(char *, char *);
 int shape(double,double,double**);
 int check_normal(double [3][4],double [3]);
 int isclockwise(int, double [], double []);
-double absmaxval(int, double []);
+double absmaxval(int, double *);
 
 /* main routine */
 int main(int argc,char **argv){
@@ -942,16 +942,18 @@ return(iflag);
 /*----------------------------------------------------------------------------*/
 
 /* Get absolute maximum value of an array */
-double absmaxval(int n, double x[n])
+/* Note that abs() in C is only for integer. Use fabs for float or double! */
+double absmaxval(int n, double *x)
 {
 int i;
 double absx,xmax;
 
-xmax=abs(x[0]);
+xmax=fabs(x[0]);
 for(i=1; i<n-1; i++){
-  absx=abs(x[i]);
+  absx=fabs(x[i]);
   if(absx>xmax)xmax=absx;
 }
+
 return(xmax);
 }
 /*----------------------------------------------------------------------------*/
