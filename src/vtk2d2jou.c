@@ -33,7 +33,8 @@ void removeExtension(char *, char *);
 /* main routine */
 int main(int argc,char **argv){
 int i,j;
-int inode,nenode,nnode,nelmt; /* number of nodes, number of elements */
+/* number of nodes, number of elements */
+int inode,nenode,nnode,nelmt;
 int point_stat,cell_stat; /* status */
 int dumi;
 float x,y,z;
@@ -116,4 +117,4 @@ while(!feof(inf)){
 printf("--------------------------------\n");
 return(0);
 }
-/*======================================*/
+/*============================================================================*/
