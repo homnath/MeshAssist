@@ -122,8 +122,17 @@ for i_poly=1:npoly
     nuvert=length(m); % number of unique vertices
 
 
+    %fprintf(outf_cubit,'create vertex %.6f %.6f %.6f\n',ucoord');
     fprintf(outf_cubit,'create vertex %.6f %.6f %.6f\n',ucoord');
-    fprintf(outf_cubit,'create curve spline vertex %d to %d %d\n',iv0,iv0+nuvert-1,iv0);
+    % Spline
+    %fprintf(outf_cubit,'create curve spline vertex %d to %d %d\n',iv0,iv0+nuvert-1,iv0);
+    % Line segments
+    ils0=iv0;
+    for i_lseg=1:nuvert-1
+       ils1=ils0+1;
+       fprintf(outf_cubit,'create curve vertex %d %d\n',ils0,ils1);
+       ils0=ils1;
+    end
     iv0=iv0+nuvert;
 end
 fclose(inpf);
