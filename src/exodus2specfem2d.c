@@ -127,6 +127,7 @@
 #define TEST_JACOBIAN 0
 #define MAXBULK 100000
 #define MAXLINE 100
+#define SMALLVAL 1e-12
 /* auxiliary routines */
 void removeExtension(char *, char *);
 int get_int(int *, char *, char *);
@@ -135,7 +136,8 @@ int getfirstquote(char *, char *);
 int shape(double,double,double**);
 int check_normal(double [3][4],double [3]);
 int isclockwise(int, double [], double []);
-double absmaxval(int, double []);
+double absminval(int, double *);
+double absmaxval(int, double *);
 
 /* main routine */
 int main(int argc,char **argv){
@@ -540,7 +542,8 @@ printf("writing coordinates...");
 inum=0;
 for(i=0; i<ndim; i++)idim[i]=-9999;
 for(i=0; i<ndim; i++){
-  if(absmaxval(nnode,coord[i])==0.){
+  /* if(absmaxval(nnode,coord[i])==0.){*/
+  if(absmaxval(nnode,coord[i])<fac*SMALLVAL){
     switch_coord[i]=OFF;
     if(i==0)printf("X coordinate switched OFF!\n");
     if(i==1)printf("Y coordinate switched OFF!\n");
@@ -663,7 +666,7 @@ if(nss>0 && ss_stat!=ON){
       }
 
       e=ss_elmt[j];
-      if(strstr(ss_name[i],"absorbing")!=NULL){
+      if(strstr(ss_name[i],"absorbing")!=NULL || strstr(ss_name[i],"Absorbing")!=NULL){
         fprintf(outf_side,"%d %d %d %d %d\n",e,2,elmt_node[nod1-1][e-1],
         elmt_node[nod2-1][e-1],ss_side[j]); /* This is only for edge */
       }else{
@@ -942,16 +945,34 @@ return(iflag);
 /*----------------------------------------------------------------------------*/
 
 /* Get absolute maximum value of an array */
-double absmaxval(int n, double x[n])
+/* Note that abs() in C is only for integer. Use fabs for float or double! */
+double absmaxval(int n, double *x)
 {
 int i;
 double absx,xmax;
 
-xmax=abs(x[0]);
+xmax=fabs(x[0]);
 for(i=1; i<n-1; i++){
-  absx=abs(x[i]);
+  absx=fabs(x[i]);
   if(absx>xmax)xmax=absx;
 }
+
 return(xmax);
+}
+/*----------------------------------------------------------------------------*/
+
+/* Get absolute minimum value of an array */
+/* Note that abs() in C is only for integer. Use fabs for float or double! */
+double absminval(int n, double *x)
+{
+int i;
+double xmin;
+
+xmin=x[0];
+for(i=1; i<n-1; i++){
+  if(x[i]<xmin)xmin=x[i];
+}
+
+return(xmin);
 }
 /*----------------------------------------------------------------------------*/
