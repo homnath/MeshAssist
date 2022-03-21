@@ -7,7 +7,8 @@ BIN = ../bin
 
 # C compiler
 CC = gcc
-CFLAGS = -g -lm -fbounds-check -O5 -fno-trapping-math -Wunused -Warray-bounds
+CFLAGS = -g -fbounds-check -O5 -fno-trapping-math -Wunused -Warray-bounds
+LFLAGS = -lm
 
 # Fortran compiler
 FC = gfortran
@@ -46,34 +47,34 @@ clean:
 #     xyz2jou
 
 exodusall2semgeotech:
-	$(CC_COMPILE) -o $(exodusall2semgeotech) exodusall2semgeotech.c
+	$(CC_COMPILE) -o $(exodusall2semgeotech) exodusall2semgeotech.c $(LFLAGS)
 
 exodus2semgeotech:
-	$(CC_COMPILE) -o $(exodus2semgeotech) exodus2semgeotech.c
+	$(CC_COMPILE) -o $(exodus2semgeotech) exodus2semgeotech.c $(LFLAGS)
 
 exodusold2semgeotech:
-	$(CC_COMPILE) -o $(exodusold2semgeotech) exodusold2semgeotech.c
+	$(CC_COMPILE) -o $(exodusold2semgeotech) exodusold2semgeotech.c $(LFLAGS)
 
 exodus2specfem2d:
-	$(CC_COMPILE) -o $(exodus2specfem2d) exodus2specfem2d.c
+	$(CC_COMPILE) -o $(exodus2specfem2d) exodus2specfem2d.c $(LFLAGS)
 
 exodus2specfem3d:
-	$(CC_COMPILE) -o $(exodus2specfem3d) exodus2specfem3d.c
+	$(CC_COMPILE) -o $(exodus2specfem3d) exodus2specfem3d.c $(LFLAGS)
 
 exodusold2specfem3d:
-	$(CC_COMPILE) -o $(exodusold2specfem3d) exodusold2specfem3d.c
+	$(CC_COMPILE) -o $(exodusold2specfem3d) exodusold2specfem3d.c $(LFLAGS)
 
 gid2semgeotech:
-	$(CC_COMPILE) -o $(gid2semgeotech) gid2semgeotech.c
+	$(CC_COMPILE) -o $(gid2semgeotech) gid2semgeotech.c $(LFLAGS)
 
 gocad2vtu:
-	$(CC_COMPILE) -o $(gocad2vtu) gocad2vtu.c
+	$(CC_COMPILE) -o $(gocad2vtu) gocad2vtu.c $(LFLAGS)
 
 vtk1d2jou:
 	$(FC_COMPILE) -o $(vtk1d2jou) vtk1d2jou.f90
 
 vtk2d2jou:
-	$(CC_COMPILE) -o $(vtk2d2jou) vtk2d2jou.c
+	$(CC_COMPILE) -o $(vtk2d2jou) vtk2d2jou.c $(LFLAGS)
 
 xyz2jou:
 	$(FC_COMPILE) -o $(xyz2jou) xyz2jou.f90

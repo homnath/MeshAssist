@@ -885,6 +885,7 @@ return 0;
 /*----------------------------------------------------------------------------*/
 
 /* Check whether the nodes are clockwise */
+#include <math.h>
 #define SUMEDGE 0
 #define NORMAL 1
 #define APPROACH NORMAL /* SUMEDGE or NORMAL */

@@ -137,22 +137,6 @@ for i_poly=1:npoly
 end
 fclose(inpf);
 fprintf(1,'complete!\n');
-
-
-
 fclose(outf_cubit);
 fprintf(1,'complete!\n');
-end
-
-% Function unsorted unique
-function [b, im, in] = uunique(a)
-    [~, im, in] = unique(a, 'rows','first');
-    if nargout > 2
-        [ia, tmp] = sort(im);
-        [~, in] = ismember(in, tmp);
-        clear tmp
-    else
-       im = sort(im);
-    end
-    b = a(ia,:);
 end
