@@ -16,7 +16,7 @@ import numpy as np
 # |
 # |
 # V
-tiff_file = 'bathymetry_sumatra.tiff'
+tiff_file = './input/bathymetry_sumatra.tiff'
 gtiff = gt(tiff_file)
 shape = gtiff.tif_shape
 nx = shape[1]
