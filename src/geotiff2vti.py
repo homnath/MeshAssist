@@ -1,7 +1,9 @@
 # Install geotiff using the command:
 # pip install geotiff
+# pip install opencv-python
 from geotiff import GeoTiff as gt
 import numpy as np
+import cv2
 
 # Set the GEO TIFF file.
 # Coordinate system. Top left corner is the origin.
