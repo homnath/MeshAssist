@@ -669,6 +669,8 @@ if(nss>0 && ss_stat!=ON){
       if(strstr(ss_name[i],"absorbing")!=NULL || strstr(ss_name[i],"Absorbing")!=NULL){
         fprintf(outf_side,"%d %d %d %d %d\n",e,2,elmt_node[nod1-1][e-1],
         elmt_node[nod2-1][e-1],ss_side[j]); /* This is only for edge */
+      }else if(strstr(ss_name[i],"edgeid")!=NULL || strstr(ss_name[i],"edgeID")!=NULL){
+        fprintf(outf_side,"%d %d\n",e,ss_side[j]); /* This is only for edge */
       }else{
         fprintf(outf_side,"%d %d %d %d\n",e,2,elmt_node[nod1-1][e-1],
         elmt_node[nod2-1][e-1]); /* This is only for edge */
