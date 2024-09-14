@@ -82,6 +82,11 @@ def process_file(infname, options):
     ny = dataFull.shape[1]
     nz = dataFull.shape[0]
     
+    # If write_option is 1, write the content to a .out file
+    if write_option == 1:
+        # Get the base name without extension and create output filename
+        base_name = os.path.splitext(input_filename)[0]
+    
     # Create a new file and start writing to it 
     nfile = open(outFile, 'w')
     
