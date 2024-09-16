@@ -3,7 +3,7 @@
 # pip install opencv-python
 from geotiff import GeoTiff as gt
 import numpy as np
-import cv2
+#import cv2
 
 # Set the GEO TIFF file.
 # Coordinate system. Top left corner is the origin.
@@ -37,7 +37,7 @@ hd = 1.0/60.0
 zarr = gtiff.read()
 # Convert data to float32 array.
 z = np.array(np.flipud(zarr),dtype='float32')
-
+print(z.shape)
 # Open file to write.
 vti_file = 'bathymetry_sumatra.vti'
 vf = open(vti_file, "wb")
