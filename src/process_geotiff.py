@@ -10,7 +10,7 @@
 # Only input is the geotiff file as 'infname'. Be careful with the input file 
 # extension; geotiffs can end with '.tif' of '.tiff' which will effect reading.
 # Provide file to convert:
-infname = 'bathymetry_sumatra.tiff'
+#infname = 'bathymetry_sumatra.tiff'
 #
 # Output:
 # User must provide a name for the vti file, as well as the variable of interest
@@ -68,10 +68,10 @@ def process_file(infname, write_vti, write_xyz):
     # Convert Long & Lat to distance on the surface
     widthKm = widthLong*rEarth*degToRad
     heightKm = heigthLat*rEarth*degToRad
-    print('Data width: %f km' % widthKm)
-    print('Data height: %f km' % heightKm)
-    print('Min elevation: %f km' % np.min(data))
-    print('Max elevation: %f km' % np.max(data))
+    print(f"Data width: {widthKm:f} km")
+    print(f"Data height: {heightKm:f} km")
+    print(f"Min elevation: {np.min(data):f} km")
+    print(f"Max elevation: {np.max(data):f} km")
     maxElev = np.max(data)
     minElev = np.min(data)
     
@@ -99,7 +99,7 @@ def process_file(infname, write_vti, write_xyz):
         outVar = 'Elevation'
         # Create a new file and start writing to it 
         outfile = base_fname + '.vti'
-        print('Writing a file: %s' % outfile)  
+        print(f"Writing a file: {outfile}")  
         # Create a new file and start writing to it
         # 'wb' opens the file in binary and then use '.encode(ascii)' to write ascii
         outf = open(outfile, "wb")
