@@ -80,7 +80,7 @@ def process_file(infname, write_vti, write_xyz):
     dy = heightKm/(dataFull.shape[1]-1)
     dz = 1 # May need to modify to run 3D maps
     
-    
+    print(f"{dx:.9f}, {dy:.9f}")
     # Get the number of points in the data
     nx = dataFull.shape[2]
     ny = dataFull.shape[1]
