@@ -39,9 +39,9 @@ def process_file(infname, write_vti, write_xyz):
     print('File to process: %s' % infname)    
     
     # Set constants
-    rEarth = 6371 
+    rEarth = 6371.0 # Earth radius.
     degToRad = mt.pi/180
-    m2km = 0.001 # *May need to adujst this parameter* #
+    m2km = 0.001 # Conversion factor from m to km.
     
     # Open the file as a geotiff and as an array
     img = rio.open(infname)
@@ -144,7 +144,12 @@ def process_file(infname, write_vti, write_xyz):
         outfile = base_fname + '.xyz'
         print('Writing a file: %s' % outfile)
         outf = open(outfile, 'w')
-        
+        minz = np.min(z)
+        maxz = np.max(z)
+        outf.write(f'{minx:.6e} {miny:.6e} maxx:.6e} {maxy:.6e}')
+        outf.write(f'{hx:.6e} {hy:.6e}')
+        outf.write(f'{nx:d} {ny:d}')
+        outf.write(f'{minz:.6e} {maxz:.6e}')
         for j in range(ny):
             x = oxUTM
             y = oyUTM + (dy*j)
