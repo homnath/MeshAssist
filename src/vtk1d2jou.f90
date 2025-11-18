@@ -18,6 +18,7 @@
 !------------------------------------------------------------------------------
 include 'stringmanip.f90'
 program vtk1d2jou
+use strings
 implicit none
 integer,parameter :: kreal=selected_real_kind(12)
 type nodal

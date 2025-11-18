@@ -29,6 +29,7 @@
 !-----------------------------------------------------
 include 'stringmanip.f90'
 program xyz2jou
+use strings
 implicit none
 integer,parameter :: kreal=selected_real_kind(12)
 character(len=180) :: cubit_fname,inp_fname,out_fname
