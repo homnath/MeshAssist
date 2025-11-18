@@ -1,3 +1,27 @@
+module strings
+contains
+! This function extracts the first word of a string line
+function first_word(line) result(word)
+  implicit none
+  character(len=*), intent(in) :: line
+  character(len=:), allocatable :: word
+  integer :: s, e
+
+  s = verify(line, " ")                     ! first non-space
+  if (s == 0) then
+      word = ""
+      return
+  end if
+
+  e = scan(line(s:), " ")                   ! next space after start
+  if (e == 0) then
+      word = trim(line(s:))                 ! whole remainder
+  else
+      word = line(s:s+e-2)
+  end if
+end function first_word
+!==============================================================================
+
 ! parse file name and return path, file head, and extension
 subroutine parse_file(fname,path,head,ext)
 implicit none
@@ -57,3 +81,4 @@ endif
 return
 end subroutine look_int
 !==============================================================================
+end module strings

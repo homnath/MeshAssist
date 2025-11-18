@@ -28,6 +28,7 @@ exodusold2specfem3d = $(BIN)/exodusold2specfem3d
 gid2semgeotech = $(BIN)/gid2semgeotech
 gocad2vtu = $(BIN)/gocad2vtu
 vtk1d2jou = $(BIN)/vtk1d2jou
+vtknew1d2jou = $(BIN)/vtknew1d2jou
 vtk2d2jou = $(BIN)/vtk2d2jou
 xyz2jou = $(BIN)/xyz2jou
 
@@ -43,6 +44,7 @@ clean:
 #     exodusold2specfem3d \
 #     gocad2vtu \
 #     vtk1d2jou \
+#     vtknew1d2jou \
 #     vtk2d2jou \
 #     xyz2jou
 
@@ -72,6 +74,9 @@ gocad2vtu:
 
 vtk1d2jou:
 	$(FC_COMPILE) -o $(vtk1d2jou) vtk1d2jou.f90
+
+vtknew1d2jou:
+	$(FC_COMPILE) -o $(vtknew1d2jou) vtknew1d2jou.f90
 
 vtk2d2jou:
 	$(CC_COMPILE) -o $(vtk2d2jou) vtk2d2jou.c $(LFLAGS)

@@ -19,6 +19,7 @@ all: createdir \
      gid2semgeotech \
      gocad2vtu \
      vtk1d2jou \
+     vtknew1d2jou \
      vtk2d2jou \
      xyz2jou
 
@@ -53,6 +54,9 @@ gocad2vtu:
 	(cd src; make $@)
 
 vtk1d2jou:
+	(cd src; make $@)
+
+vtknew1d2jou:
 	(cd src; make $@)
 
 vtk2d2jou:

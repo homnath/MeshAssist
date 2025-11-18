@@ -1,23 +1,23 @@
 !------------------------------------------------------------------------------
-!> @file vtk1d2jou.f90
-!> @brief Converts VTK 1D file to CUBIT/Trelis journal file.
+!> @file vtknew1d2jou.f90
+!> @brief Converts NEW VTK 1D file to CUBIT/Trelis journal file.
 !>
-!>  This program reads ASCII vtk files with unstructured grid of lines and
+!>  This program reads ASCII NEW vtk files with unstructured grid of lines and
 !>  points only, and removes the redundant lines. The redundant nodes can be
 !>  removed within the paraview itself using the 'Clean to Grid' filter.
 !>
 !> <!-- @athor Hom Nath Gharti (hgharti_AT_princeton_DOT_edu -->
 !>
 !> ## Compile:
-!>  gfortran vtk1d2jou.f90 -o vtk1d2jou
+!>  gfortran vtknew1d2jou.f90 -o vtknew1d2jou
 !>
 !> ## Usage:
-!>  vtk1d2jou \em input_file \n\n
-!>  vtk1d2jou vtk1d2jou_example.vtk
+!>  vtknew1d2jou \em input_file \n\n
+!>  vtknew1d2jou vtknew1d2jou_example.vtk
 !>
 !------------------------------------------------------------------------------
 include 'stringmanip.f90'
-program vtk1d2jou
+program vtknew1d2jou
 use strings
 implicit none
 integer,parameter :: kreal=selected_real_kind(12)
@@ -36,14 +36,16 @@ type(elemental),allocatable :: elmt(:)
 
 integer :: i,i1,i2,j,narg,np,next_node,next_elmt,pnode,pelmt,e
 integer :: temp_nc,nc,dumi,temp_n1,temp_n2,numc,nump,nis,node_is(0:99),       &
-curve(0:999),ncurve
+curve(0:30000),ncurve
 integer,allocatable :: n1(:),n2(:),new_n1(:),new_n2(:),cid(:),nb(:),nmir(:),  &
 op2np(:)
 real(kind=kreal),allocatable :: xyz(:,:)
 character(len=10) :: dumc
 character(len=180) :: outjou_fname,inp_fname,outvtk_fname
 character(len=80) :: file_head,ext,path
-
+character(len=256) :: line
+integer :: ios
+integer,allocatable :: connect(:,:)
 ! Input and initialisation
 narg=command_argument_count()
 if (narg <= 0) then
@@ -54,24 +56,44 @@ endif
 call get_command_argument(1, inp_fname)
 
 open(unit=10,file=trim(inp_fname),action='read')
-read(10,*)
-read(10,*)
-read(10,*)
-read(10,*)
-read(10,*)dumc,np,dumc
+do
+  read(10,'(a)',iostat=ios)line
+  print*,first_word(line)
+  if(first_word(line).eq.'POINTS')then
+    read(line,*)dumc,np,dumc
+    exit
+  endif
+enddo
 print*,'Number of points:',np
 allocate(xyz(0:2,0:np-1),nb(0:np-1),op2np(0:np-1),nmir(0:np-1))
 
 read(10,*)xyz
 
-read(10,*)dumc,temp_nc,dumi
+do
+  read(10,'(a)',iostat=ios)line
+  if(first_word(line).eq.'CELLS')then
+    read(line,*)dumc,temp_nc,dumi
+    exit
+  endif
+enddo
+temp_nc=temp_nc-1
 print*,'Number of cells:',temp_nc
 allocate(n1(0:temp_nc-1),n2(0:temp_nc-1),cid(0:temp_nc-1))
 
+do
+  read(10,'(a)',iostat=ios)line
+  if(first_word(line).eq.'CONNECTIVITY')exit
+enddo
+allocate(connect(0:1,0:temp_nc-1))
+read(10,*)connect
+
+print*,connect(:,0)
+print*,connect(:,temp_nc-2)
 ! Remove cell with same node
 nc=0
 do i=0,temp_nc-1
-  read(10,*)dumi,temp_n1,temp_n2
+  temp_n1=connect(0,i)
+  temp_n2=connect(1,i)
   if (temp_n1/=temp_n2) then
     n1(nc)=temp_n1
     n2(nc)=temp_n2
@@ -79,7 +101,7 @@ do i=0,temp_nc-1
   end if
 end do
 close(10)
-
+deallocate(connect)
 ! Remove double curves
 cid=1 ! Initially all cid are 1
 numc=nc
@@ -333,4 +355,4 @@ end do
 deallocate(node,elmt)
 
 close(20)
-end program vtk1d2jou
+end program vtknew1d2jou
