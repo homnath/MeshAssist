@@ -35,7 +35,7 @@ end type elemental
 type(elemental),allocatable :: elmt(:)
 
 integer :: i,i1,i2,j,narg,np,next_node,next_elmt,pnode,pelmt,e
-integer :: temp_nc,nc,dumi,temp_n1,temp_n2,numc,nump,nis,node_is(0:99),       &
+integer :: temp_nc,nc,dumi,temp_n1,temp_n2,numc,nump,nis,node_is(0:1000),       &
 curve(0:30000),ncurve
 integer,allocatable :: n1(:),n2(:),new_n1(:),new_n2(:),cid(:),nb(:),nmir(:),  &
 op2np(:)
