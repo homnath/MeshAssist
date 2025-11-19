@@ -144,12 +144,16 @@ def process_file(infname, write_vti, write_xyz):
         outfile = base_fname + '.xyz'
         print('Writing a file: %s' % outfile)
         outf = open(outfile, 'w')
+        minx = oxUTM
+        maxx = minx+dx*(nx-1)
+        miny = oyUTM
+        maxy = miny+dy*(ny-1)
         minz = np.min(z)
         maxz = np.max(z)
-        outf.write(f'{minx:.6e} {miny:.6e} maxx:.6e} {maxy:.6e}')
-        outf.write(f'{hx:.6e} {hy:.6e}')
-        outf.write(f'{nx:d} {ny:d}')
-        outf.write(f'{minz:.6e} {maxz:.6e}')
+        outf.write(f'{minx:.6e} {miny:.6e} {maxx:.6e} {maxy:.6e}\n')
+        outf.write(f'{dx:.6e} {dy:.6e}\n')
+        outf.write(f'{nx:d} {ny:d}\n')
+        outf.write(f'{minz:.6e} {maxz:.6e}\n')
         for j in range(ny):
             x = oxUTM
             y = oyUTM + (dy*j)
